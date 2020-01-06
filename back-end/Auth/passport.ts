@@ -12,10 +12,10 @@ passport.use(
       secretOrKey: jwt.jwtSecret,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
-    async (payload: { id: number, username: string }, done) => {
+    async (payload: { id: number, email: string }, done) => {
       // get username from payload
       // get User
-      const user = await userService.getUser(payload.username);
+      const user = await userService.getUserbyEmail(payload.email);
       // Pass user to next handler
       if (user) {
         // demo query
