@@ -1,7 +1,7 @@
 import * as passport from "passport";
 import * as passportJWT from "passport-jwt";
 import jwt from "./jwt";
-import { userService } from "./app";
+import { userService } from "../main";
 
 const JWTStrategy = passportJWT.Strategy;
 const { ExtractJwt } = passportJWT;
