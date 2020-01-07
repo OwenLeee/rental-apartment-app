@@ -9,3 +9,6 @@ export default function randomPassword() {
     }
     return pass;
 } 
+
+const test = "test"; 
+console.log(test);
