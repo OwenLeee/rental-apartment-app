@@ -12,7 +12,8 @@ export class UserRouter {
     router() {
         const router = express.Router();
         router.post("/login", this.login);
-        router.post("/login/facebook", this.loginFacebook)
+        router.post("/login/facebook", this.loginFacebook);
+        router.post("/signup", this.signup)
         return router;
     }
 
@@ -27,7 +28,7 @@ export class UserRouter {
             console.log(email, password);
             // const user = (await this.userService.getUser(username))[0];
             // Step 2: get User
-            const user = await this.userService.getUser(email);
+            const user = await this.userService.getUserbyEmail(email);
             if (!user || !(await checkPassword(password, user.password))) {
                 res.status(401).json({ msg: "Wrong Password" });
                 return;
@@ -40,7 +41,7 @@ export class UserRouter {
             // Step 4: generate token
             const token = jwtSimple.encode(payload, jwt.jwtSecret);
             // Step 5: return token
-            res.json({
+            res.status(200).json({
                 token: token
             });
         } catch (e) {
@@ -59,10 +60,10 @@ export class UserRouter {
             const fetchResponse = await fetch(`https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email,picture`);
             const result = await fetchResponse.json();
             if (result.error) {
-                res.status(401).json({ msg: "Wrong Access Token!" }); 0
+                res.status(401).json({ msg: "Wrong Access Token!" });
                 return;
             }
-            let user = (await this.userService.getUser(result.email))[0];
+            let user = (await this.userService.getUserbyEmail(result.email))[0];
 
             // Create a new user if the user does not exist
             if (!user) {
@@ -75,11 +76,36 @@ export class UserRouter {
                 email: user.email
             };
             const token = jwtSimple.encode(payload, jwt.jwtSecret);
-            res.json({
+            res.status(200).json({
                 token: token
             });
         } catch (error) {
             res.status(500).json({ msg: error.toString() })
+        }
+    }
+
+    private signup = async (req: Request, res: Response) => {
+        try {
+            const { email, password } = req.body;
+            let user = await this.userService.getUserbyEmail(email);
+            if (!user) {
+                user = (await this.userService.createUser(email, password))[0];
+                const payload = {
+                    id: user.id,
+                    email: user.email
+                };
+                const token = jwtSimple.encode(payload, jwt.jwtSecret);
+                res.status(200).json({
+                    message:"success", 
+                    token: token
+                });
+            } else {
+                console.log("repeated email");
+                res.status(403).json({ msg: console.error.toString() }) //403 - Forbidden
+                return;
+            }
+        } catch (error) {
+            res.status(500).json({ msg: error.toString() }) //500 - Internal Error
         }
     }
 }

@@ -15,7 +15,7 @@ passport.use(
     async (payload: { id: number, email: string }, done) => {
       // get username from payload
       // get User
-      const user = await userService.getUser(payload.email);
+      const user = await userService.getUserbyEmail(payload.email);
       // Pass user to next handler
       if (user) {
         // demo query
