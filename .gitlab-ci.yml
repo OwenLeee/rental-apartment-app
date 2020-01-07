@@ -21,7 +21,7 @@ server-testing:
     - postgres:latest
 
   before_script:
-    - cd server
+    - cd back-end
     - yarn install
     - yarn knex migrate:latest --env testing
   stage: server-testing
