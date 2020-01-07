@@ -1,8 +1,6 @@
 image: node:latest
 
 stages:
-  - server-testing
-  - react-testing
   - react-build
   - server-deploy
   - react-deploy
