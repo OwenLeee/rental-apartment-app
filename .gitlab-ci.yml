@@ -8,7 +8,7 @@ stages:
 variables:
   POSTGRES_DB: beebeerent
   POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
+  POSTGRES_PASSWORD: beebeerent
   POSTGRES_HOST: postgres
 
 before_script:
