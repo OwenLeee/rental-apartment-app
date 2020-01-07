@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import * as jwtSimple from "jwt-simple";
 import jwt from "../auth/jwt";
-import { checkPassword } from "../auth/hash";
+import { hashPassword, checkPassword } from "../auth/hash";
 import randomPassword from "../auth/genPassword";
 
 export class UserRouter {
@@ -67,8 +67,9 @@ export class UserRouter {
 
             // Create a new user if the user does not exist
             if (!user) {
-                const password: string = randomPassword()
-                user = (await this.userService.createUser(result.email, password))[0];
+                let password: string = randomPassword();
+                const hashedpassword:string = await hashPassword(password);
+                user = (await this.userService.createUser(result.email, hashedpassword))[0];
 
             }
             const payload = {
@@ -77,6 +78,7 @@ export class UserRouter {
             };
             const token = jwtSimple.encode(payload, jwt.jwtSecret);
             res.status(200).json({
+                message: 'success',
                 token: token
             });
         } catch (error) {
@@ -89,7 +91,8 @@ export class UserRouter {
             const { email, password } = req.body;
             let user = await this.userService.getUserbyEmail(email);
             if (!user) {
-                user = (await this.userService.createUser(email, password))[0];
+                let hashedpassword:string = await hashPassword(password)
+                user = (await this.userService.createUser(email, hashedpassword))[0];
                 const payload = {
                     id: user.id,
                     email: user.email
