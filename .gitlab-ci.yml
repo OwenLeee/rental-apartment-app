@@ -16,26 +16,6 @@ variables:
 before_script:
   - npm install -g yarn
 
-server-testing:
-  services:
-    - postgres:latest
-
-  before_script:
-    - cd back-end
-    - yarn install
-    - yarn knex migrate:latest --env testing
-  stage: server-testing
-  script:
-    - yarn jest
-
-react-testing:
-  before_script:
-    - cd react
-    - yarn install
-  stage: react-testing
-  script:
-    - CI=true yarn test
-
 react-build:
   stage: react-build
   before_script:
