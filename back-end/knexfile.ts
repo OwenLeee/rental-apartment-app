@@ -20,7 +20,7 @@ module.exports = {
     }
   },
 
-  staging: {
+  testing: {
     client: "postgresql",
     connection: {
       database: process.env.POSTGRES_DB,
