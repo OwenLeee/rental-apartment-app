@@ -43,7 +43,7 @@ server-deploy:
     - production
   script:
     - ssh ubuntu@${SERVER_HOSTNAME} 
-        "cd project-3--rent-house/back-end;
+        "cd rent-house/back-end;
           git pull origin master;
           yarn install;
           yarn knex migrate:latest --env production;
