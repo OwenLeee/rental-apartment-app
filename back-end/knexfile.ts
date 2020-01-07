@@ -5,7 +5,7 @@ dotenv.config();
 module.exports = {
 
   development: {
-    client: "sqlite3",
+    client: "postgresql",
     connection: {
       database: process.env.DB_NAME,
       user: process.env.DB_USERNAME,

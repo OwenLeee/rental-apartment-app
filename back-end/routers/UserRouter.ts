@@ -24,12 +24,15 @@ export class UserRouter {
                 res.status(401).json({ msg: "Wrong Email/Password" });
                 return;
             }
-            const { user: email, password } = req.body;
-            console.log(email, password);
-            // const user = (await this.userService.getUser(username))[0];
+            const { email, password } = req.body;
+
             // Step 2: get User
             const user = await this.userService.getUserbyEmail(email);
-            if (!user || !(await checkPassword(password, user.password))) {
+            if (!user) {
+                res.status(404).json({ msg: "User Not Found" });
+                return;
+            }
+            if (!(await checkPassword(password, user.password))) {
                 res.status(401).json({ msg: "Wrong Password" });
                 return;
             }
@@ -53,14 +56,14 @@ export class UserRouter {
     private loginFacebook = async (req: Request, res: Response) => {
         try {
             if (!req.body.accessToken) {
-                res.status(401).json({ msg: "Wrong Access Token!" });
+                res.status(401).json({ msg: "Wrong Access Token" });
                 return;
             }
             const { accessToken } = req.body;
             const fetchResponse = await fetch(`https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email,picture`);
             const result = await fetchResponse.json();
             if (result.error) {
-                res.status(401).json({ msg: "Wrong Access Token!" });
+                res.status(401).json({ msg: "Wrong Access Token" });
                 return;
             }
             let user = (await this.userService.getUserbyEmail(result.email))[0];
@@ -68,7 +71,7 @@ export class UserRouter {
             // Create a new user if the user does not exist
             if (!user) {
                 let password: string = randomPassword();
-                const hashedpassword:string = await hashPassword(password);
+                const hashedpassword: string = await hashPassword(password);
                 user = (await this.userService.createUser(result.email, hashedpassword))[0];
 
             }
@@ -91,7 +94,7 @@ export class UserRouter {
             const { email, password } = req.body;
             let user = await this.userService.getUserbyEmail(email);
             if (!user) {
-                let hashedpassword:string = await hashPassword(password)
+                let hashedpassword: string = await hashPassword(password)
                 user = (await this.userService.createUser(email, hashedpassword))[0];
                 const payload = {
                     id: user.id,
@@ -99,7 +102,7 @@ export class UserRouter {
                 };
                 const token = jwtSimple.encode(payload, jwt.jwtSecret);
                 res.status(200).json({
-                    message:"success", 
+                    message: "success",
                     token: token
                 });
             } else {
