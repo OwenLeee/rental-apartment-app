@@ -39,7 +39,7 @@ import { UserRouter } from "./routers/UserRouter";
 // import { ExampleRouter } from "./routers/ExampleRouter";
 
 
-import { isLoggedIn } from "./Auth/guards";
+import { isLoggedIn } from "./auth/guards";
 
 export const userService = new UserService(knex);
 const userRouter = new UserRouter(userService);
