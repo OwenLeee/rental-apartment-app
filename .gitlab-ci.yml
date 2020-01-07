@@ -6,7 +6,7 @@ stages:
   - react-deploy
 
 variables:
-  POSTGRES_DB: frd010-example
+  POSTGRES_DB: beebeerent
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_HOST: postgres
