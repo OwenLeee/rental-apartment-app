@@ -1,0 +1,86 @@
+image: node:latest
+
+stages:
+  - server-testing
+  - react-testing
+  - react-build
+  - server-deploy
+  - react-deploy
+
+variables:
+  POSTGRES_DB: frd010-example
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: postgres
+
+before_script:
+  - npm install -g yarn
+
+server-testing:
+  services:
+    - postgres:latest
+
+  before_script:
+    - cd server
+    - yarn install
+    - yarn knex migrate:latest --env testing
+  stage: server-testing
+  script:
+    - yarn jest
+
+react-testing:
+  before_script:
+    - cd react
+    - yarn install
+  stage: react-testing
+  script:
+    - CI=true yarn test
+
+react-build:
+  stage: react-build
+  before_script:
+    - cd /project-3--rent-house/front-end
+  only: 
+    - production
+  script:
+    - yarn install
+    - yarn build
+  artifacts:
+    paths:
+      - project-3--rent-house/front-end/build
+
+server-deploy:
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private.pem
+    - chmod 400 private.pem
+    - ssh-add private.pem > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H  ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  stage: server-deploy
+  only:
+    - production
+  script:
+    - ssh ubuntu@${SERVER_HOSTNAME} 
+        "cd project-3--rent-house/back-end;
+          git pull origin master;
+          yarn install;
+          yarn knex migrate:latest --env production;
+          forever restart index.js;"
+
+
+react-deploy:
+  image: "python:3.6"
+  stage: react-deploy
+  before_script:
+    - pip install awscli
+  dependencies:
+    - react-build
+  only:
+    - production
+  script:
+    - aws s3 sync project-3--rent-house/front-end/build s3://${BUCKET_NAME} --delete
+    - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths "/*"
