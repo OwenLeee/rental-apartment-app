@@ -26,7 +26,7 @@ export async function seed(knex: Knex): Promise<any> {
         [
             'Owen', '9123 1234', 'owen@owen.com',
             'Harry', '9123 1235', 'harry@harry.com',
-            'Billy', '9123 1236', 'billy@billy.com'
+            'Billy', '123456789', 'billy@billy.com'
         ]
     )).rows;
 
