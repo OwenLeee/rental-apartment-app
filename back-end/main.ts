@@ -8,6 +8,8 @@ import { isLoggedIn } from "./auth/guards";
 
 import { UserService } from "./services/UserService";
 import { UserRouter } from "./routers/UserRouter";
+import {ListingService} from "./services/ListingService";
+import {ListingRouter} from "./routers/ListingRouter";
 
 
 const app = express();
@@ -39,8 +41,12 @@ console.log(isLoggedIn);
 
 export const userService = new UserService(knex);
 const userRouter = new UserRouter(userService);
-app.use(`/users`, userRouter.router());
+app.use('/users', userRouter.router());
 
+
+const listingService = new ListingService(knex);
+const listingRouter = new ListingRouter(listingService);
+app.use('/listing', isLoggedIn, listingRouter.router());
 
 
 const PORT = 8080;

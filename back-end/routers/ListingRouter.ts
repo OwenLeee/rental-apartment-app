@@ -10,14 +10,14 @@ export class ListingRouter {
     public router() {
         const router = express.Router();
 
-        router.post('/listing/:apartmentId', this.listApartment)
-        router.post('/listing/photos:photoId', upload.single, this.addApartmentPhotos);
-        router.post('/listing/floorPlan/:apartmentId');
-        router.post('/listing/video/:apartmentId');
-        router.put('/listing/video/:apartmentId');
-        router.put('/listing/floorPlan/:apartmentId');
-        router.put('/listing/photos/:photoId');
-        router.delete('/listing/photos/:photoId');
+        router.post('/:apartmentId', this.listApartment)
+        router.post('/photos:photoId', upload.single, this.addApartmentPhotos);
+        router.post('/floorPlan/:apartmentId');
+        router.post('/video/:apartmentId');
+        router.put('/video/:apartmentId');
+        router.put('/floorPlan/:apartmentId');
+        router.put('/photos/:photoId');
+        router.delete('/photos/:photoId');
 
         return router;
     }
