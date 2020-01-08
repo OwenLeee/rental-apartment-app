@@ -4,8 +4,8 @@ import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, IAuthActions } from "./actions";
 
 //Define value in this component's State
 const initialState = {
-    isAuthenticated: localStorage.getItem("token") !== null, //take the token from local store
-    msg: ""
+    isAuthenticated: null, //take the token from local store
+    msg: null
 };
 
 export function authReducer(
@@ -23,8 +23,7 @@ export function authReducer(
         case LOGIN_FAILED: 
             return {
                 ...state,
-                // isAuthenticated should be false
-                // isAuthenticated: false,
+                isAuthenticated: false,
                 msg: action.msg
             };
         case LOGOUT:
