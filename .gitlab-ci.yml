@@ -6,9 +6,9 @@ stages:
   - react-deploy
 
 variables:
-  POSTGRES_DB: frd010-example
+  POSTGRES_DB: beebeerent
   POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
+  POSTGRES_PASSWORD: beebeerent
   POSTGRES_HOST: postgres
 
 before_script:
@@ -17,7 +17,7 @@ before_script:
 react-build:
   stage: react-build
   before_script:
-    - cd /project-3--rent-house/front-end
+    - cd front-end/rent-house
   only: 
     - production
   script:
@@ -25,7 +25,7 @@ react-build:
     - yarn build
   artifacts:
     paths:
-      - project-3--rent-house/front-end/build
+      - front-end/rent-house/build
 
 server-deploy:
   before_script:
