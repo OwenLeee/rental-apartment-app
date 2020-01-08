@@ -27,12 +27,14 @@ export async function up(knex: Knex): Promise<any> {
         table.string('address_block'); 
         table.integer('saleable_area'); 
         table.integer('gross_floor_area'); 
-        table.boolean('isStoreroom'); 
-        table.boolean('isCarpark'); 
-        table.boolean('isFurniture'); 
-        table.boolean('isDisplay'); 
-        table.integer('google_longitude'); 
-        table.integer('google_latitude'); 
+        table.boolean('is_storeroom'); 
+        table.boolean('is_carpark'); 
+        table.boolean('is_furniture'); 
+        table.boolean('is_display'); 
+        table.decimal('lat'); 
+        table.decimal('lng'); 
+        table.date('post_date');
+        table.date('end_date');
     })
 }
 

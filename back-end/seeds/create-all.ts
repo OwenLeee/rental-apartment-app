@@ -19,8 +19,9 @@ export async function seed(knex: Knex): Promise<any> {
     await knex(Table.apartmentType).del();
     await knex(Table.agent).del();
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.agent}_id_seq RESTART`);
     const agent: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.agent} (name, mobile_number, email)
+        INSERT INTO ${Table.agent} (name, mobile_number, email)
         VALUES (?, ?, ?),(?, ?, ?),(?, ?, ?) RETURNING id`,
         [
             'Owen', '9123 1234', 'owen@owen.com',
@@ -29,8 +30,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentType}_id_seq RESTART`);
     const apartmentType: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.apartmentType} (house_type)
+        INSERT INTO ${Table.apartmentType} (house_type)
         VALUES (?),(?),(?),(?) RETURNING id`,
         [
             'Private Housing Estate', 
@@ -40,8 +42,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.district}_id_seq RESTART`);
     const areaDistrict: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.district} (district, area)
+        INSERT INTO ${Table.district} (district, area)
         VALUES (?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),
         (?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),
         (?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),
@@ -134,8 +137,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.bedrooms}_id_seq RESTART`);
     const bedrooms: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.bedrooms} (bedrooms_number)
+        INSERT INTO ${Table.bedrooms} (bedrooms)
         VALUES (?),(?),(?),(?) RETURNING id`,
         [
             '1', 
@@ -145,8 +149,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.floorLevel}_id_seq RESTART`);
     const floorLevel: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.floorLevel} (level)
+        INSERT INTO ${Table.floorLevel} (level)
         VALUES (?),(?),(?) RETURNING id`,
         [
             'Low',
@@ -155,8 +160,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.bathrooms}_id_seq RESTART`);
     const bathrooms: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.agent} (bathrooms_number)
+        INSERT INTO ${Table.bathrooms} (bathrooms)
         VALUES (?),(?),(?) RETURNING id`,
         [
             '1', 
@@ -165,8 +171,9 @@ export async function seed(knex: Knex): Promise<any> {
         ]
     )).rows;
 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.users}_id_seq RESTART`);
     const users: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.users} (email, password) 
+        INSERT INTO ${Table.users} (email, password) 
         VALUES (?, ?), (?, ?), (?, ?) RETURNING id`,
         [
             'owen@owen.com', await hashPassword('123456'),
@@ -176,6 +183,7 @@ export async function seed(knex: Knex): Promise<any> {
     )).rows;
 
     //users_information table
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.userInformation}_id_seq RESTART`);
     await knex.raw(/* sql */ `
     INSERT INTO ${Table.userInformation} (user_id, name, verified_email, gender, mobile, verified_mobile, icon)
     VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -185,6 +193,7 @@ export async function seed(knex: Knex): Promise<any> {
     );
 
     //verify_token table
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.verifyToken}_id_seq RESTART`);
     await knex.raw(/* sql */ `
     INSERT INTO ${Table.verifyToken} (user_id, token)
     VALUES (?, ?)`,
@@ -194,41 +203,48 @@ export async function seed(knex: Knex): Promise<any> {
     );
 
     //rental_apartment table 
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.rentalApartment}_id_seq RESTART`);
     const rental_apartment: { id: number }[] = ( await knex.raw(/* sql */ `
     INSERT INTO ${Table.rentalApartment} 
     (user_id, apartment_type_id, area_district_id, bedrooms_id, floor_level_id, bathrooms_id, agent_id, 
     apartment_title, apartment_description, rental_price, deposit, period_years, address_building, address_block, 
-    saleable_area, gross_floor_area, isStoreroom, isCarpark, isFurniture, isDisplay)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`, 
+    saleable_area, gross_floor_area, is_storeroom, is_carpark, is_furniture, is_display, lat, lng, post_date, end_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`, 
     [
         users[0].id, apartmentType[3].id, areaDistrict[2].id, bedrooms[1].id, floorLevel[1].id, bathrooms[0].id, agent[1].id, 
         'Comfortable and Big House', 'You can walk to Sheung Wan MTR within 5 minutes!', 28000, 3, 2, "Centre Place" , "1", 
-        636, 870, true, false, true, true
+        636, 870, true, false, true, true, 22.28552, 114.15769, '2020-01-01', '2020-12-01'
     ]
-    )); 
+    )).rows; 
 
     //apartment_floor_plan
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentFloorPlan}_id_seq RESTART`);
     await knex.raw(/* sql */ ` 
     INSERT INTO ${Table.apartmentFloorPlan} 
-    VALUES (?, ?)`
+    (rental_apartment_id, floor_plan_json)
+    VALUES (?, ?)`,
     [
-        rental_apartment[0].id, `apartment_test.json`
+        rental_apartment[0].id, '{"json": "json"}'
     ]
     ); 
 
     // apartment_video
+    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentVideo}_id_seq RESTART`);
     await knex.raw(/* sql */ `
     INSERT INTO ${Table.apartmentVideo}
-    VALUES (?, ?)`
+    (rental_apartment_id, video_path)
+    VALUES (?, ?)`, 
     [
         rental_apartment[0].id, 'test_video.avi'
     ]
     ); 
 
       // apartment_photo
+      await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentPhotos}_id_seq RESTART`);
       await knex.raw(/* sql */ `
       INSERT INTO ${Table.apartmentPhotos}
-      VALUES (?, ?)`
+      (rental_apartment_id, photo_path)
+      VALUES (?, ?), (?, ?)`,
       [
           rental_apartment[0].id, 'test_photo1.jpg', 
           rental_apartment[0].id, 'test_photo2.jpg'
@@ -236,9 +252,11 @@ export async function seed(knex: Knex): Promise<any> {
       ); 
   
       // user_favourite table 
+      await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.userFavour}_id_seq RESTART`);
       await knex.raw(/* sql */ ` 
       INSERT INTO ${Table.userFavour}
-      VALUES (?, ?)`
+      (user_id, rental_apartment_id)
+      VALUES (?, ?)`,
       [
           users[2].id, rental_apartment[0].id
       ]

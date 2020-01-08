@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<any> {
         table.string('name'); 
         table.boolean('verified_email'); 
         table.string('gender'); 
-        table.string('mobile_number'); 
+        table.string('mobile'); 
         table.boolean('verified_mobile'); 
         table.string('icon'); 
         table.timestamps(false, true); 
