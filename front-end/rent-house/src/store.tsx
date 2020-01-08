@@ -1,4 +1,3 @@
-//Basic Function
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import { CallHistoryMethodAction } from "connected-react-router";
 import thunk, { ThunkDispatch } from "redux-thunk";
@@ -9,7 +8,6 @@ import { IAuthState } from "./auth/state";
 import { IAuthActions } from "./auth/actions";
 import { authReducer } from "./auth/reducer";
 
-//Server to Clinent Function
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 
@@ -20,7 +18,7 @@ declare global {
   }
 }
 
-//Create varaiable as history, store browser history
+
 export const history = createBrowserHistory();
 
 //Mark down Different Component State in IRootState
@@ -41,10 +39,10 @@ const rootReducer = combineReducers<IRootState>({
 //Development Tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-//export thunk
-export type HelloIamThunkDispatch = ThunkDispatch<IRootState, null, IRootAction>;
 
-//export RootReducer globally(via createStore)  through different middleware
+export type ReduxThunkDispatch = ThunkDispatch<IRootState, null, IRootAction>;
+
+
 export default createStore<IRootState, IRootAction, {}, {}>(
   rootReducer,
   composeEnhancers(
