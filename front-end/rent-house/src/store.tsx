@@ -39,9 +39,7 @@ const rootReducer = combineReducers<IRootState>({
 //Development Tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-
 export type ReduxThunkDispatch = ThunkDispatch<IRootState, null, IRootAction>;
-
 
 export default createStore<IRootState, IRootAction, {}, {}>(
   rootReducer,
