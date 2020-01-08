@@ -20,17 +20,17 @@ export async function seed(knex: Knex): Promise<any> {
     await knex(Table.agent).del();
 
     const agent: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.agent} (name, mobile_number, email)
+        INSERT INTO ${Table.agent} (name, mobile_number, email)
         VALUES (?, ?, ?),(?, ?, ?),(?, ?, ?) RETURNING id`,
         [
             'Owen', '9123 1234', 'owen@owen.com',
             'Harry', '9123 1235', 'harry@harry.com',
-            'Billy', '9123 1236', 'billy@billy.com'
+            'Billy', '123456789', 'billy@billy.com'
         ]
     )).rows;
 
     const apartmentType: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.apartmentType} (house_type)
+        INSERT INTO ${Table.apartmentType} (house_type)
         VALUES (?),(?),(?),(?) RETURNING id`,
         [
             'Private Housing Estate', 
@@ -41,7 +41,7 @@ export async function seed(knex: Knex): Promise<any> {
     )).rows;
 
     const areaDistrict: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.district} (district, area)
+        INSERT INTO ${Table.district} (district, area)
         VALUES (?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),
         (?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),
         (?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),(?, ?),
@@ -135,7 +135,7 @@ export async function seed(knex: Knex): Promise<any> {
     )).rows;
 
     const bedrooms: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.bedrooms} (bedrooms_number)
+        INSERT INTO ${Table.bedrooms} (bedrooms_number)
         VALUES (?),(?),(?),(?) RETURNING id`,
         [
             '1', 
@@ -146,7 +146,7 @@ export async function seed(knex: Knex): Promise<any> {
     )).rows;
 
     const floorLevel: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.floorLevel} (level)
+        INSERT INTO ${Table.floorLevel} (level)
         VALUES (?),(?),(?) RETURNING id`,
         [
             'Low',
@@ -156,7 +156,7 @@ export async function seed(knex: Knex): Promise<any> {
     )).rows;
 
     const bathrooms: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.agent} (bathrooms_number)
+        INSERT INTO ${Table.agent} (bathrooms_number)
         VALUES (?),(?),(?) RETURNING id`,
         [
             '1', 
@@ -166,7 +166,7 @@ export async function seed(knex: Knex): Promise<any> {
     )).rows;
 
     const users: { id: number }[] = (await knex.raw(/* sql */ `
-        INSERT INTO (${Table.users} (email, password) 
+        INSERT INTO ${Table.users} (email, password) 
         VALUES (?, ?), (?, ?), (?, ?) RETURNING id`,
         [
             'owen@owen.com', await hashPassword('123456'),
