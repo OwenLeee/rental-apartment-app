@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { ApartmentService } from '../services/ApartmentService';
+import { upload } from '../multer';
 
 
 export class ApartmentRouter {
@@ -10,7 +11,7 @@ export class ApartmentRouter {
         const router = express.Router();
 
         router.post('/listing/:apartmentId', this.listApartment)
-        router.post('/listing/photos:photoId', this.addApartmentPhotos);
+        router.post('/listing/photos:photoId', upload.single, this.addApartmentPhotos);
         router.post('/listing/floorPlan/:apartmentId');
         router.post('/listing/video/:apartmentId');
         router.put('/listing/video/:apartmentId');
@@ -42,7 +43,7 @@ export class ApartmentRouter {
 
     public addApartmentPhotos = async (req: express.Request, res: express.Response) => {
         try {
-           
+
             res.json({ result: true });
         } catch (e) {
             res.status(500).json({ result: false });
