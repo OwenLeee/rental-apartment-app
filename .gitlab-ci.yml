@@ -61,4 +61,4 @@ react-deploy:
     - production
   script:
     - aws s3 sync front-end/rent-house/build s3://${BUCKET_NAME} --delete
-    - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths "/*"
+    - aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRIBUTION} --paths "*"
