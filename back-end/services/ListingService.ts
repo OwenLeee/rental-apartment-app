@@ -6,7 +6,11 @@ export class ListingService {
     constructor(private knex: Knex) { }
 
 
-
+    public loadFloorPlan = async (apartmentId: number) => {
+        await this.knex.select('floor_plan_json')
+            .from(Table.apartmentFloorPlan)
+            .where('rental_apartment_id', apartmentId)
+    }
 
     public listApartment = async (userId: number, areaDistrictId: number, levelId: number, building: string,
         block: string, bedroomsId: number, bathroomsId: number, isStoreroom: boolean, isCarpark: boolean,
@@ -20,33 +24,44 @@ export class ListingService {
 
         await this.knex(Table.rentalApartment).insert(
             {
-                users_id: userId,
-                area_district_id: areaDistrictId,
-                floor_level_id: levelId,
-                address_building: building,
-                address_block: block,
-                bedrooms_id: bedroomsId,
-                bathrooms_id: bathroomsId,
-                is_storeroom: isStoreroom,
-                is_carpark: isCarpark,
-                is_furniture: isFurniture,
-                period_years: periodYears,
-                rental_price: price,
-                deposit: deposit,
-                apartment_title: title,
-                apartment_description: description
+                'users_id': userId,
+                'area_district_id': areaDistrictId,
+                'floor_level_id': levelId,
+                'address_building': building,
+                'address_block': block,
+                'bedrooms_id': bedroomsId,
+                'bathrooms_id': bathroomsId,
+                'is_storeroom': isStoreroom,
+                'is_carpark': isCarpark,
+                'is_furniture': isFurniture,
+                'period_years': periodYears,
+                'rental_price': price,
+                'deposit': deposit,
+                'apartment_title': title,
+                'apartment_description': description
             })
     };
 
 
     public addApartmentPhotos = async (apartmentId: number, photoPath: string) => {
         await this.knex(Table.apartmentPhotos)
-            .insert({ rental_apartment_id: apartmentId, photo_path: photoPath })
+            .insert({ 'rental_apartment_id': apartmentId, 'photo_path': photoPath });
     };
 
+    public addApartmentFloorPlan = async (apartmentId: number, floorPlanJson: string) => {
+        await this.knex(Table.apartmentFloorPlan)
+            .insert({ 'rental_apartment_id': apartmentId, 'floor_plan_json': floorPlanJson });
+    };
 
-    
+    public addVideo = async (apartmentId: number, videoPath: string) => {
+        await this.knex(Table.apartmentVideo)
+            .insert({ 'rental_apartment_id': apartmentId, 'video_path': videoPath });
+    };
 
-
+    public updateFloorPlan = async (apartmentId: number, floorPlanJson: string) => {
+        await this.knex(Table.apartmentFloorPlan)
+            .where({ 'rental_apartment_id': apartmentId })
+            .update({ 'floor_plan_json': floorPlanJson });
+    };
 
 }
