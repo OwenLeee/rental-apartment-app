@@ -51,5 +51,5 @@ app.use('/listing', isLoggedIn, listingRouter.router());
 
 const PORT = 8080;
 app.listen(PORT, () => {
-	console.log(`Sever has started http://localhost:${PORT}`);
+	console.log(`Server has started http://localhost:${PORT}`);
 });
