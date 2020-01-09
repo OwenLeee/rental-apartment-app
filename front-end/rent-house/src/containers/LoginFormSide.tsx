@@ -16,10 +16,6 @@ class FormSide extends Component<IProps, IStates>{
         super(props);
     }
 
-    private onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        
-    }
-
     render() {
         return (
             <Container>
@@ -29,20 +25,6 @@ class FormSide extends Component<IProps, IStates>{
                     <Google />
                 </div>
 
-                < Form onSubmit={this.onSubmit}>
-                    <h1> Sign in with your email Address</h1>
-                    <Form.Group controlId="loginEmail">
-                        <Form.Control type="email" placeholder="Email Address" />
-                    </Form.Group>
-
-                    <Form.Group controlId="loginPassword">
-                        <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-                    <p>Don't have an Account?</p><p onClick={() => { console.log("hello") }}>join us</p>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
             </Container >)
     }
 }

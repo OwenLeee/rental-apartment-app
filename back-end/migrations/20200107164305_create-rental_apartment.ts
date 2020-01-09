@@ -30,7 +30,6 @@ export async function up(knex: Knex): Promise<any> {
         table.boolean('is_storeroom'); 
         table.boolean('is_carpark'); 
         table.boolean('is_furniture'); 
-        table.boolean('is_display'); 
         table.decimal('lat'); 
         table.decimal('lng'); 
         table.date('post_date');
