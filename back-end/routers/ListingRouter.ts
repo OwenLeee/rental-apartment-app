@@ -34,12 +34,16 @@ export class ListingRouter {
     public listApartment = async (req: express.Request, res: express.Response) => {
         try {
             if (req.user) {
-                const { areaDistrictId, levelId, building, block, bedrooms, bathrooms, isStoreroom,
-                    isCarpark, isFurniture, periodYears, price, deposit, title, description } = req.body;
+                const { typeId, areaDistrictId, levelId, building,
+                    block, bedrooms, bathrooms, isStoreroom, isCarpark,
+                    isFurniture, saleArea, grossArea, periodYears, price,
+                    deposit, title, description, latitude, longitude } = req.body;
 
                 await this.listingService.listApartment(
-                    req.user['id'], areaDistrictId, levelId, building, block, bedrooms, bathrooms,
-                    isStoreroom, isCarpark, isFurniture, periodYears, price, deposit, title, description);
+                    req.user['id'], typeId, areaDistrictId, levelId, building,
+                    block, bedrooms, bathrooms, isStoreroom, isCarpark, isFurniture,
+                    saleArea, grossArea, periodYears, price, deposit, title,
+                    description, latitude, longitude);
             }
             res.json({ result: true });
         } catch (e) {
