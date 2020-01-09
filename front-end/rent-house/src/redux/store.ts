@@ -23,8 +23,8 @@ export const history = createBrowserHistory();
 
 //Mark down Different Component State in IRootState
 export interface IRootState {
-  router: RouterState;
   auth: IAuthState;
+  router: RouterState;
 }
 
 // Mark down Different Component Action in IRootActions
@@ -32,8 +32,8 @@ type IRootAction = IAuthActions | CallHistoryMethodAction;
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
-  router: connectRouter(history),
   auth: authReducer,
+  router: connectRouter(history),
 });
 
 //Development Tools
