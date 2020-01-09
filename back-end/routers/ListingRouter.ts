@@ -10,16 +10,25 @@ export class ListingRouter {
     public router() {
         const router = express.Router();
 
-        router.post('/:apartmentId', this.listApartment)
-        router.post('/photos:photoId', upload.single, this.addApartmentPhotos);
-        router.post('/floorPlan/:apartmentId');
-        router.post('/video/:apartmentId');
-        router.put('/video/:apartmentId');
-        router.put('/floorPlan/:apartmentId');
-        router.put('/photos/:photoId');
-        router.delete('/photos/:photoId');
+        router.get('/floorPlan', this.loadFloorPlan)
+        router.post('/apartment', this.listApartment)
+        router.post('/photos', upload.single, this.addApartmentPhotos);
+        router.post('/floorPlan', this.addApartmentFloorPlan);
+        router.post('/video', this.addVideo);
+        router.put('/floorPlan', this.updateFloorPlan);
 
         return router;
+    }
+
+    public loadFloorPlan = async (req: express.Request, res: express.Response) => {
+        try {
+            const { apartmentId } = req.body;
+            res.json({ result: true, floorPlan: await this.listingService.loadFloorPlan(apartmentId) });
+        } catch (e) {
+            res.status(500).json({ result: false });
+            console.error('loadFloorPlan error is found...');
+            console.error(e.message);
+        }
     }
 
     public listApartment = async (req: express.Request, res: express.Response) => {
@@ -30,7 +39,7 @@ export class ListingRouter {
 
                 await this.listingService.listApartment(
                     req.user['id'], areaDistrictId, levelId, building, block, bedrooms, bathrooms,
-                    isStoreroom, isCarpark, isFurniture, periodYears, price, deposit, title, description)
+                    isStoreroom, isCarpark, isFurniture, periodYears, price, deposit, title, description);
             }
             res.json({ result: true });
         } catch (e) {
@@ -43,8 +52,11 @@ export class ListingRouter {
 
     public addApartmentPhotos = async (req: express.Request, res: express.Response) => {
         try {
-            await this.listingService
-            res.json({ result: true });
+            if (req.files != null) {
+                const { apartmentId } = req.body;
+                await this.listingService.addApartmentPhotos(apartmentId, req.files[0].filename); // need to check
+                res.json({ result: true });
+            }
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('addApartmentPhotos error is found...');
@@ -53,6 +65,45 @@ export class ListingRouter {
     };
 
 
+    public addApartmentFloorPlan = async (req: express.Request, res: express.Response) => {
+        try {
+            const { apartmentId, floorPlanJson } = req.body;
+            await this.listingService.addApartmentFloorPlan(apartmentId, floorPlanJson);
+            res.json({ result: true });
+        } catch (e) {
+            res.status(500).json({ result: false });
+            console.error('addApartmentFloorPlan error is found...');
+            console.error(e.message);
+        }
+    };
+
+
+    public addVideo = async (req: express.Request, res: express.Response) => {
+        try {
+            if (req.files != null) {
+                const { apartmentId } = req.body;
+                await this.listingService.addVideo(apartmentId, req.files[0].filename); // need to check
+                res.json({ result: true });
+            }
+        } catch (e) {
+            res.status(500).json({ result: false });
+            console.error('addVideo error is found...');
+            console.error(e.message);
+        }
+    };
+
+
+    public updateFloorPlan = async (req: express.Request, res: express.Response) => {
+        try {
+            const { apartmentId, floorPlanJson } = req.body;
+            await this.listingService.updateFloorPlan(apartmentId, floorPlanJson);
+            res.json({ result: true });
+        } catch (e) {
+            res.status(500).json({ result: false });
+            console.error('updateFloorPlan error is found...');
+            console.error(e.message);
+        }
+    };
 
 
 }

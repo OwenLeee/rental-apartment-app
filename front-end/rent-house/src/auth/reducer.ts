@@ -4,7 +4,7 @@ import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT, IAuthActions } from "./actions";
 
 //Define value in this component's State
 const initialState = {
-    isAuthenticated: null, //take the token from local store
+    isAuthenticated: null, 
     msg: null
 };
 
