@@ -208,12 +208,12 @@ export async function seed(knex: Knex): Promise<any> {
     INSERT INTO ${Table.rentalApartment} 
     (user_id, apartment_type_id, area_district_id, bedrooms_id, floor_level_id, bathrooms_id, agent_id, 
     apartment_title, apartment_description, rental_price, deposit, period_years, address_building, address_block, 
-    saleable_area, gross_floor_area, is_storeroom, is_carpark, is_furniture, is_display, lat, lng, post_date, end_date)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`, 
+    saleable_area, gross_floor_area, is_storeroom, is_carpark, is_furniture, lat, lng, post_date, end_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`, 
     [
         users[0].id, apartmentType[3].id, areaDistrict[2].id, bedrooms[1].id, floorLevel[1].id, bathrooms[0].id, agent[1].id, 
         'Comfortable and Big House', 'You can walk to Sheung Wan MTR within 5 minutes!', 28000, 3, 2, "Centre Place" , "1", 
-        636, 870, true, false, true, true, 22.28552, 114.15769, '2020-01-01', '2020-12-01'
+        636, 870, true, false, true, 22.28552, 114.15769, '2020-01-01', '2020-12-01'
     ]
     )).rows; 
 
