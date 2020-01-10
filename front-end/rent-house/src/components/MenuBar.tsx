@@ -1,8 +1,9 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Route, NavLink, Switch } from 'react-router-dom';
+import ProcedureBar from '../components/ProcedureBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../scss/MenuBar.scss'
-import ListApartment from '../components/ListApartment';
 
 
 import { ConnectedRouter } from 'connected-react-router';
@@ -17,24 +18,24 @@ class MenuBar extends React.Component {
         return (
             <ConnectedRouter history={history}>
                 <Navbar bg="light" expand="lg">
-                    <Navbar.Brand>BeeBeeRent</Navbar.Brand>
+                    <NavLink to='/home' className='home-button'>BeeBeeRent</NavLink>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <NavLink to='/rent' className='nav-buttons'>Rent</NavLink>
-                            <NavLink to='/post' className='nav-buttons'>Post</NavLink>
+                            <NavLink to='/rent' className='nav-buttons rent-button' activeClassName="activeNavButtons">Rent</NavLink>
+                            <NavLink to='/post' className='nav-buttons post-button' activeClassName="activeNavButtons">Post</NavLink>
                         </Nav>
                         <Nav className="ml-auto">
-                            <NavLink to='/login' className='ml-auto'>Sign in</NavLink>
+                            <NavLink to='/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
 
                 <Switch>
-                    {/* <Route path="/" component={} /> */}
-                    {/* <Route path="/" component={} /> */}
-                    {/* <Route path="/" component={} /> */}
-                    <Route path="/post" component={ListApartment} />
+                    {/* <Route path="/home" component={} /> */}
+                    {/* <Route path="/rent" component={} /> */}
+                    <Route path="/post" component={ProcedureBar} />
+                    {/* <Route path="/login" component={} /> */}
                 </Switch>
 
             </ConnectedRouter>

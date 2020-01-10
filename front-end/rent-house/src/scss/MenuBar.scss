@@ -1,3 +1,67 @@
-.nav-buttons {
-   margin: 0 20px 0 20px;
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
+
+.navbar-light .navbar-brand {
+  color: #9f704f;
+}
+
+a {
+  color: #9f704f;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.rent-button {
+  padding: 30px;
+}
+
+.post-button {
+  position: relative;
+  left: 30px;
+  padding: 30px;
+}
+
+.login-button {
+  padding: 30px;
+}
+
+a:hover {
+  color: #fcba03;
+  text-decoration: none;
+}
+
+.navbar-light .navbar-toggler {
+  color: #9f704f;
+  border-color: #9f704f;
+  background-color: rgba(159, 112, 79, 0.6);
+}
+
+.activeNavButtons {
+  color: #fcba03;
+  background-color: #f2f2f2;
+  border-bottom: solid #fcba03;
+}
+
+.navbar {
+  padding: 0 4.5rem;
+}
+
+.bg-light {
+  background-color: white !important;
+  box-shadow: 0px 0.1px 7px 0px rgba(0, 0, 0, 0.57);
+  height: 80px;
+}
+
+.home-button {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.home-button:hover {
+  color: #9f704f;
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    position: relative;
+    left: 30px;
+  }
 }

@@ -1,0 +1,16 @@
+.procedure-buttons-wrap {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+
+.procedure-buttons {
+    font-size: 20px;
+    border: solid 1px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    color: #9F704F;
+}

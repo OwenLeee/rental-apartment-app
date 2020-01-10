@@ -1,7 +1,6 @@
 import React from 'react';
 import MenuBar from './components/MenuBar';
 import { ConnectedRouter } from 'connected-react-router';
-import { Switch, Route } from 'react-router';
 import { history } from './redux/store';
 
 
