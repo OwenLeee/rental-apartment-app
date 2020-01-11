@@ -1,16 +1,24 @@
 .procedure-buttons-wrap {
-    display: flex;
-    justify-content: space-evenly;
-    padding: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 50px 50px 30px 50px;
 }
 
 .procedure-buttons {
-    font-size: 20px;
-    border: solid 1px;
-    padding: 10px;
-    border-radius: 10px;
-    width: 180px;
-    display: flex;
-    justify-content: center;
-    color: #9F704F;
+  font-size: 20px;
+  border: 2px solid #f3f3f3;
+  padding: 10px;
+  border-radius: 10px;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  color: #9f704f;
+}
+
+.line {
+    width: 40px;
+    border-bottom: solid #9f704f;
+    border-width:3px;
+    position: relative;
+    bottom: 20px;
 }

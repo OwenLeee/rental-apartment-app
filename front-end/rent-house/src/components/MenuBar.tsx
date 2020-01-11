@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import ProcedureBar from '../components/ProcedureBar';
+import Form from '../components/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../scss/MenuBar.scss'
 
