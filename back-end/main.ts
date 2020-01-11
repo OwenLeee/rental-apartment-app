@@ -10,6 +10,8 @@ import { UserService } from "./services/UserService";
 import { UserRouter } from "./routers/UserRouter";
 import {ListingService} from "./services/ListingService";
 import {ListingRouter} from "./routers/ListingRouter";
+import {SearchResultService} from "./services/SearchResultService";
+import {SearchResultRouter} from "./routers/SearchResultRouter";
 
 
 const app = express();
@@ -47,6 +49,10 @@ app.use('/users', userRouter.router());
 const listingService = new ListingService(knex);
 const listingRouter = new ListingRouter(listingService);
 app.use('/listing', isLoggedIn, listingRouter.router());
+
+const searchService = new SearchResultService(knex); 
+const searchRouter = new SearchResultRouter(searchService);
+app.use('/search', searchRouter.router());
 
 
 const PORT = 8080;
