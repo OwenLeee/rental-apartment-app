@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTypes, getDistrict, getBeds, getBaths, getLevel } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
-import { Form } from 'react-bootstrap';
+// import { Form } from 'react-bootstrap';
 
 interface IForm {
     type: string;
@@ -83,7 +83,7 @@ const ListApartment: React.FC = () => {
                 </Switch> */}
             </div>
 
-            <Form > 
+            {/* <Form > 
  
   <Form.Group onSubmit={handleSubmit(onSubmit)} controlId="exampleForm.ControlSelect1">
     <Form.Label>Apartment Type</Form.Label >
@@ -97,7 +97,7 @@ const ListApartment: React.FC = () => {
 
     </Form.Control>
   </Form.Group>
-</Form>
+</Form> */}
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <select name="type" ref={register({ required: "Please fill in all required fields" })}>
