@@ -8,8 +8,11 @@ import { isLoggedIn } from "./auth/guards";
 
 import { UserService } from "./services/UserService";
 import { UserRouter } from "./routers/UserRouter";
-import {ListingService} from "./services/ListingService";
-import {ListingRouter} from "./routers/ListingRouter";
+import { ListingService } from "./services/ListingService";
+import { ListingRouter } from "./routers/ListingRouter";
+import { ReferenceService } from "./services/ReferenceService";
+import { ReferenceRouter } from "./routers/ReferenceRouter";
+
 
 
 const app = express();
@@ -46,10 +49,14 @@ app.use('/users', userRouter.router());
 
 const listingService = new ListingService(knex);
 const listingRouter = new ListingRouter(listingService);
-app.use('/listing', isLoggedIn, listingRouter.router());
+app.use('/listing', listingRouter.router()); // add isLoggedIn Middleware!!!
+
+const referenceService = new ReferenceService(knex);
+const referenceRouter = new ReferenceRouter(referenceService);
+app.use('/reference', referenceRouter.router()); // add isLoggedIn Middleware!!!
 
 
 const PORT = 8080;
 app.listen(PORT, () => {
-	console.log(`Server has started http://localhost:${PORT}`);
+  console.log(`Server has started http://localhost:${PORT}`);
 });

@@ -10,6 +10,9 @@ import { authReducer } from "./auth/reducer";
 
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
+import { IReferenceTableState } from "./referenceTable/state";
+import { IReferenceTableActions } from "./referenceTable/action";
+import { referenceTableReducers } from "./referenceTable/reducers";
 
 //Development Tools
 declare global {
@@ -24,15 +27,17 @@ export const history = createBrowserHistory();
 //Mark down Different Component State in IRootState
 export interface IRootState {
   auth: IAuthState;
+  referenceTable: IReferenceTableState;
   router: RouterState;
 }
 
 // Mark down Different Component Action in IRootActions
-type IRootAction = IAuthActions | CallHistoryMethodAction;
+type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActions;
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
   auth: authReducer,
+  referenceTable: referenceTableReducers,
   router: connectRouter(history),
 });
 
