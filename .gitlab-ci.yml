@@ -7,7 +7,7 @@ stages:
 
 variables:
   POSTGRES_DB: beebeerent
-  POSTGRES_USER: postgres
+  POSTGRES_USER: beebeerent
   POSTGRES_PASSWORD: beebeerent
   POSTGRES_HOST: postgres
 
