@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import ApartmentListDetails from './ApartmentDetails';
 
@@ -21,6 +20,3 @@ class ApartmentList extends React.Component {
 }
 
 export default ApartmentList; 
-=======
-export const a = 'b';
->>>>>>> 772ef400009b1efaaf8b0c54d884f8f0531a36f9
