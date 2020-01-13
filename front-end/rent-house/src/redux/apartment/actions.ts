@@ -1,4 +1,4 @@
-import { IApartmentState } from "./state";
+import { IApartment } from "./state";
 
 export const GET_APARTMENT_ACTION = "@@apartment/GET_APARTMENT_ACTION";
 
@@ -16,13 +16,14 @@ export const GET_APARTMENT_ACTION = "@@apartment/GET_APARTMENT_ACTION";
 
 
 
-export function getApartment() {
+export function getApartments(apartments: IApartment[]) {
     return {
         type: GET_APARTMENT_ACTION,
+        apartments
     }
 
 }
 
-type apartmentActionsCreator = typeof getApartment;
+type apartmentActionsCreator = typeof getApartments;
 
 export type IApartmentActions = ReturnType<apartmentActionsCreator>;

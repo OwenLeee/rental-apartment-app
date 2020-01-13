@@ -13,6 +13,12 @@ import { createBrowserHistory } from "history";
 import { IReferenceTableState } from "./referenceTable/state";
 import { IReferenceTableActions } from "./referenceTable/action";
 import { referenceTableReducers } from "./referenceTable/reducers";
+import { IApartmentState } from "./apartment/state";
+import { IApartmentActions } from "./apartment/actions";
+import { apartmentReducer } from "./apartment/reducer";
+
+
+
 
 //Development Tools
 declare global {
@@ -28,16 +34,18 @@ export const history = createBrowserHistory();
 export interface IRootState {
   auth: IAuthState;
   referenceTable: IReferenceTableState;
+  apartment: IApartmentState; 
   router: RouterState;
 }
 
 // Mark down Different Component Action in IRootActions
-type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActions;
+type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActions | IApartmentActions;
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
   auth: authReducer,
   referenceTable: referenceTableReducers,
+  apartment: apartmentReducer, 
   router: connectRouter(history),
 });
 

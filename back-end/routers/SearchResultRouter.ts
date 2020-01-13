@@ -9,7 +9,7 @@ export class SearchResultRouter {
     public router() {
         const router = express.Router();
 
-        router.get('/', this.searchResult)
+        router.post('/', this.searchResult)
 
         return router;
     }

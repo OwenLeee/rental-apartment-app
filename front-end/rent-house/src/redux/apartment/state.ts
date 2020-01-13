@@ -1,5 +1,12 @@
-export interface IApartmentState {
+export interface IApartment {
     id: number, 
+    // user_id?: number,
+    // apartment_type_id?: number,
+    // area_district_id?: number,
+    // bedrooms_id?: number,
+    // floor_level_id?: number,
+    // bathrooms_id?: number,
+    // agent_id?: number,
     apartment_title: string; 
     apartment_description: string; 
     rental_price: number;
@@ -24,3 +31,7 @@ export interface IApartmentState {
     bathrooms: string;
 }
 
+export interface IApartmentState{
+    apartments: IApartment[]
+
+}
