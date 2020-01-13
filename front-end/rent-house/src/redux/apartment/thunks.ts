@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { ReduxThunkDispatch, IRootState } from "../store";
 import { getApartments } from "./actions"
 
@@ -29,6 +28,3 @@ export function listApartmentsThunk(keywords: string, propertyType: string, minP
     }
 
 }
-=======
-export const a = 'b';
->>>>>>> 9e77ccd8508e7032d5b5f613fdbf17871989aab6
