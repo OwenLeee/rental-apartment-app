@@ -9,6 +9,7 @@ import '../scss/MenuBar.scss'
 
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/store';
+import ApartmentList from './ApartmentListing';
 
 
 
@@ -34,7 +35,7 @@ class MenuBar extends React.Component {
 
                 <Switch>
                     {/* <Route path="/home" component={} /> */}
-                    {/* <Route path="/rent" component={} /> */}
+                    <Route path="/rent" component={ApartmentList} />
                     <Route path="/post" component={ProcedureBar} />
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
