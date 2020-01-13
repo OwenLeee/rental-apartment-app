@@ -23,7 +23,7 @@ export class ListingRouter {
     public loadFloorPlan = async (req: express.Request, res: express.Response) => {
         try {
             const { apartmentId } = req.body;
-            res.json({ result: true, floorPlan: await this.listingService.loadFloorPlan(apartmentId) });
+            res.json(await this.listingService.loadFloorPlan(apartmentId));
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('loadFloorPlan error is found...');
