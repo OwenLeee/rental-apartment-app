@@ -31,17 +31,18 @@ const ListApartment: React.FC = () => {
         console.log(results);
         const latLng = await getLatLng(results[0]);
         setAddress(value);
-        setCoordinates(latLng);
-    }
+        setCoordinates(latLng)
+    };
+    const country = (): google.maps.GeocoderComponentRestrictions => {
+        return ({ country: 'hk' });
+    };
     const searchOptions = {
-        bounds: new google.maps.LatLngBounds(
-            new google.maps.LatLng(22.184323, 113.831639),
-            new google.maps.LatLng(22.547677, 114.386546)
-        ),
-        types: ['address']
-    }
+        componentRestrictions: country()
+    };
 
-    const dispatch = useDispatch();
+
+
+
     const { register, handleSubmit, errors } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
         console.log(
@@ -55,9 +56,10 @@ const ListApartment: React.FC = () => {
             }
         )
     };
-    // console.log(errors);
 
 
+
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTypes());
         dispatch(getDistrict());
@@ -72,16 +74,25 @@ const ListApartment: React.FC = () => {
         }
     }, [errors]);
 
+
+
     const apartmentType = useSelector((state: IRootState) => state.referenceTable.apartmentType);
     const areaDistrict = useSelector((state: IRootState) => state.referenceTable.areaDistrict);
     const bedrooms = useSelector((state: IRootState) => state.referenceTable.bedrooms);
     const bathrooms = useSelector((state: IRootState) => state.referenceTable.bathrooms);
     const floorLevel = useSelector((state: IRootState) => state.referenceTable.floorLevel);
 
+
     let districtChosen = (areaDistrict.filter((districts => districts.district === district)))[0];
+
+
+
 
     return (
         <div>
+
+
+
             <div className="procedure-buttons-wrap">
                 <div className="procedure-buttons">Floor Planner</div>
                 <div className="line"></div>
@@ -106,28 +117,15 @@ const ListApartment: React.FC = () => {
                 </Switch> */}
             </div>
 
-            {/* <Form > 
- 
-  <Form.Group onSubmit={handleSubmit(onSubmit)} controlId="exampleForm.ControlSelect1">
-    <Form.Label>Apartment Type</Form.Label >
-    <Form.Control as="select" name="type" ref={register({ required: "Please fill in all required fields" })}>
-    {apartmentType.map((type, i) => {
-                        return (
-                            <option key={i} value={type.house_type}>{type.house_type}</option>
-                        );
-                    }
-                    )}
 
-    </Form.Control>
-  </Form.Group>
-</Form> */}
+
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <select name="type" ref={register({ required: "Please fill in all required fields" })}>
                     <option value="">Apartment Type</option>
-                    {apartmentType.map((type, i) => {
+                    {apartmentType.map(type => {
                         return (
-                            <option key={i} value={type.house_type}>{type.house_type}</option>
+                            <option key={type.id} value={type.house_type}>{type.house_type}</option>
                         );
                     }
                     )}
@@ -148,9 +146,9 @@ const ListApartment: React.FC = () => {
                     <select name="area" ref={register({ required: true })}>
                         <option value=''>Area</option>
                         {districtChosen ?
-                            districtChosen.area.map((area, i) => {
+                            districtChosen.area.map(area => {
                                 return (
-                                    <option key={i} value={area.area}>{area.area}</option>
+                                    <option key={area.id} value={area.area}>{area.area}</option>
                                 )
                             })
                             :
@@ -184,15 +182,18 @@ const ListApartment: React.FC = () => {
                         </div>
                     )}
                 </PlacesAutocomplete>
+
+
+
                 {/* building */}
                 {/* block */}
 
                 <select name="bedrooms" ref={register({ required: true })}>
                     <option value=''>Bedrooms</option>
                     {bedrooms
-                        .map((beds, i) => {
+                        .map(beds => {
                             return (
-                                <option key={i} value={beds.bedrooms}>{beds.bedrooms}</option>
+                                <option key={beds.id} value={beds.bedrooms}>{beds.bedrooms}</option>
                             )
                         })
                     };
@@ -202,9 +203,9 @@ const ListApartment: React.FC = () => {
                 <select name="bathrooms" ref={register({ required: true })}>
                     <option value=''>Bathrooms</option>
                     {bathrooms
-                        .map((baths, i) => {
+                        .map(baths => {
                             return (
-                                <option key={i} value={baths.bathrooms}>{baths.bathrooms}</option>
+                                <option key={baths.id} value={baths.bathrooms}>{baths.bathrooms}</option>
                             )
                         })
                     };
@@ -216,9 +217,9 @@ const ListApartment: React.FC = () => {
                 <select name="floorLevel" ref={register({ required: true })}>
                     <option value=''>Floor Level</option>
                     {floorLevel
-                        .map((level, i) => {
+                        .map(level => {
                             return (
-                                <option key={i} value={level.level}>{level.level}</option>
+                                <option key={level.id} value={level.level}>{level.level}</option>
                             )
                         })
                     };
