@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTypes, getDistrict, getBeds, getBaths, getLevel } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng, Suggestion, } from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 // import { Form } from 'react-bootstrap';
 
