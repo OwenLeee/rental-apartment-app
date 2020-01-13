@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import '../scss/ProcedureBar.scss';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTypes, getDistrict, getBeds, getBaths, getLevel } from '../redux/referenceTable/thunk';
+import { getTypes, getDistrict, getLevel } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import GoogleMapReact from 'google-map-react';
+import Marker from './MapMarker';
 
 // import { Form } from 'react-bootstrap';
 
@@ -13,8 +15,6 @@ interface IForm {
     type: string;
     district: string;
     area: string;
-    bedrooms: string;
-    bathrooms: string;
     floorLevel: string
 
 };
@@ -24,11 +24,11 @@ const ListApartment: React.FC = () => {
 
 
 
+    ////////// Google map Autocomplete //////////
     const [address, setAddress] = useState('');
-    const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 })
+    const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
     const handleSelect = async (value: string) => {
         const results = await geocodeByAddress(value);
-        console.log(results);
         const latLng = await getLatLng(results[0]);
         setAddress(value);
         setCoordinates(latLng)
@@ -40,9 +40,7 @@ const ListApartment: React.FC = () => {
         componentRestrictions: country()
     };
 
-
-
-
+    ///////////// Hooks Form /////////////
     const { register, handleSubmit, errors } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
         console.log(
@@ -50,24 +48,27 @@ const ListApartment: React.FC = () => {
                 type: data.type,
                 district: data.district,
                 area: data.area,
-                bedrooms: data.bedrooms,
-                bathrooms: data.bathrooms,
                 floorLevel: data.floorLevel
             }
         )
     };
 
+    ///////////// mapStateToProps /////////////
+    const apartmentType = useSelector((state: IRootState) => state.referenceTable.apartmentType);
+    const areaDistrict = useSelector((state: IRootState) => state.referenceTable.areaDistrict);
+    const floorLevel = useSelector((state: IRootState) => state.referenceTable.floorLevel);
 
 
+    ///////////// mapDispatchToProps /////////////
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTypes());
         dispatch(getDistrict());
-        dispatch(getBeds());
-        dispatch(getBaths());
         dispatch(getLevel())
     }, [dispatch]);
 
+
+    ///////////// DidMount or Update or WillUnMount /////////////
     useEffect(() => {
         if (errors && errors.type) {
             alert(errors.type.message)
@@ -76,23 +77,11 @@ const ListApartment: React.FC = () => {
 
 
 
-    const apartmentType = useSelector((state: IRootState) => state.referenceTable.apartmentType);
-    const areaDistrict = useSelector((state: IRootState) => state.referenceTable.areaDistrict);
-    const bedrooms = useSelector((state: IRootState) => state.referenceTable.bedrooms);
-    const bathrooms = useSelector((state: IRootState) => state.referenceTable.bathrooms);
-    const floorLevel = useSelector((state: IRootState) => state.referenceTable.floorLevel);
-
-
     let districtChosen = (areaDistrict.filter((districts => districts.district === district)))[0];
-
-
 
 
     return (
         <div>
-
-
-
             <div className="procedure-buttons-wrap">
                 <div className="procedure-buttons">Floor Planner</div>
                 <div className="line"></div>
@@ -139,7 +128,7 @@ const ListApartment: React.FC = () => {
                                 <option key={i} value={district.district}>{district.district}</option>
                             )
                         })
-                    };
+                    }
                 </select>
 
                 {districtChosen ?
@@ -184,36 +173,6 @@ const ListApartment: React.FC = () => {
                 </PlacesAutocomplete>
 
 
-
-                {/* building */}
-                {/* block */}
-
-                <select name="bedrooms" ref={register({ required: true })}>
-                    <option value=''>Bedrooms</option>
-                    {bedrooms
-                        .map(beds => {
-                            return (
-                                <option key={beds.id} value={beds.bedrooms}>{beds.bedrooms}</option>
-                            )
-                        })
-                    };
-                </select>
-
-
-                <select name="bathrooms" ref={register({ required: true })}>
-                    <option value=''>Bathrooms</option>
-                    {bathrooms
-                        .map(baths => {
-                            return (
-                                <option key={baths.id} value={baths.bathrooms}>{baths.bathrooms}</option>
-                            )
-                        })
-                    };
-                </select>
-
-                {/* storerooms */}
-                {/* carParks */}
-
                 <select name="floorLevel" ref={register({ required: true })}>
                     <option value=''>Floor Level</option>
                     {floorLevel
@@ -222,8 +181,24 @@ const ListApartment: React.FC = () => {
                                 <option key={level.id} value={level.level}>{level.level}</option>
                             )
                         })
-                    };
+                    }
                 </select>
+
+                <div style={{ height: '20vh', width: '20%' }}>
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY as string }}
+                        defaultCenter={{ lat: 22.372527, lng: 114.107623 }}
+                        center={{ lat: coordinates.lat, lng: coordinates.lng }}
+                        defaultZoom={10}
+                        resetBoundsOnResize={true}
+                    >
+                        <Marker
+                            lat={coordinates.lat}
+                            lng={coordinates.lng}
+                            text="My Marker"
+                        />
+                    </GoogleMapReact>
+                </div>
 
                 <input type="submit" />
             </form>
