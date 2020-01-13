@@ -9,7 +9,7 @@ variables:
   POSTGRES_DB: beebeerent
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: beebeerent
-  POSTGRES_HOST: postgres
+  POSTGRES_HOST: localhost
 
 before_script:
   - npm install -g yarn

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { IApartmentState } from "./state";
 import { IApartmentActions, GET_APARTMENT_ACTION } from "./actions";
 
@@ -19,3 +20,6 @@ export function apartmentReducer(state: IApartmentState = initialState, action: 
             return state;
     }
 }
+=======
+export const a = 'b'
+>>>>>>> 9e77ccd8508e7032d5b5f613fdbf17871989aab6

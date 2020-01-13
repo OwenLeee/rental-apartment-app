@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTypes, getDistrict, getBeds, getBaths, getLevel } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+
 // import { Form } from 'react-bootstrap';
 
 interface IForm {
@@ -19,6 +21,26 @@ interface IForm {
 
 const ListApartment: React.FC = () => {
     const [district, setDistrict] = useState('');
+
+
+
+    const [address, setAddress] = useState('');
+    const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 })
+    const handleSelect = async (value: string) => {
+        const results = await geocodeByAddress(value);
+        console.log(results);
+        const latLng = await getLatLng(results[0]);
+        setAddress(value);
+        setCoordinates(latLng);
+    }
+    const searchOptions = {
+        bounds: new google.maps.LatLngBounds(
+            new google.maps.LatLng(22.184323, 113.831639),
+            new google.maps.LatLng(22.547677, 114.386546)
+        ),
+        types: ['address']
+    }
+
     const dispatch = useDispatch();
     const { register, handleSubmit, errors } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
@@ -55,6 +77,7 @@ const ListApartment: React.FC = () => {
     const bedrooms = useSelector((state: IRootState) => state.referenceTable.bedrooms);
     const bathrooms = useSelector((state: IRootState) => state.referenceTable.bathrooms);
     const floorLevel = useSelector((state: IRootState) => state.referenceTable.floorLevel);
+
     let districtChosen = (areaDistrict.filter((districts => districts.district === district)))[0];
 
     return (
@@ -138,6 +161,29 @@ const ListApartment: React.FC = () => {
                     <div></div>
                 }
 
+                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} searchOptions={searchOptions}>
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                        <div>
+                            <div>Latitude: {coordinates.lat}</div>
+                            <div>Longitude: {coordinates.lng}</div>
+                            <input {...getInputProps({ placeholder: "Type address" })} />
+
+                            <div>
+                                {loading ? <div>...loading</div> : null}
+
+                                {suggestions.map((suggestion) => {
+                                    const style = {
+                                        backgroundColor: suggestion.active ? '#9F704F' : '#fff'
+                                    };
+                                    return <div {...getSuggestionItemProps(suggestion, { style })}>
+                                        {suggestion.description}
+                                    </div>
+                                })}
+
+                            </div>
+                        </div>
+                    )}
+                </PlacesAutocomplete>
                 {/* building */}
                 {/* block */}
 
