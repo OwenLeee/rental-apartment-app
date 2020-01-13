@@ -4,7 +4,7 @@ import Table from '../table';
 export class SearchResultService {
     constructor(private knex: Knex) { }
 
-    public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, isFurniture: boolean, bedrooms: string, bathrooms: string, isParking: boolean) => {
+    public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: boolean, isParking: boolean) => {
 
         let houseResult = await this.knex(Table.rentalApartment)
             .join(Table.apartmentType, { 'apartment_type_id': `${Table.apartmentType}.id` })
@@ -31,11 +31,11 @@ export class SearchResultService {
 
 
 // //Testing 
-const knexConfig = require("../knexfile");
-const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+// const knexConfig = require("../knexfile");
+// const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
-(async () => {
-    const searchResult = new SearchResultService(knex);
-    console.log(await searchResult.searchingBar('Sheung', 'Partitioned Flat', 10000, 30000, true, '2', '1', false));
-})()
-// //Testing
+// (async () => {
+//     const searchResult = new SearchResultService(knex);
+//     console.log(await searchResult.searchingBar('Sheung', 'Partitioned Flat', 10000, 30000, true, '2', '1', false));
+// })()
+// // //Testing
