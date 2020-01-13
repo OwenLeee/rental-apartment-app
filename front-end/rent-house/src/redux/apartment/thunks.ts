@@ -24,7 +24,5 @@ export function listApartmentsThunk(keywords: string, propertyType: string, minP
         } else {
             dispatch(getApartments(result.flatList)); 
         }
-
     }
-
 }
