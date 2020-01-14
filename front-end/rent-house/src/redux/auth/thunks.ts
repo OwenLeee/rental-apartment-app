@@ -4,30 +4,7 @@ import { push } from "connected-react-router";
 
 const { REACT_APP_API_SERVER } = process.env;
 
-export function restoreLoginThunk() {
-    return async (dispatch: Dispatch<IAuthActions>) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            dispatch(failed("LOGIN_FAILED", null));
-            dispatch(push("/login"));
-            return;
-        }
-
-        const res = await fetch(`${REACT_APP_API_SERVER}/greeting`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        });
-        if (res.status !== 200) {
-            dispatch(failed("LOGIN_FAILED", null));
-        } else {
-            console.log("success");
-            dispatch(loginSuccess());
-            dispatch(push("/"));
-        }
-    }
-}
-
+//Login Function
 export function loginThunk(email: string, password: string) {
     return async (dispatch: Dispatch<IAuthActions>) => {
         const res = await fetch(`${REACT_APP_API_SERVER}/users/login`,
@@ -51,10 +28,36 @@ export function loginThunk(email: string, password: string) {
     }
 }
 
-export function logout() {
-    return async (dispatch: Dispatch<IAuthActions>) => {
-        dispatch(logoutSuccess());
-        localStorage.removeItem("token");
-        dispatch(push("/"));
-    };
-}
+//Logout Function
+// export function logout() {
+//     return async (dispatch: Dispatch<IAuthActions>) => {
+//         dispatch(logoutSuccess());
+//         localStorage.removeItem("token");
+//         dispatch(push("/"));
+//     };
+// }
+
+//Redirect to Login
+// export function restoreLoginThunk() {
+//     return async (dispatch: Dispatch<IAuthActions>) => {
+//         const token = localStorage.getItem("token");
+//         if (!token) {
+//             dispatch(failed("LOGIN_FAILED", null));
+//             dispatch(push("/login"));
+//             return;
+//         }
+
+//         const res = await fetch(`${REACT_APP_API_SERVER}/greeting`, {
+//             headers: {
+//                 Authorization: `Bearer ${token}`
+//             },
+//         });
+//         if (res.status !== 200) {
+//             dispatch(failed("LOGIN_FAILED", null));
+//         } else {
+//             console.log("success");
+//             dispatch(loginSuccess());
+//             dispatch(push("/"));
+//         }
+//     }
+// }
