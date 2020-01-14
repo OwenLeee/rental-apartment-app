@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Form, Alert } from "react-bootstrap";
+// import { link, useRouteMatch } from "react-router-dom";
 import { connect } from 'react-redux';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { loginThunk } from '../redux/auth/thunks';
@@ -12,7 +13,7 @@ interface ILoginFormState {
 
 interface ILoginProps {
     loginThunk: (email: string, password: string) => void
-    msg: string
+    msg: string | null
     // switchPage: string
     // switchPage: (component: string) => void
 }
@@ -42,10 +43,6 @@ class LoginForm extends React.Component<ILoginProps, ILoginFormState>{
         }
     }
 
-    // private redirectSignup = () => {
-    //     this.props.switchPage("Register")
-    // }
-
     public render() {
         return (
             <Form>
@@ -68,7 +65,7 @@ class LoginForm extends React.Component<ILoginProps, ILoginFormState>{
                         {this.props.msg}
                     </Alert> : ""
                 }
-                {/* <p>Don't have an Account?</p><p onClick={this.redirectSignup}>join us</p> */}
+                {/* <p>Don't have an Account?</p><link >join us</p> */}
                 <Button variant="primary" type="submit" onClick={this.login}>
                     Submit
                     </Button>
