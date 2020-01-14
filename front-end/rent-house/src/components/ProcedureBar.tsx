@@ -85,9 +85,6 @@ const ListApartment: React.FC = () => {
             <div className="procedure-buttons-wrap">
                 <div className="procedure-buttons">Floor Planner</div>
                 <div className="line"></div>
-
-
-
                 <div className="procedure-buttons">Photos</div>
                 <div className="line"></div>
                 <div className="procedure-buttons">Video</div>
