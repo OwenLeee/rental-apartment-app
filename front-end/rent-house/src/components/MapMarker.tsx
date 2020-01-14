@@ -1,5 +1,6 @@
 import React from 'react';
 import '../scss/MapMarker.scss';
+// import { FaBlackTie } from 'react-icons/fa';
 
 const Marker = (props: any) => {
     const { color, name, id } = props;
@@ -11,9 +12,12 @@ const Marker = (props: any) => {
           title={name}
         />
         <div className="pulse" />
+        <div className="tooltip"> <span className="tooltiptext">{name}</span> </div>
       </div>
     );
-  };
-
+  }; 
 
   export default Marker;
+
+
+ 

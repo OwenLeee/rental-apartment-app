@@ -1,8 +1,6 @@
 import { IApartmentState } from "./state";
 import { IApartmentActions, GET_APARTMENT_ACTION } from "./actions";
 
-
-
 const initialState = {
     apartments: [],
 }
