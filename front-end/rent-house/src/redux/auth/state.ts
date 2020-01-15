@@ -1,5 +1,5 @@
 export interface IAuthState {
     isAuthenticated: boolean | null,
-    msg: string
+    msg: string | null
 }
 // export type switchLoginPage = String
