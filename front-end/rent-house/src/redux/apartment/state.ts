@@ -31,7 +31,18 @@ export interface IApartment {
     bathrooms: string;
 }
 
+export interface ISearchConditions{
+    keywords: string;
+    propertyType: string;
+    bedrooms: string;
+    bathrooms: string;
+    minPrice: number;
+    maxPrice: number;
+    isStoreroom: boolean;
+    isFurniture: boolean;
+}
+
 export interface IApartmentState{
     apartments: IApartment[]
-
+    searchConditions: ISearchConditions
 }

@@ -1,6 +1,7 @@
-import { IApartment } from "./state";
+import { IApartment, ISearchConditions } from "./state";
 
 export const GET_APARTMENT_ACTION = "@@apartment/GET_APARTMENT_ACTION";
+export const SEARCH_APARTMENT_ACTION = "@@apartment/SEARCH_APARTMENT_ACTION";
 
 export function getApartments(apartments: IApartment[]) {
     return {
@@ -8,6 +9,14 @@ export function getApartments(apartments: IApartment[]) {
         apartments
     }
 
+}
+
+export function searchApartments(conditions: ISearchConditions){
+
+    return {
+        type: SEARCH_APARTMENT_ACTION, 
+        conditions
+    }
 }
 
 type apartmentActionsCreator = typeof getApartments;

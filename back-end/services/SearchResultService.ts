@@ -6,6 +6,15 @@ export class SearchResultService {
 
     public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: boolean, isParking: boolean) => {
 
+        // const query = knex(Table.rentalApartment);
+        // if (true) {
+        //     query.where(...)
+        // }
+        // if (true) {
+        //     query.where(...)
+        // }
+        // const result = await query
+
         let houseResult = await this.knex(Table.rentalApartment)
             .join(Table.apartmentType, { 'apartment_type_id': `${Table.apartmentType}.id` })
             .join(Table.district, { 'area_district_id': `${Table.district}.id` })

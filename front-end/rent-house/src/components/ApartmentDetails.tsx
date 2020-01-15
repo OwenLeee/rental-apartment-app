@@ -5,7 +5,7 @@ import { IApartment } from '../redux/apartment/state';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { listApartmentsThunk } from '../redux/apartment/thunks';
 import { connect } from 'react-redux';
-import { FaBed, FaBath, FaParking } from "react-icons/fa";
+import { FaBed, FaBath, FaParking, FaBoxOpen} from "react-icons/fa";
 import { GiSofa } from "react-icons/gi";
 
 
@@ -64,11 +64,11 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
           </Carousel>
         </div>
 
-        <div className="apartmentDetails" style={{ height: "100%", width: "70%", display: "flex", flexDirection: "column" }}>
+        <div className="apartmentDetails" style={{ height: "100%", width: "70%", display: "flex", flexDirection: "column", flexWrap:"wrap"}}>
           <div className="detailTitle" style={{ display: "flex", justifyContent: "space-between" }}> <p> {apartment.district}, {apartment.area} </p>  <p> {apartment.house_type} </p></div>
           <div> <p> {apartment.address_building}, {apartment.address_block}, {apartment.level} Level </p></div>
           <div> <p> Rental Price: ${apartment.rental_price}</p> </div>
-          <div className="detailArea" style={{ display: "flex", justifyContent: "space-between" }}> <div> Saleable/Gross: {apartment.saleable_area}/{apartment.gross_floor_area} </div>  <div> <FaBed size={30} />  {apartment.bedrooms} </div> <div> <FaBath size={30}/>  {apartment.bathrooms} </div>  <div> {apartment.is_furniture? <GiSofa size={30} /> : <GiSofa size={30} />} </div> <div> {apartment.is_carpark? <FaParking size={30} /> : <FaParking size={30} />} </div> </div>
+          <div className="detailArea" style={{ display: "flex", justifyContent: "space-between" }}> <div> Saleable/Gross: {apartment.saleable_area}/{apartment.gross_floor_area} </div>  <div> <FaBed size={30} />  {apartment.bedrooms} </div> <div> <FaBath size={30}/>  {apartment.bathrooms} </div>  <div> {apartment.is_furniture? <GiSofa size={30} /> : <GiSofa size={30} />} </div> <div> {apartment.is_storeroom? <FaBoxOpen size={30} /> : <FaParking size={30} />} </div> </div>
         </div>
       </div>
       )
