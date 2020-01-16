@@ -4,47 +4,84 @@ import Table from '../table';
 export class SearchResultService {
     constructor(private knex: Knex) { }
 
-    public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: boolean, isParking: boolean) => {
+    public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: boolean, isStoreroom: boolean) => {
 
-        // const query = knex(Table.rentalApartment);
-        // if (true) {
-        //     query.where(...)
-        // }
-        // if (true) {
-        //     query.where(...)
-        // }
-        // const result = await query
-
-        let houseResult = await this.knex(Table.rentalApartment)
+        const getAllHouse = this.knex(Table.rentalApartment)
             .join(Table.apartmentType, { 'apartment_type_id': `${Table.apartmentType}.id` })
             .join(Table.district, { 'area_district_id': `${Table.district}.id` })
             .join(Table.bedrooms, { 'bedrooms_id': `${Table.bedrooms}.id` })
             .join(Table.floorLevel, { 'floor_level_id': `${Table.floorLevel}.id` })
             .join(Table.bathrooms, { 'bathrooms_id': `${Table.bathrooms}.id` })
-            .where(`${Table.apartmentType}.house_type`, propertyType)
-            .whereBetween(`${Table.rentalApartment}.rental_price`, [lowestPrice, highestPrice])
-            .where(`${Table.rentalApartment}.is_furniture`, isFurniture)
-            .where(`${Table.bedrooms}.bedrooms`, bedrooms)
-            .where(`${Table.bathrooms}.bathrooms`, bathrooms)
-            .where(`${Table.rentalApartment}.is_carpark`, isParking)
-            .where(`${Table.rentalApartment}.address_building`, 'like', `%${searchKeywords}%`)
-            .orWhere(`${Table.district}.district`, 'like', `%${searchKeywords}%`)
-            .orWhere(`${Table.district}.area`, 'like', `%${searchKeywords}%`)
 
-        return houseResult;
+        const keys = [
+            "SearchKeywords",
+            "PropertyType",
+            "Price",
+            "Bedrooms",
+            "Bathrooms",
+            "IsFurniture",
+            "IsStoreRoom"
+        ];
+
+        let houseResult = getAllHouse;
+        for (let key of keys) {
+            switch (key) {
+
+
+
+                case "SearchKeywords":
+                    if (searchKeywords != "") {          
+                        houseResult = houseResult.where(`${Table.rentalApartment}.address_building`, 'like', `%${searchKeywords}%`)
+                        .orWhere(`${Table.district}.district`, 'like', `%${searchKeywords}%`)
+                        .orWhere(`${Table.district}.area`, 'like', `%${searchKeywords}%`)
+                    };
+                break;
+                case "PropertyType":
+                    if (propertyType != "") {
+                        houseResult = houseResult.where(`${Table.apartmentType}.house_type`, propertyType)
+                    };
+                    break;
+                case "Price":
+                    if (lowestPrice != 0 && highestPrice != 0) {
+                        houseResult = houseResult.whereBetween(`${Table.rentalApartment}.rental_price`, [lowestPrice, highestPrice])
+                    } else if (lowestPrice > 0 && highestPrice == 0) {
+                        houseResult = houseResult.where(`${Table.rentalApartment}.rental_price`, `>`, lowestPrice)
+                    } else if (lowestPrice == 0 && highestPrice > 0) {
+                        houseResult = houseResult.whereBetween(`${Table.rentalApartment}.rental_price`, [0, highestPrice])
+                    } else {
+                        houseResult = houseResult
+                    };
+                    break;
+                case "Bedrooms":
+                    if(bedrooms!= ""){
+                        houseResult = houseResult.where(`${Table.bedrooms}.bedrooms`, bedrooms)
+                    };
+                    break;
+                case "Bathrooms":
+                    if (bathrooms != ""){
+                        houseResult = houseResult.where(`${Table.bathrooms}.bathrooms`, bathrooms)
+                    }
+                    break;
+                case "IsFurniture":
+                    houseResult = houseResult.where(`${Table.rentalApartment}.is_furniture`, isFurniture);
+                    break;
+                case "IsStoreroom":
+                    houseResult = houseResult.where(`${Table.rentalApartment}.is_storeroom`, isStoreroom);
+                    break;
+                default:
+                    console.log("SearchResultService Error- For...Of...Loop");
+            }
+        }
+        return await getAllHouse;
     }
-
 };
 
-
-
-
 // //Testing 
-// const knexConfig = require("../knexfile");
-// const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+const knexConfig = require("../knexfile");
+const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
-// (async () => {
-//     const searchResult = new SearchResultService(knex);
-//     console.log(await searchResult.searchingBar('Sheung', 'Partitioned Flat', 10000, 30000, true, '2', '1', false));
-// })()
-// // //Testing
+(async () => {
+    const searchResult = new SearchResultService(knex);
+    console.log(await searchResult.searchingBar('', '', 0, 0,  '', '', true, true));
+})()
+// //Testing
