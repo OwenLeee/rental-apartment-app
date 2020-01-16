@@ -3,6 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import ProcedureBar from '../components/ProcedureBar';
 import PartOneForm from '../components/PartOneForm';
+import PartTwoForm from '../components/PartTwoForm';
 // import Form from '../components/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../scss/MenuBar.scss'
@@ -40,6 +41,7 @@ class MenuBar extends React.Component {
                     <Route path="/rent" component={ApartmentList} />
                     <Route path="/post" component={ProcedureBar} />
                     <Route path="/form1" component={PartOneForm} />
+                    <Route path="/form2" component={PartTwoForm} />
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
 
