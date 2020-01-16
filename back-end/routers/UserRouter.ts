@@ -45,11 +45,12 @@ export class UserRouter {
             const token = jwtSimple.encode(payload, jwt.jwtSecret);
             // Step 5: return token
             res.status(200).json({
-                token: token
+                token: token,
+                msg: "Login Success"
             });
         } catch (e) {
             console.log(e);
-            res.status(500).json({ msg: e.toString() });
+            res.status(500).json({ msg: "Internal Error" });
         }
     };
 
@@ -85,7 +86,7 @@ export class UserRouter {
                 token: token
             });
         } catch (error) {
-            res.status(500).json({ msg: error.toString() })
+            res.status(500).json({ msg: "internal Error"})
         }
     }
 
@@ -106,12 +107,11 @@ export class UserRouter {
                     token: token
                 });
             } else {
-                console.log("repeated email");
-                res.status(403).json({ msg: console.error.toString() }) //403 - Forbidden
+                res.status(403).json({ msg: "repeated email" }) //403 - Forbidden
                 return;
             }
         } catch (error) {
-            res.status(500).json({ msg: error.toString() }) //500 - Internal Error
+            res.status(500).json({ msg: "internal Error" }) //500 - Internal Error
         }
     }
 }

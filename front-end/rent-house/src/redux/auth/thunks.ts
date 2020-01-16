@@ -1,11 +1,14 @@
 import { Dispatch } from "redux";
-import { IAuthActions, failed, loginSuccess, logoutSuccess } from "./actions";
+import { IAuthActions, failed, Success, logoutSuccess } from "./actions";
 import { push } from "connected-react-router";
+
+const { REACT_APP_API_SERVER } = process.env
 
 //Login Function
 export function loginThunk(email: string, password: string) {
     return async (dispatch: Dispatch<IAuthActions>) => {
-        const res = await fetch(`/users/login`,
+        console.log(email, password);
+        const res = await fetch(`${REACT_APP_API_SERVER}/users/login`,
             {
                 method: "POST",
                 headers: {
@@ -15,43 +18,43 @@ export function loginThunk(email: string, password: string) {
             }
         )
         const result = await res.json();
-
         if (res.status !== 200) {
             dispatch(failed("LOGIN_FAILED", result.msg));
+            console.log("failed")
         } else {
             localStorage.setItem("token", result.token);
-            dispatch(loginSuccess());
+            dispatch(Success("LOGIN_SUCCESS",  result.msg));
             dispatch(push("/"));
         }
     }
 }
 
 //loginFacebook Function
-export function loginFacebookThunk(accessToken:string){
-    return async(dispatch:Dispatch<IAuthActions>)=>{
-        const res = await fetch(`/users/login/facebook`,{
-            method:'POST',
-            headers:{
-                "Content-Type":"application/json; charset=utf-8"
+export function loginFacebookThunk(accessToken: string) {
+    return async (dispatch: Dispatch<IAuthActions>) => {
+        const res = await fetch(`${REACT_APP_API_SERVER}/users/login/facebook`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
             },
-            body: JSON.stringify({ accessToken})
+            body: JSON.stringify({ accessToken })
         })
         const result = await res.json();
 
-        if(res.status!==200){
-            dispatch(failed("LOGIN_FAILED",result.msg));
-        }else{
-            localStorage.setItem('token',result.token);
-            dispatch(loginSuccess())
+        if (res.status !== 200) {
+            dispatch(failed("LOGIN_FAILED", result.msg));
+        } else {
+            localStorage.setItem('token', result.token);
+            dispatch(Success("LOGIN_SUCCESS", result.msg))
             dispatch(push("/"));
         }
     }
 }
 
 //Register Function
-export function RegisterThunk(email: string, password: string) {
+export function signupThunk(email: string, password: string) {
     return async (dispatch: Dispatch<IAuthActions>) => {
-        const res = await fetch(`/users/signup`,
+        const res = await fetch(`${REACT_APP_API_SERVER}/users/signup`,
             {
                 method: "POST",
                 headers: {
@@ -62,9 +65,13 @@ export function RegisterThunk(email: string, password: string) {
         )
         const result = await res.json();
         if (res.status !== 200) {
-            dispatch(failed("REGISTER_FAILED", result.msg));
+            dispatch(failed("SIGNUP_FAILED", result.msg));
         } else {
-            loginThunk(email, password)
+            dispatch(Success("SIGNUP_SUCCESS", result.msg));
+            //login
+            localStorage.setItem("token", result.token);
+            dispatch(Success("LOGIN_SUCCESS", result.msg));
+            dispatch(push("/"));
         }
     }
 }
@@ -83,21 +90,21 @@ export function restoreLoginThunk() {
     return async (dispatch: Dispatch<IAuthActions>) => {
         const token = localStorage.getItem("token");
         if (!token) {
-            dispatch(failed("LOGIN_FAILED", null));
+            dispatch(failed("LOGIN_FAILED", "Token not found"));
             dispatch(push("/login"));
             return;
         }
 
-        const res = await fetch(`/private`, {
+        const res = await fetch(`${REACT_APP_API_SERVER}/private`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
         });
         if (res.status !== 200) {
-            dispatch(failed("LOGIN_FAILED", null));
+            dispatch(failed("LOGIN_FAILED", "internal Error"));
         } else {
             console.log("success");
-            dispatch(loginSuccess());
+            dispatch(Success("LOGIN_SUCCESS", "Restore Login Success"));
             dispatch(push("/"));
         }
     }

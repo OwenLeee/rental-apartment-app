@@ -32,7 +32,7 @@ class MenuBar extends React.Component {
                             <NavLink to='/post' className='nav-buttons post-button' activeClassName="activeNavButtons">Post</NavLink>
                         </Nav>
                         <Nav className="ml-auto">
-                            <NavLink to='/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
+                            <NavLink to='/auth' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
@@ -42,9 +42,13 @@ class MenuBar extends React.Component {
                     <Route path="/rent" component={ApartmentList} />
                     <Route path="/post" component={ProcedureBar} />
                     <Route path="/form1" component={PartOneForm} />
+<<<<<<< HEAD
+                    <Route path="/auth" component={loginContainer} />
+=======
                     <Route path="/form2" component={PartTwoForm} />
                     <Route path="/loginform" component={loginContainer} />
 
+>>>>>>> 5f48c9a0dd4207ac204260288a27441894f1280a
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
             </ConnectedRouter>

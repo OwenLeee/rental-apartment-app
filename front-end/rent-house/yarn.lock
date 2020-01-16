@@ -8899,7 +8899,11 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^3.0.0"
 
+<<<<<<< HEAD
+prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+=======
 prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+>>>>>>> 5f48c9a0dd4207ac204260288a27441894f1280a
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9140,6 +9144,14 @@ react-facebook-login@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.1.1.tgz#005121236a6ac0dee02099976fb1a3265f9d633e"
   integrity sha512-COnHEHlYGTKipz4963safFAK9PaNTcCiXfPXMS/yxo8El+/AJL5ye8kMJf23lKSSGGPgqFQuInskIHVqGqTvSw==
+
+react-google-login@^5.0.7:
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-5.0.7.tgz#6f4f117a234c6eca3132773ad051d1a36c95204d"
+  integrity sha512-e/OU8PcvtVetD73hZ9/g4k4K3GrOHb0bTXU1i2xZBzSCCfDY/QW6M7oQpwvPwyZ3C3clz0YWUFJkxX65PSdgQg==
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
 
 react-hook-form@^4.4.8:
   version "4.4.8"
