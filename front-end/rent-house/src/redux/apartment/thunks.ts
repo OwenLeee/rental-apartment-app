@@ -18,7 +18,7 @@ export function listApartmentsThunk(keywords: string, propertyType: string, minP
             })
         });
         const result = await res.json();
-        console.log(result.flatList);
+        // console.log(result.flatList);
         if (res.status !== 200) {
             dispatch(getApartments(result.result)); 
         } else {

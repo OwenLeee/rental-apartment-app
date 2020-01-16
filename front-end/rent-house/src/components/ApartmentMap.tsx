@@ -15,7 +15,7 @@ const SimpleMap = (props: any) => {
     useEffect(() => {
         if (apartments.length > 0) {
             const ap = apartments[0];
-            console.log(ap);
+            // console.log(ap);
             setCenter({ lat: ap.lat, lng: ap.lng });
         }
     }, [apartments]);

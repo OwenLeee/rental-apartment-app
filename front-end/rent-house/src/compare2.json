@@ -1,0 +1,638 @@
+{
+    "unit": "cm",
+    "layers": {
+        "layer-1": {
+            "id": "layer-1",
+            "altitude": 0,
+            "order": 0,
+            "opacity": 1,
+            "name": "default",
+            "visible": true,
+            "vertices": {
+                "mC4RUqw9cO": {
+                    "id": "mC4RUqw9cO",
+                    "type": "",
+                    "prototype": "vertices",
+                    "name": "Vertex",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {},
+                    "visible": true,
+                    "x": 494.5937187662364,
+                    "y": 1216.1830944757878,
+                    "lines": [
+                        "JJuc4MU3Pz",
+                        "nrV0BoJXyb"
+                    ],
+                    "areas": []
+                },
+                "lfew-iKyzA": {
+                    "id": "lfew-iKyzA",
+                    "type": "",
+                    "prototype": "vertices",
+                    "name": "Vertex",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {},
+                    "visible": true,
+                    "x": 1543.3270181798393,
+                    "y": 1761.3961247519726,
+                    "lines": [
+                        "JJuc4MU3Pz",
+                        "z8oPw4EUzv"
+                    ],
+                    "areas": []
+                },
+                "CwrXBfeH0N": {
+                    "id": "CwrXBfeH0N",
+                    "type": "",
+                    "prototype": "vertices",
+                    "name": "Vertex",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {},
+                    "visible": true,
+                    "x": 2034.0187454284055,
+                    "y": 1421.4397646974103,
+                    "lines": [
+                        "z8oPw4EUzv",
+                        "ZmyuOTT8Emq"
+                    ],
+                    "areas": []
+                },
+                "Kunn0Kk9JUY": {
+                    "id": "Kunn0Kk9JUY",
+                    "type": "",
+                    "prototype": "vertices",
+                    "name": "Vertex",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {},
+                    "visible": true,
+                    "x": 2239.275415650028,
+                    "y": 667.7629287273901,
+                    "lines": [
+                        "ZmyuOTT8Emq",
+                        "HbwZs0u0f_"
+                    ],
+                    "areas": []
+                },
+                "KIRo9VLk-5": {
+                    "id": "KIRo9VLk-5",
+                    "type": "",
+                    "prototype": "vertices",
+                    "name": "Vertex",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {},
+                    "visible": true,
+                    "x": 2008.361661650703,
+                    "y": 331.0137041450405,
+                    "lines": [
+                        "HbwZs0u0f_",
+                        "jI1LlW9EIq"
+                    ],
+                    "areas": []
+                },
+                "eB0-a1NQgh": {
+                    "id": "eB0-a1NQgh",
+                    "type": "",
+                    "prototype": "vertices",
+                    "name": "Vertex",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {},
+                    "visible": true,
+                    "x": 946.7998203482487,
+                    "y": 298.942349422912,
+                    "lines": [
+                        "jI1LlW9EIq",
+                        "nrV0BoJXyb"
+                    ],
+                    "areas": []
+                }
+            },
+            "lines": {
+                "JJuc4MU3Pz": {
+                    "id": "JJuc4MU3Pz",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "name": "Wall",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "thickness": {
+                            "length": 20
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks"
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "mC4RUqw9cO",
+                        "lfew-iKyzA"
+                    ],
+                    "holes": []
+                },
+                "z8oPw4EUzv": {
+                    "id": "z8oPw4EUzv",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "name": "Wall",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "thickness": {
+                            "length": 20
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks"
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "lfew-iKyzA",
+                        "CwrXBfeH0N"
+                    ],
+                    "holes": []
+                },
+                "ZmyuOTT8Emq": {
+                    "id": "ZmyuOTT8Emq",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "name": "Wall",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "thickness": {
+                            "length": 20
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks"
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "CwrXBfeH0N",
+                        "Kunn0Kk9JUY"
+                    ],
+                    "holes": []
+                },
+                "HbwZs0u0f_": {
+                    "id": "HbwZs0u0f_",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "name": "Wall",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "thickness": {
+                            "length": 20
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks"
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "KIRo9VLk-5",
+                        "Kunn0Kk9JUY"
+                    ],
+                    "holes": []
+                },
+                "jI1LlW9EIq": {
+                    "id": "jI1LlW9EIq",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "name": "Wall",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "thickness": {
+                            "length": 20
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks"
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "eB0-a1NQgh",
+                        "KIRo9VLk-5"
+                    ],
+                    "holes": []
+                },
+                "nrV0BoJXyb": {
+                    "id": "nrV0BoJXyb",
+                    "type": "wall",
+                    "prototype": "lines",
+                    "name": "Wall",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "height": {
+                            "length": 300
+                        },
+                        "thickness": {
+                            "length": 20
+                        },
+                        "textureA": "bricks",
+                        "textureB": "bricks"
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "mC4RUqw9cO",
+                        "eB0-a1NQgh"
+                    ],
+                    "holes": []
+                }
+            },
+            "holes": {},
+            "areas": {
+                "mljy6sEcU3": {
+                    "id": "mljy6sEcU3",
+                    "type": "area",
+                    "prototype": "areas",
+                    "name": "Area",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "patternColor": "#F5F4F4",
+                        "thickness": {
+                            "length": 0
+                        },
+                        "texture": "none",
+                        "width": 225,
+                        "height": 225
+                    },
+                    "visible": true,
+                    "vertices": [
+                        "mC4RUqw9cO",
+                        "eB0-a1NQgh",
+                        "KIRo9VLk-5",
+                        "Kunn0Kk9JUY",
+                        "CwrXBfeH0N",
+                        "lfew-iKyzA"
+                    ],
+                    "holes": []
+                }
+            },
+            "items": {
+                "E2V9qiVod": {
+                    "id": "E2V9qiVod",
+                    "type": "balcony",
+                    "prototype": "items",
+                    "name": "Balcony",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "width": 225,
+                        "depth": {
+                            "length": 100,
+                            "unit": "cm"
+                        },
+                        "height": 225,
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        },
+                        "patternColor": "#f5f4f4"
+                    },
+                    "visible": true,
+                    "x": 434.2172229952,
+                    "y": 1719.2387005983999,
+                    "rotation": 0
+                },
+                "SaaU5s5C1": {
+                    "id": "SaaU5s5C1",
+                    "type": "hiroos",
+                    "prototype": "items",
+                    "name": "Hiroos",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "patternColor": "#f5f4f4",
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 296.3807807169675,
+                    "y": 1691.77832304,
+                    "rotation": 0
+                },
+                "iiP5YeFzI": {
+                    "id": "iiP5YeFzI",
+                    "type": "canteen table",
+                    "prototype": "items",
+                    "name": "Canteen table",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        },
+                        "width": 225,
+                        "height": 225
+                    },
+                    "visible": true,
+                    "x": 305.75405600000005,
+                    "y": 1828.0558560000002,
+                    "rotation": 0
+                },
+                "kmgh2O_1w": {
+                    "id": "kmgh2O_1w",
+                    "type": "double school desk",
+                    "prototype": "items",
+                    "name": "Double school desk",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 1543.3270181798393,
+                    "y": 1100.726217476125,
+                    "rotation": 0
+                },
+                "xVwpp5yL5": {
+                    "id": "xVwpp5yL5",
+                    "type": "canteen cart",
+                    "prototype": "items",
+                    "name": "Canteen cart",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 378.4035807169675,
+                    "y": 1768.18312304,
+                    "rotation": 0
+                },
+                "4p5HRvMYaI": {
+                    "id": "4p5HRvMYaI",
+                    "type": "bench",
+                    "prototype": "items",
+                    "name": "Bench",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 1783.862178595803,
+                    "y": 1026.9621016152294,
+                    "rotation": 0
+                },
+                "9PKLsQ3Jy": {
+                    "id": "9PKLsQ3Jy",
+                    "type": "bench",
+                    "prototype": "items",
+                    "name": "Bench",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 1177.713574347574,
+                    "y": 1296.361481281109,
+                    "rotation": 0
+                },
+                "5IJOd2Scf": {
+                    "id": "5IJOd2Scf",
+                    "type": "bench",
+                    "prototype": "items",
+                    "name": "Bench",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 1238.649148319618,
+                    "y": 988.4764759486752,
+                    "rotation": 0
+                },
+                "UM073wsdf": {
+                    "id": "UM073wsdf",
+                    "type": "image",
+                    "prototype": "items",
+                    "name": "Image",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "imageUri": "data:image/jpeg;base64,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",
+                        "x1": 0,
+                        "y1": 0,
+                        "x2": 100,
+                        "y2": 0,
+                        "distance": {
+                            "length": 100
+                        },
+                        "width": 225,
+                        "height": 225
+                    },
+                    "visible": true,
+                    "x": 913.2473557975593,
+                    "y": 1783.6022138067258,
+                    "rotation": 0
+                },
+                "75arnDAZR": {
+                    "id": "75arnDAZR",
+                    "type": "hiroos",
+                    "prototype": "items",
+                    "name": "Hiroos",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "patternColor": "#f5f4f4",
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 412.1115807169675,
+                    "y": 1634.47472304,
+                    "rotation": 0
+                },
+                "g38skvJ9w": {
+                    "id": "g38skvJ9w",
+                    "type": "cube",
+                    "prototype": "items",
+                    "name": "Cube",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "color": "#F5F4F4",
+                        "width": {
+                            "length": 100,
+                            "unit": "cm"
+                        },
+                        "height": {
+                            "length": 100,
+                            "unit": "cm"
+                        },
+                        "depth": {
+                            "length": 100,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 588.5167807169676,
+                    "y": 1785.03712304,
+                    "rotation": 0
+                },
+                "O99jt5Xfct": {
+                    "id": "O99jt5Xfct",
+                    "type": "bench",
+                    "prototype": "items",
+                    "name": "Bench",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 937.1784139316101,
+                    "y": 1168.0760623925948,
+                    "rotation": 0
+                },
+                "jDJ82xbSZ": {
+                    "id": "jDJ82xbSZ",
+                    "type": "bench",
+                    "prototype": "items",
+                    "name": "Bench",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 1492.0128506244334,
+                    "y": 632.4844385330487,
+                    "rotation": 0
+                },
+                "Aw8RB8tjx": {
+                    "id": "Aw8RB8tjx",
+                    "type": "bench",
+                    "prototype": "items",
+                    "name": "Bench",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 1479.184308735582,
+                    "y": 1498.4110160305186,
+                    "rotation": 0
+                },
+                "PRToPgoP2": {
+                    "id": "PRToPgoP2",
+                    "type": "canteen cart",
+                    "prototype": "items",
+                    "name": "Canteen cart",
+                    "misc": {},
+                    "selected": false,
+                    "properties": {
+                        "altitude": {
+                            "length": 0,
+                            "unit": "cm"
+                        }
+                    },
+                    "visible": true,
+                    "x": 378.4035807169675,
+                    "y": 1767.05952304,
+                    "rotation": 0
+                }
+            },
+            "selected": {
+                "vertices": [],
+                "lines": [],
+                "holes": [],
+                "areas": [],
+                "items": []
+            }
+        }
+    },
+    "grids": {
+        "h1": {
+            "id": "h1",
+            "type": "horizontal-streak",
+            "properties": {
+                "step": 20,
+                "colors": [
+                    "#808080",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd"
+                ]
+            }
+        },
+        "v1": {
+            "id": "v1",
+            "type": "vertical-streak",
+            "properties": {
+                "step": 20,
+                "colors": [
+                    "#808080",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd",
+                    "#ddd"
+                ]
+            }
+        }
+    },
+    "selectedLayer": "layer-1",
+    "groups": {},
+    "width": 3000,
+    "height": 2000,
+    "meta": {},
+    "guides": {
+        "horizontal": {},
+        "vertical": {},
+        "circular": {}
+    }
+}
