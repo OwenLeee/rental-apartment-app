@@ -14,7 +14,7 @@ import { IReferenceTableState } from "./referenceTable/state";
 import { IReferenceTableActions } from "./referenceTable/action";
 import { referenceTableReducers } from "./referenceTable/reducers";
 import { IApartmentState } from "./apartment/state";
-import { IApartmentActions } from "./apartment/actions";
+import IApartmentActions from "./apartment/actions";
 import { apartmentReducer } from "./apartment/reducer";
 
 
@@ -45,7 +45,7 @@ type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActio
 const rootReducer = combineReducers<IRootState>({
   auth: authReducer,
   referenceTable: referenceTableReducers,
-  apartment: apartmentReducer, 
+  apartment: apartmentReducer,
   router: connectRouter(history),
 });
 

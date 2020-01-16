@@ -43,6 +43,6 @@ export interface ISearchConditions{
 }
 
 export interface IApartmentState{
-    apartments: IApartment[]
+    apartments: IApartment[];
     searchConditions: ISearchConditions
 }

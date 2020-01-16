@@ -4,12 +4,12 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { IReferenceTableState } from '../redux/referenceTable/state';
-// import CreatableSelect from 'react-select/creatable';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { getBeds, getTypes, getBaths } from '../redux/referenceTable/thunk';
 import { connect } from 'react-redux';
 import { ISearchConditions } from '../redux/apartment/state'
-import { searchApartmentsThunk } from '../redux/apartment/thunks';
+import { searchApartments } from '../redux/apartment/actions'
+
 
 
 const animatedComponents = makeAnimated();
@@ -42,24 +42,12 @@ const placeHolder = {
     furniture: "Furniture?"
 }
 
-
-
-// interface ISearchFormState {
-    // keywords: string;
-    // propertyType: string;
-    // price: number;
-    // bedrooms: string;
-    // bathrooms: string;
-    // isStoreroom: boolean;
-    // isFurniture: boolean;
-// }
-
 export interface ISearchProps {
     referenceTable: IReferenceTableState;
-    getAllTables: () => void;
+    searchBarConditions: ISearchConditions; 
+    getAllTables: () => void; 
+    searchApartments: (conditions: any) => void; 
 }
-
-
 
 class SearchBar extends Component<ISearchProps, {}>{
 
@@ -74,33 +62,36 @@ class SearchBar extends Component<ISearchProps, {}>{
     // componentDidUpdate() {
     //     console.log(this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({label: name})));
     // }
+    
 
     handleChange = (selectedOption:any, actionMeta:any) => {
-       console.log({[actionMeta.name]: selectedOption.value});
-        searchApartmentsThunk({[actionMeta.name]: selectedOption.value});
-        
+        console.log({[actionMeta.name]: selectedOption.value});
+        this.props.searchApartments({[actionMeta.name]: selectedOption.value});
       };
 
+    componentDidUpdate(prevProps: ISearchProps) {
+        console.log(prevProps);
+    }
 
     public render() {
         let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: name, value: name }));
         let bedrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: name, value: name }))
-        let bathrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: name, value: name }))
-        
+        let bathrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: name, value: name }))        
         return (<>
 
+        <h1>{this.props.searchBarConditions.bedrooms}</h1>
             <Form>
                 <div className="col-md-12">
                     <FormGroup>
                         <Label for="exampleAddress">Address</Label>
-                        <Input type="text" name="address" id="exampleAddress" placeholder="Searching" />
+                        <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" /*onChange={}*/ />
                     </FormGroup>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
 
-                    <div className="col-md-3"><Select placeholder={placeHolder.houseType} name="hello" options={houseType} onChange={this.handleChange}/></div>
-                    <div className="col-md-3"><Select placeholder={placeHolder.bedrooms} options={bedrooms} components={animatedComponents} /></div>
-                    <div className="col-md-3"><Select placeholder={placeHolder.bathrooms} options={bathrooms} components={animatedComponents} /></div>
+                    <div className="col-md-3"><Select placeholder={placeHolder.houseType} name="propertyType" options={houseType} onChange={this.handleChange}/></div>
+                    <div className="col-md-3"><Select placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange}/></div>
+                    <div className="col-md-3"><Select placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange}/></div>
                     <div className="col-md-3" id="try"><Select placeholder={placeHolder.minPrice} name="minPrice"  options={priceRange} onChange={this.handleChange}/></div>
                     <div className="col-md-3" id="try"><Select placeholder={placeHolder.maxPrice} name="maxPrice"  options={priceRange} onChange={this.handleChange}/></div>
                     <div className="col-md-3" id="min"><Select placeholder={placeHolder.furniture} name="isFurniture" options={trueFalseTable} components={animatedComponents} onChange={this.handleChange}/></div>
@@ -114,7 +105,8 @@ class SearchBar extends Component<ISearchProps, {}>{
 
 const mapStateToProps = (state: IRootState) => {
     return {
-        referenceTable: state.referenceTable
+        referenceTable: state.referenceTable,
+        searchBarConditions: state.apartment.searchConditions
     }
 }
 
@@ -125,7 +117,7 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
             dispatch(getBaths());
             dispatch(getTypes());
         },
-        setSearchConditions: (conditions: ISearchConditions) => dispatch(searchApartmentsThunk(conditions))
+        searchApartments: (conditions: any) => dispatch(searchApartments(conditions))
     }
 }
 

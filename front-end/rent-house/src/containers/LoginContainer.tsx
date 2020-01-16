@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import FormSide from "./LoginFormSide";
-import PictureSide from "./LoginPictureSide";
+// import PictureSide from "./LoginPictureSide";
 
 interface IProps {
 }
@@ -15,7 +15,7 @@ class LoginPage extends Component<IProps, {}>{
         return (
             <Container>
                 <FormSide />
-                <PictureSide />
+                {/* <PictureSide /> */}
             </Container>
         )
     }
