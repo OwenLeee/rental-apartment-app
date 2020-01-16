@@ -5,7 +5,7 @@ export const SEARCH_APARTMENT_ACTION = "@@apartment/SEARCH_APARTMENT_ACTION";
 
 export function getApartments(apartments: IApartment[]) {
     return {
-        type: GET_APARTMENT_ACTION,
+        type: GET_APARTMENT_ACTION as typeof GET_APARTMENT_ACTION,
         apartments
     }
 
@@ -14,11 +14,14 @@ export function getApartments(apartments: IApartment[]) {
 export function searchApartments(conditions: ISearchConditions){
 
     return {
-        type: SEARCH_APARTMENT_ACTION, 
+        type: SEARCH_APARTMENT_ACTION as typeof SEARCH_APARTMENT_ACTION,
         conditions
     }
 }
 
-type apartmentActionsCreator = typeof getApartments;
+type ApartmentActionsCreators = typeof getApartments |
+                                typeof searchApartments;
 
-export type IApartmentActions = ReturnType<apartmentActionsCreator>;
+ type IApartmentActions = ReturnType<ApartmentActionsCreators>;
+
+ export default IApartmentActions

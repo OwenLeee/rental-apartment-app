@@ -1,13 +1,19 @@
 import React, { Component } from "react";
-import { Container, Form, Alert, Col, Row,Card } from "react-bootstrap";
+import { Container, Col, Row, Card } from "react-bootstrap";
+
+//improt router
+import { ConnectedRouter } from 'connected-react-router';
+import { Route, Switch } from 'react-router-dom';
+
+//import components
 import Facebook from "./Facebook";
 import Google from "./Google";
-import LoginSubmmit from './LoginSubmit'
-import RegisterSubmmit from './RegisterSubmit'
-// import loginForm from './loginFormdemo'
+import LoginForm from './loginForm'
+import SignupForm from './signupForm'
 
 interface IFormProps {
     msg: string
+    previousBoardIds: Array<number>
 }
 
 interface IFormStates {
@@ -59,36 +65,10 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
 
                         <Facebook />{"\n"}
                         <Google />
-
-                        {(this.state.active === 'login') && <h2 className="mb-3 mt-3">Sign in with your email address</h2>}
-                        {(this.state.active === 'register') && <h2 className="mb-3 mt-3">Sign up with your email Address</h2>}
-                        <Form>
-                            <Form.Group controlId="loginEmail">
-                                <Form.Control type="email"
-                                    placeholder="Email Address"
-                                    value={this.state.email}
-                                    onChange={this.handleChange.bind(this, 'email')} />
-                            </Form.Group>
-
-                            <Form.Group controlId="loginPassword">
-                                <Form.Control type="password"
-                                    placeholder="Password"
-                                    value={this.state.password}
-                                    onChange={this.handleChange.bind(this, 'password')} />
-                            </Form.Group>
-                            {this.props.msg ?
-                                <Alert color="danger">
-                                    {this.props.msg}
-                                </Alert> : ""
-                            }
-                            {(this.state.active === 'login') && <p>Don't have an Account?</p>}
-                            {(this.state.active === 'login') && <p onClick={this.switchActive}>Join us</p>}
-                            {(this.state.active === 'register') && <p>Alredy have Account?</p>}
-                            {(this.state.active === 'register') && <p onClick={this.switchActive}>Sign in</p>}
-                            {(this.state.active === 'login') && <LoginSubmmit email={this.state.email} password={this.state.password} />}
-                            {(this.state.active === 'register') && <RegisterSubmmit email={this.state.email} password={this.state.password} />}
-                        </Form>
-
+                        <Switch>
+                            <Route path="/auth/login" exact={true} component={LoginForm} />
+                            <Route path="/auth/signup" component={SignupForm} />
+                        </Switch>
                     </Col>
                     <Col>
                         <Card bg="primary" text="white" style={{ width: '18rem' }}>
@@ -98,7 +78,7 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
                                 <Card.Text>
                                     Some quick example text to build on the card title and make up the bulk
                                     of the card's content.
-      </Card.Text>
+                                </Card.Text>
                             </Card.Body>
                         </Card>
 
