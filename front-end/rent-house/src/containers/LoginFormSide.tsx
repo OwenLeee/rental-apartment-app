@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Facebook from "../components/Facebook";
 import Google from "../components/Google";
 
@@ -24,9 +24,8 @@ class FormSide extends Component<IProps, IStates>{
                     <Facebook />
                     <Google />
                 </div>
-
-            </Container >)
-    }
+            </Container >
+            )}
 }
 
 export default FormSide;

@@ -21,7 +21,7 @@ export class SearchResultRouter {
             let maxPriceNum = parseInt(maxPrice);
 
             let resultList = await this.searchResultService.searchingBar(keywords, propertyType, minPriceNum, maxPriceNum, bedrooms, bathrooms, isFurniture, isCarpark)
-            res.json({ result: true, flatList: resultList });
+            res.json({ result: true, flatList: resultList.map(apr => ({ ...apr, lat: parseFloat(apr.lat), lng: parseFloat(apr.lng) })) });
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('searchResult error is found...');

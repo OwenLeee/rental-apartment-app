@@ -4,6 +4,7 @@ import { CallHistoryMethodAction } from "connected-react-router";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILED = "LOGIN_FAILED";
+export const SIGNUP_FAILED = "REGISTER_FAILED"
 
 // Interface
 interface ILoginSuccess {
@@ -14,11 +15,11 @@ interface ILogoutSuccess {
   type: typeof LOGOUT;
 }
 
-export type FAILED = typeof LOGIN_FAILED;
+export type FAILED = typeof LOGIN_FAILED | typeof SIGNUP_FAILED
 
 interface IFailed {
-  type: FAILED;
-  msg: string | null;
+  type: FAILED,
+  msg: string | null
 };
 
 // Action Creator
@@ -42,4 +43,4 @@ export function failed(type: FAILED, msg: string | null): IFailed {
 }
 
 //export type
-export type IAuthActions = ILoginSuccess | ILogoutSuccess | IFailed | CallHistoryMethodAction;
+export type IAuthActions = ILoginSuccess | ILogoutSuccess | IFailed |CallHistoryMethodAction;

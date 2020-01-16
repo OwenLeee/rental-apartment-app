@@ -12,6 +12,7 @@ import '../scss/MenuBar.scss'
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/store';
 import ApartmentList from './ApartmentListing';
+import loginContainer from './LoginContainer';
 
 
 
@@ -42,9 +43,10 @@ class MenuBar extends React.Component {
                     <Route path="/post" component={ProcedureBar} />
                     <Route path="/form1" component={PartOneForm} />
                     <Route path="/form2" component={PartTwoForm} />
+                    <Route path="/loginform" component={loginContainer} />
+
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
-
             </ConnectedRouter>
         )
     }
