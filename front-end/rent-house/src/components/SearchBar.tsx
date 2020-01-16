@@ -59,24 +59,25 @@ class SearchBar extends Component<ISearchProps, {}>{
         this.props.getAllTables();
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({label: name})));
-    // }
-    
 
     handleChange = (selectedOption:any, actionMeta:any) => {
-        console.log({[actionMeta.name]: selectedOption.value});
         this.props.searchApartments({[actionMeta.name]: selectedOption.value});
       };
 
-    componentDidUpdate(prevProps: ISearchProps) {
-        console.log(prevProps);
+    handleChangeForAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+         this.props.searchApartments({keywords: event.target.value});
     }
+
+    // componentDidUpdate(prevProps: ISearchProps) {
+    //     console.log(prevProps);
+    // }
 
     public render() {
         let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: name, value: name }));
         let bedrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: name, value: name }))
-        let bathrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: name, value: name }))        
+        let bathrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: name, value: name }))    
+        let maxPriceFilter = priceRange.filter(price => price.value>this.props.searchBarConditions.minPrice); 
+    
         return (<>
 
         <h1>{this.props.searchBarConditions.bedrooms}</h1>
@@ -84,7 +85,7 @@ class SearchBar extends Component<ISearchProps, {}>{
                 <div className="col-md-12">
                     <FormGroup>
                         <Label for="exampleAddress">Address</Label>
-                        <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" /*onChange={}*/ />
+                        <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} />
                     </FormGroup>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
@@ -93,7 +94,7 @@ class SearchBar extends Component<ISearchProps, {}>{
                     <div className="col-md-3"><Select placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange}/></div>
                     <div className="col-md-3"><Select placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange}/></div>
                     <div className="col-md-3" id="try"><Select placeholder={placeHolder.minPrice} name="minPrice"  options={priceRange} onChange={this.handleChange}/></div>
-                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.maxPrice} name="maxPrice"  options={priceRange} onChange={this.handleChange}/></div>
+                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.maxPrice} name="maxPrice"  options={maxPriceFilter} onChange={this.handleChange}/></div>
                     <div className="col-md-3" id="min"><Select placeholder={placeHolder.furniture} name="isFurniture" options={trueFalseTable} components={animatedComponents} onChange={this.handleChange}/></div>
                     <div className="col-md-3" id="max"><Select placeholder={placeHolder.storeroom} name="isStoreroom" options={trueFalseTable} components={animatedComponents} onChange={this.handleChange}/></div>
                 </div>
