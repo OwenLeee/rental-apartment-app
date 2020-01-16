@@ -59,6 +59,7 @@ export default {
     let epsilon = 3;
 
     let holeWidth = element.properties.get('width').get('length');
+    // eslint-disable-next-line
     let holePath = `M${0} ${ -epsilon}  L${holeWidth} ${-epsilon}  L${holeWidth} ${epsilon}  L${0} ${epsilon}  z`;
     let arcPath = `M${0},${0}  A${0},${0} 0 0,1 ${holeWidth},${0}`;
     let holeStyle = element.selected ? STYLE_HOLE_SELECTED : STYLE_HOLE_BASE;

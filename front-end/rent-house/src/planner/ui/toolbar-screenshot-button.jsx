@@ -62,7 +62,7 @@ export default function ToolbarScreenshotButton({mode}, {translator}) {
     }
 
     let serializer = new XMLSerializer();
-
+// eslint-disable-next-line
     let img = new Image;
 
     // I create the new canvas to draw

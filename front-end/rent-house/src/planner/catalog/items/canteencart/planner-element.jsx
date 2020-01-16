@@ -4,6 +4,7 @@ import React from 'react';
 const WIDTH = 30;
 const DEPTH = 40;
 const HEIGHT = 180;
+// eslint-disable-next-line
 const RADIUS = 10;
 
 const black = new Three.MeshLambertMaterial({color: 0x000000});

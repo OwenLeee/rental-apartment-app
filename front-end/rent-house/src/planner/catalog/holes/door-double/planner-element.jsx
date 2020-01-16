@@ -178,6 +178,7 @@ export default {
     let arcPath2 =`M${0},${0}  A${holeWidth/2+holeWidth/4},${holeWidth/2+holeWidth/4} 0 0,0 ${holeWidth/2+holeWidth/4},${holeWidth/2+holeWidth/4}`;
     let holeStyle = element.selected ? STYLE_HOLE_SELECTED : STYLE_HOLE_BASE;
     let arcStyle = element.selected ? STYLE_ARC_SELECTED : STYLE_ARC_BASE;
+    // eslint-disable-next-line
     let length = element.properties.get('width').get('length');
 
 

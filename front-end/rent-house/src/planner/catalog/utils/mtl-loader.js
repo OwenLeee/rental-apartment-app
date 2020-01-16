@@ -453,7 +453,7 @@ MTLLoader.MaterialCreator.prototype = {
 					// Bump texture map
 
 					if ( params.bumpMap ) break; // Keep the first encountered texture
-
+// eslint-disable-next-line
 					var texParams = this.getTextureParams( value, params );
 
 					params.bumpMap = this.loadTexture( resolveURL( this.baseUrl, texParams.url ) );

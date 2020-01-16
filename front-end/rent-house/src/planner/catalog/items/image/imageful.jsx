@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line
 import ReactDOM from 'react-dom';
 import {Map} from 'immutable';
 
@@ -28,6 +29,7 @@ const pointsDistance = (x1, y1, x2, y2) => {
     !isNaN(x2) &&
     !isNaN(y2)
   ) {
+    // eslint-disable-next-line
     if (!(x1 == 0 && y1 == 0 && x2 == 0 && y2 == 0)) {
       return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
@@ -115,8 +117,8 @@ export default class ImageFul extends Component {
   componentDidMount() {
     document.addEventListener('mousedown-planner-event', this.onMouseDown);
     document.addEventListener('mousemove-planner-event', this.onMouseMove);
-
     if (this.props.imageUri) {
+      // eslint-disable-next-line
       let img = new Image;
       img.src = this.props.imageUri;
       img.onload = () => {
@@ -136,6 +138,7 @@ export default class ImageFul extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.imageUri !== nextProps.imageUri) {
+      // eslint-disable-next-line
       let img = new Image;
       img.src = nextProps.imageUri;
       img.onload = () => {

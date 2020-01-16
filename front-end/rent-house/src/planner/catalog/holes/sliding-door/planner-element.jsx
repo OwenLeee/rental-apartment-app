@@ -153,9 +153,11 @@ export default {
     let holeWidth = element.properties.get('width').get('length');
     let holeStyle = element.selected ? STYLE_HOLE_SELECTED : STYLE_HOLE_BASE;
     let holeStyle2 = element.selected ? STYLE_HOLE_SELECTED : STYLE_HOLE_BASE2;
+    // eslint-disable-next-line
     let length = element.properties.get('width').get('length');
 
     let scaleX, scaleY;
+    // eslint-disable-next-line
     let scaleX2, scaleY2;
     let pX1, pX2;
 

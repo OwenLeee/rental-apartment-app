@@ -11,7 +11,7 @@ let newHeight = 195;
 function makeObjectMaxLOD(newWidth,newHeight,newDepth){
 
   let rack = new Three.Mesh();
-
+// eslint-disable-next-line
   let frontTexture, backTexture;
 
   // if((Math.floor(Math.random()*10)+1) % 2 === 0) {

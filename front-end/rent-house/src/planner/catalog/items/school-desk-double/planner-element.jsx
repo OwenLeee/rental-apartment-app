@@ -219,7 +219,7 @@ export default {
     };
 
     let newAltitude = element.properties.get('altitude').get('length');
-
+// eslint-disable-next-line
     let brown = new Three.MeshLambertMaterial({color: 0x9b8c75});
     let grey = new Three.MeshLambertMaterial({color: 0xd9d7d7});
 

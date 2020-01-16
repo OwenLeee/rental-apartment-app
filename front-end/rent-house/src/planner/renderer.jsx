@@ -1,7 +1,7 @@
 import React from "react";
 // import ReactDOM from "react-dom";
 import ContainerDimensions from "react-container-dimensions";
-import Immutable, { Map } from "immutable";
+import { Map } from "immutable";
 // import immutableDevtools from "immutable-devtools";
 import { createStore } from "redux";
 import { Provider } from "react-redux-next";
@@ -33,11 +33,11 @@ export let reducer = (state, action) => {
   return state;
 };
 
-let blackList =
+// let blackList =
   // isProduction === true
   //   ? []
   //   :
-  ["UPDATE_MOUSE_COORDS", "UPDATE_ZOOM_SCALE", "UPDATE_2D_CAMERA"];
+  // ["UPDATE_MOUSE_COORDS", "UPDATE_ZOOM_SCALE", "UPDATE_2D_CAMERA"];
 
 // if (!isProduction) {
 // console.info(

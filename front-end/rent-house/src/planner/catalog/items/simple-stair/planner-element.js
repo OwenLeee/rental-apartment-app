@@ -109,6 +109,7 @@ export default {
 
     // compute step dimensions with Blondel formula
     let a = (63 * newHeight) / (newDepth + 2 * newHeight);
+    // eslint-disable-next-line
     let p = 63 - 2 * a;
 
     let numberOfSteps = Math.round(newHeight / a);
@@ -224,7 +225,9 @@ export default {
     stair.add(closure2);
 
     /*** CLOSURE 2 ***/
+    // eslint-disable-next-line
     let closure3Width = 0;
+    // eslint-disable-next-line
     let closure3Depth = 0;
     let stairClosure3Geometry = new Three.PlaneGeometry(stepWidth, stepDepth);
     let closure3 = new Three.Mesh(stairClosure3Geometry, stepPlaneMaterial);

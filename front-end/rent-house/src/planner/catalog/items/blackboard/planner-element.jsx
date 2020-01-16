@@ -62,6 +62,7 @@ export default {
     //colors
     var grey2 = new Three.MeshLambertMaterial( {color: 0x000000} );
     var grey = new Three.MeshLambertMaterial( {color: 0xCCCCCC} );
+    // eslint-disable-next-line
     var grey2 = new Three.MeshLambertMaterial( {color: 0x414449} );
 
 

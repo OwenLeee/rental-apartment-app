@@ -6,7 +6,9 @@ const green = new Three.MeshLambertMaterial( {color : 0x348781});
 const red = new Three.MeshLambertMaterial({color : 0xFF0000});
 const turquoise = new Three.MeshLambertMaterial({color : 0x43C6DB,opacity :0.7,transparent: true});
 const metalBlue = new Three.MeshLambertMaterial({color : 0xB7CEEC});
+// eslint-disable-next-line
 const darkGrey = new Three.MeshLambertMaterial({color : 0x313131});
+// eslint-disable-next-line
 const darkGrey2 = new Three.MeshLambertMaterial({color : 0x212121});
 const metalBlueGrey = new Three.MeshLambertMaterial({color : 0x566D7E});
 
@@ -345,6 +347,7 @@ export default {
     let arcPath = `M${0},${0}  A${holeWidth},${holeWidth} 0 0,1 ${holeWidth},${holeWidth}`;
     let holeStyle = element.selected ? STYLE_HOLE_SELECTED : STYLE_HOLE_BASE;
     let arcStyle = element.selected ? STYLE_ARC_SELECTED : STYLE_ARC_BASE;
+    // eslint-disable-next-line
     let length = element.properties.get('width').get('length');
 
     let scaleX, scaleY;

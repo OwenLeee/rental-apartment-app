@@ -70,7 +70,7 @@ export default {
     let holeStyle = element.selected ? STYLE_HOLE_SELECTED : STYLE_HOLE_BASE;
     let arcStyle = element.selected ? STYLE_ARC_SELECTED : STYLE_ARC_BASE;
     let length = element.properties.get('width').get('length');
-
+// eslint-disable-next-line
     if(flip == false) {
       return (
         <g transform={`translate(${-length / 2}, 0)`}>

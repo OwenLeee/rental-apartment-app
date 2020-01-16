@@ -56,7 +56,7 @@ export default {
     let grey = new Three.MeshLambertMaterial( {color: 0xd9d7d7} );
     let red = new Three.MeshPhongMaterial({color: 0xff0000} );
     let black = new Three.MeshPhongMaterial({color: 0x000000} );
-
+// eslint-disable-next-line
     let newAltitude = element.properties.get('altitude').get('length');
 
     let chairDesk = new Three.Object3D();

@@ -20,7 +20,7 @@ const SimpleMap = (props: any) => {
         }
     }, [apartments]);
 
-
+// eslint-disable-next-line
     const [zoom, setZoom] = useState(17);
     if (apartments.length < 1) {
         return <div></div>

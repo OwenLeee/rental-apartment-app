@@ -72,8 +72,9 @@ export default {
   },
 
   render3D: function (element, layer, scene) {
-
+// eslint-disable-next-line
     let width = element.properties.get('width').get('length');
+    // eslint-disable-next-line
     let height = element.properties.get('height').get('length');
     let thickness = element.properties.get('thickness').get('length');
     let flip = element.properties.get('flip');

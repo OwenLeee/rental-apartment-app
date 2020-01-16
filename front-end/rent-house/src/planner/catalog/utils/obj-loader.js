@@ -218,6 +218,7 @@ OBJLoader = (function () {
         for (var vi = 0, l = vertices.length; vi < l; vi++) {
           this.addVertexLine(this.parseVertexIndex(vertices[vi], vLen));
         }
+        // eslint-disable-next-line
         for (var uvi = 0, l = uvs.length; uvi < l; uvi++) {
           this.addUVLine(this.parseUVIndex(uvs[uvi], uvLen));
         }
@@ -274,7 +275,9 @@ OBJLoader = (function () {
         // @todo invoke passed in handler if any
         if (lineFirstChar === '#') continue;
         if (lineFirstChar === 'v') {
+          // eslint-disable-next-line
           var data = line.split(/\s+/);
+          // eslint-disable-next-line
           switch (data[0]) {
             case 'v':
               state.vertices.push(
@@ -318,6 +321,7 @@ OBJLoader = (function () {
           }
           // Draw an edge between the first vertex and all subsequent vertices to form an n-gon
           var v1 = faceVertices[0];
+          // eslint-disable-next-line
           for (var j = 1, jl = faceVertices.length - 1; j < jl; j++) {
             var v2 = faceVertices[j];
             var v3 = faceVertices[j + 1];
@@ -341,6 +345,7 @@ OBJLoader = (function () {
           }
           state.addLineGeometry(lineVertices, lineUVs);
         } else if (lineFirstChar === 'p') {
+          // eslint-disable-next-line
           var lineData = line.substr(1).trim();
           var pointData = lineData.split(" ");
           state.addPointGeometry(pointData);
@@ -396,6 +401,7 @@ OBJLoader = (function () {
       state.finalize();
       var container = new THREE.Group();
       container.materialLibraries = [].concat(state.materialLibraries);
+      // eslint-disable-next-line
       for (var i = 0, l = state.objects.length; i < l; i++) {
         var object = state.objects[i];
         var geometry = object.geometry;
@@ -423,6 +429,7 @@ OBJLoader = (function () {
         var createdMaterials = [];
         for (var mi = 0, miLen = materials.length; mi < miLen; mi++) {
           var sourceMaterial = materials[mi];
+          // eslint-disable-next-line
           var material = undefined;
           if (this.materials !== null) {
             material = this.materials.create(sourceMaterial.name);
@@ -455,7 +462,9 @@ OBJLoader = (function () {
         // Create mesh
         var mesh;
         if (createdMaterials.length > 1) {
+          // eslint-disable-next-line
           for (var mi = 0, miLen = materials.length; mi < miLen; mi++) {
+            // eslint-disable-next-line
             var sourceMaterial = materials[mi];
             buffergeometry.addGroup(sourceMaterial.groupStart, sourceMaterial.groupCount, mi);
           }

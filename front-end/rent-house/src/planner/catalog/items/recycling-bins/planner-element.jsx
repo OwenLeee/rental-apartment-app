@@ -26,7 +26,7 @@ export default {
       }
     }
   },
-
+// eslint-disable-next-line
   render2D: function (element, layer, scene) {
 
     let angle = element.rotation + 90;
@@ -90,7 +90,7 @@ export default {
       points.push(new Three.Vector2(0.4, -0.3));
       points.push(new Three.Vector2(0.4, 0.3));
       points.push(new Three.Vector2(0.4, 0.3));
-
+// eslint-disable-next-line
       var geometry = new Three.LatheGeometry(points, 200, 0, Math.PI / 2);
       var etichetta = new Three.Mesh(geometry, grey);
       etichetta.rotation.y += Math.PI;

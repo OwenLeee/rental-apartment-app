@@ -219,6 +219,7 @@ export default {
     let y5=0;
     let width5=.4;
     let height5=.2;
+    // eslint-disable-next-line
     let radius5=0.10;
 
     roundedRectShape5.moveTo( x5, y5);
