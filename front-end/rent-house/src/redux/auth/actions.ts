@@ -2,45 +2,49 @@ import { CallHistoryMethodAction } from "connected-react-router";
 
 //Set value
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILED = "LOGIN_FAILED";
-export const SIGNUP_FAILED = "REGISTER_FAILED"
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
+export const SIGNUP_FAILED = "SIGNUP_FAILED"
+export const LOGOUT = "LOGOUT";
 
 // Interface
-interface ILoginSuccess {
-  type: typeof LOGIN_SUCCESS;
+export type SUCCESS = typeof LOGIN_SUCCESS | typeof SIGNUP_SUCCESS
+
+export type FAILED = typeof LOGIN_FAILED | typeof SIGNUP_FAILED
+
+interface ISuccess {
+  type: SUCCESS;
+  msg: string
 }
+
+interface IFailed {
+  type: FAILED,
+  msg: string
+};
 
 interface ILogoutSuccess {
   type: typeof LOGOUT;
 }
 
-export type FAILED = typeof LOGIN_FAILED | typeof SIGNUP_FAILED
-
-interface IFailed {
-  type: FAILED,
-  msg: string | null
-};
-
 // Action Creator
-export function loginSuccess(): ILoginSuccess {
-  return {
-    type: LOGIN_SUCCESS
-  };
-}
-
-export function logoutSuccess(): ILogoutSuccess {
-  return {
-    type: LOGOUT
-  };
-}
-
-export function failed(type: FAILED, msg: string | null): IFailed {
+export function Success(type:SUCCESS, msg: string): ISuccess {
   return {
     type,
     msg
   };
 }
 
+export function failed(type: FAILED, msg: string): IFailed {
+  return {
+    type,
+    msg
+  };
+}
+export function logoutSuccess(): ILogoutSuccess {
+  return {
+    type: LOGOUT
+  };
+}
+
 //export type
-export type IAuthActions = ILoginSuccess | ILogoutSuccess | IFailed |CallHistoryMethodAction;
+export type IAuthActions = ISuccess | ILogoutSuccess | IFailed |CallHistoryMethodAction;
