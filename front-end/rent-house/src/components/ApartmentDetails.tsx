@@ -22,10 +22,10 @@ interface IApartmentProps {
 
 class ApartmentDetails extends React.Component<IApartmentProps> {
 
-  constructor(props: IApartmentProps) {
-    super(props);
+  // constructor(props: IApartmentProps) {
+  //   super(props);
 
-  }
+  // }
 
 
   componentDidMount() {
