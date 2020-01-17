@@ -13,7 +13,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/store';
 import ApartmentList from './ApartmentListing';
 import loginContainer from './LoginContainer';
-import { Planner } from '../planner/renderer';
+import PlannerStyle from './PlannerStyle';
 import PhotosUpload from './PhotosUpload';
 
 import PersonalProfile from "./PersonalProfile";
@@ -45,7 +45,7 @@ class MenuBar extends React.Component {
                     <Route path="/post" component={ProcedureBar} />
                     <Route path="/form1" component={PartOneForm} />
                     <Route path="/form2" component={PartTwoForm} />
-                    <Route path="/planner" component={Planner} />
+                    <Route path="/planner" component={PlannerStyle} />
                     <Route path="/auth" component={loginContainer} />
                     <Route path="/photos" component={PhotosUpload} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
