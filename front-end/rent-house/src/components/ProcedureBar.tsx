@@ -7,7 +7,7 @@ import { getTypes, getDistrict, getLevel } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import GoogleMapReact from 'google-map-react';
-import Marker from './MapMarker';
+import Marker from './FormMapMarker';
 
 // import { Form } from 'react-bootstrap';
 

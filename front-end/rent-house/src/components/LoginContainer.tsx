@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 
 //improt router
-import { ConnectedRouter } from 'connected-react-router';
+// import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 
 //import components

@@ -95,7 +95,7 @@ class SignupForm extends React.Component<ISignupProps, ISignupFormState>{
                 <Button variant="primary" type="submit">
                     Sign up
                     </Button>
-                {this.props.status == "failed" ? <Alert color="danger">{this.props.msg}</Alert> : ""}
+                {this.props.status === "failed" ? <Alert color="danger">{this.props.msg}</Alert> : ""}
             </Form>
         )
     }

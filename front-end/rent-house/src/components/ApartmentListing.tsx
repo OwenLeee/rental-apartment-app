@@ -21,7 +21,7 @@ class ApartmentList extends React.Component {
                         <ApartmentListDetails />
                     </div>
                     <SimpleMap />
-                </div>
+                </div>             
             </div>
         </>
     }

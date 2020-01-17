@@ -3,7 +3,7 @@ import { Button, Form, Alert } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { loginThunk } from '../redux/auth/thunks';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state: IRootState) => ({
     status: state.auth.status,
@@ -69,7 +69,7 @@ class LoginForm extends React.Component<ILoginProps, ILoginFormState>{
                         value={this.state.password}
                         onChange={this.handleChange.bind(this, 'password')} />
                 </Form.Group>
-                {this.props.status == "failed"?
+                {this.props.status === "failed" ?
                     <Alert color="danger">
                         {this.props.msg}
                     </Alert> : ""

@@ -12,9 +12,9 @@ interface IPhotosUploadProps {
 }
 
 class PhotosUpload extends React.Component<IPhotosUploadProps> {
-    constructor(props: IPhotosUploadProps) {
-        super(props);
-    }
+    // constructor(props: IPhotosUploadProps) {
+    //     super(props);
+    // }
 
 
     public render() {
