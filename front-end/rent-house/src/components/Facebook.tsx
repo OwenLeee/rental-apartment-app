@@ -37,7 +37,6 @@ const Facebook: React.FC<IFacebookProps> = props => {
     return (
         <FacebookLogin
             appId={process.env.REACT_APP_FACEBOOK_APP_ID || ''}
-            autoLoad={true}
             fields="name,email,picture"
             onClick={fBOnCLick}
             cssClass="my-facebook-button-class"

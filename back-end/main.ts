@@ -14,6 +14,8 @@ import { ReferenceService } from "./services/ReferenceService";
 import { ReferenceRouter } from "./routers/ReferenceRouter";
 import { SearchResultService } from "./services/SearchResultService";
 import { SearchResultRouter } from "./routers/SearchResultRouter";
+import { ApartmentDetailsService } from "./services/ApartmentDetailsService";
+import { ApartmentDetailsRouter } from "./routers/ApartmentDetailsRouter";
 
 
 const app = express();
@@ -59,6 +61,10 @@ app.use('/reference', referenceRouter.router()); // add isLoggedIn Middleware!!!
 const searchService = new SearchResultService(knex);
 const searchRouter = new SearchResultRouter(searchService);
 app.use('/search', searchRouter.router());
+
+const apartmentDetailsService = new ApartmentDetailsService(knex);
+const apartmentDetailsRouter = new ApartmentDetailsRouter(apartmentDetailsService);
+app.use('/apartmentDetails', apartmentDetailsRouter.router());
 
 
 const PORT = 8080;

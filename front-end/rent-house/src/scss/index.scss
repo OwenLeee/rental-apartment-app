@@ -1,0 +1,11 @@
+// #root div:first-child div:last-child {
+//     background-color: #000 !important;
+// }
+
+// .toolbar {
+//     background-color: #fff!important;
+// }
+
+#root div:first-child >div:nth-child(2) {
+height:70% !important;
+}
