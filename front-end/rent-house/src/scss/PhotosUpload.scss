@@ -1,0 +1,24 @@
+.carousel-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-box:hover {
+  transform: scale(1.1);
+}
+
+.upload-wrap {
+  width: 80px;
+  height: 80px;
+  .upload-box {
+    background-color: transparent;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    cursor: pointer;
+  }
+}

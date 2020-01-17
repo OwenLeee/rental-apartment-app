@@ -16,7 +16,9 @@ import { referenceTableReducers } from "./referenceTable/reducers";
 import { IApartmentState } from "./apartment/state";
 import IApartmentActions from "./apartment/actions";
 import { apartmentReducer } from "./apartment/reducer";
-
+import { IPhotosUploadState } from './photosUpload/state';
+import { photosUploadReducers } from './photosUpload/reducers';
+import { IPhotosUploadAction } from './photosUpload/actions'
 
 
 
@@ -34,18 +36,20 @@ export const history = createBrowserHistory();
 export interface IRootState {
   auth: IAuthState;
   referenceTable: IReferenceTableState;
-  apartment: IApartmentState; 
+  apartment: IApartmentState;
+  photosUpload: IPhotosUploadState;
   router: RouterState;
 }
 
 // Mark down Different Component Action in IRootActions
-type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActions | IApartmentActions;
+type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActions | IApartmentActions | IPhotosUploadAction;
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
   auth: authReducer,
   referenceTable: referenceTableReducers,
   apartment: apartmentReducer,
+  photosUpload: photosUploadReducers,
   router: connectRouter(history),
 });
 
