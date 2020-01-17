@@ -3,7 +3,7 @@ import { getApartments } from "./actions"
 
 
 
-export function listApartmentsThunk(keywords: string, propertyType: string, minPrice: string, maxPrice: string,
+export function listApartmentsThunk(keywords: string, propertyType: string, minPrice: number, maxPrice: number,
     bedrooms: string, bathrooms: string, isFurniture: boolean, isCarpark: boolean) {
 
     return async (dispatch: ReduxThunkDispatch, getState: () => IRootState) => {

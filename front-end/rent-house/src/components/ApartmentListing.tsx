@@ -7,13 +7,13 @@ class ApartmentList extends React.Component {
 
     public render() {
         return <>
-            <div className="container" style={{ width: "100%", margin: "3rem"}}>
+            <div className="container-fluid p-3">
                 <div ><SearchBar /> </div>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <div className="listContainer" style={{ height: "100vh", width: "50%" }}>
-                        <div className="topBar" style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", borderBottom: "30px" }}>
-                            <div className="topTitle" style={{ paddingLeft: "0.5rem", fontSize: "25px", fontWeight: "bold" }}>Flats</div>
-                            <div className="sortList" style={{ paddingRight: "0.5rem", fontSize: "20px" }}>
+                        <div className="topBar p-3" style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", borderBottom: "30px" }}>
+                            <div className="topTitle" style={{ fontSize: "25px", fontWeight: "bold" }}>Flats</div>
+                            <div className="sortList" style={{ fontSize: "20px" }}>
                                 <select > <option value="Sort by: Price">Sort by: Price </option>
                                     <option value="Sort by: Area">Sort by: Area </option></select>
                             </div>

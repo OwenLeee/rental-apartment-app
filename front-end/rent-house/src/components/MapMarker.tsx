@@ -1,23 +1,29 @@
 import React from 'react';
 import '../scss/MapMarker.scss';
-// import { FaBlackTie } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Marker = (props: any) => {
-    const { color, name, id } = props;
-    return (
-      <div>
-        <div
-          className="pin bounce"
-          style={{ backgroundColor: color, cursor: 'pointer' }}
-          title={name}
-        />
-        <div className="pulse" />
-        <div className="tooltip"> <span className="tooltiptext">{name}</span> </div>
+  const { color, name, price } = props;
+  return (
+    <div>
+      <div style={{ width: "200px" }}>
+        <p className="priceTag p-1">
+          {name} <br/> 
+          ${price}
+        </p>
       </div>
-    );
-  }; 
 
-  export default Marker;
+      <div
+        className="pin bounce"
+        style={{ backgroundColor: color, cursor: 'pointer' }}
+        title={name}
+      />
+      <div className="pulse" />
+
+    </div>
+  );
+};
+
+export default Marker;
 
 
- 

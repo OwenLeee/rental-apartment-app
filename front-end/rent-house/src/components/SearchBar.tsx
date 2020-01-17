@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { IReferenceTableState } from '../redux/referenceTable/state';
@@ -24,48 +24,54 @@ const priceRange = [
     { label: "$40,000", value: 40000 },
     { label: "$45,000", value: 45000 },
     { label: "$50,000", value: 50000 },
-    { label: "$55,000", value: 55000 }
+    { label: "$55,000", value: 55000 },
+    { label: "All", value: 0 }
 ]
 
-const trueFalseTable = [
-    { label: "Yes", value: true },
-    { label: "No", value: false }]
+const furnitureTable = [
+    { label: "Furniture: Yes", value: true },
+    { label: "Furniture: No", value: false }, 
+    { label: "Furniture: Both", value: null}]
 
+const storeroomTable = [
+        { label: "Storeroom: Yes", value: true },
+        { label: "Storeroom: No", value: false }, 
+        { label: "Storeroom: Both", value: null}]
 
 const placeHolder = {
-    houseType: "House Type", 
-    bedrooms: "Bedrooms", 
-    bathrooms: "Bathrooms", 
-    minPrice: "Min. Price", 
-    maxPrice: "Max. Price", 
+    houseType: "House Type",
+    bedrooms: "Bedrooms",
+    bathrooms: "Bathrooms",
+    minPrice: "Min. Price",
+    maxPrice: "Max. Price",
     storeroom: "Storeroom?",
     furniture: "Furniture?"
 }
 
 export interface ISearchProps {
     referenceTable: IReferenceTableState;
-    searchBarConditions: ISearchConditions; 
-    getAllTables: () => void; 
-    searchApartments: (conditions: any) => void; 
+    searchBarConditions: ISearchConditions;
+    getAllTables: () => void;
+    searchApartments: (conditions: any) => void;
 }
 
 class SearchBar extends Component<ISearchProps, {}>{
 
-    constructor(props: ISearchProps) {
-        super(props);
-    }
+    // constructor(props: ISearchProps) {
+    //     super(props);
+    // }
 
     componentDidMount() {
         this.props.getAllTables();
     }
 
 
-    handleChange = (selectedOption:any, actionMeta:any) => {
-        this.props.searchApartments({[actionMeta.name]: selectedOption.value});
-      };
+    handleChange = (selectedOption: any, actionMeta: any) => {
+        this.props.searchApartments({ [actionMeta.name]: selectedOption.value });
+    };
 
     handleChangeForAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
-         this.props.searchApartments({keywords: event.target.value});
+        this.props.searchApartments({ keywords: event.target.value });
     }
 
     // componentDidUpdate(prevProps: ISearchProps) {
@@ -73,14 +79,14 @@ class SearchBar extends Component<ISearchProps, {}>{
     // }
 
     public render() {
-        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: name, value: name }));
-        let bedrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: name, value: name }))
-        let bathrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: name, value: name }))    
-        let maxPriceFilter = priceRange.filter(price => price.value>this.props.searchBarConditions.minPrice); 
-    
+        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({label: "All Type", value:""});
+        let bedrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: `Bedrooms: ${name}`, value: name })).concat({label: "All", value:""});
+        let bathrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: `Bathrooms: ${name}`, value: name })).concat({label: "All", value:""});
+        let maxPriceFilter = priceRange.filter(price => price.value > this.props.searchBarConditions.minPrice);
+
         return (<>
 
-        <h1>{this.props.searchBarConditions.bedrooms}</h1>
+
             <Form>
                 <div className="col-md-12">
                     <FormGroup>
@@ -90,13 +96,13 @@ class SearchBar extends Component<ISearchProps, {}>{
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
 
-                    <div className="col-md-3"><Select placeholder={placeHolder.houseType} name="propertyType" options={houseType} onChange={this.handleChange}/></div>
-                    <div className="col-md-3"><Select placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange}/></div>
-                    <div className="col-md-3"><Select placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange}/></div>
-                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.minPrice} name="minPrice"  options={priceRange} onChange={this.handleChange}/></div>
-                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.maxPrice} name="maxPrice"  options={maxPriceFilter} onChange={this.handleChange}/></div>
-                    <div className="col-md-3" id="min"><Select placeholder={placeHolder.furniture} name="isFurniture" options={trueFalseTable} components={animatedComponents} onChange={this.handleChange}/></div>
-                    <div className="col-md-3" id="max"><Select placeholder={placeHolder.storeroom} name="isStoreroom" options={trueFalseTable} components={animatedComponents} onChange={this.handleChange}/></div>
+                    <div className="col-md-3"><Select placeholder={placeHolder.houseType} name="propertyType" options={houseType} onChange={this.handleChange} /></div>
+                    <div className="col-md-3"><Select placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3"><Select placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.minPrice} name="minPrice" options={priceRange} onChange={this.handleChange} /></div>
+                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.maxPrice} name="maxPrice" options={maxPriceFilter} onChange={this.handleChange} /></div>
+                    <div className="col-md-3" id="min"><Select placeholder={placeHolder.furniture} name="isFurniture" options={furnitureTable} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3" id="max"><Select placeholder={placeHolder.storeroom} name="isStoreroom" options={storeroomTable} components={animatedComponents} onChange={this.handleChange} /></div>
                 </div>
             </Form>
         </>)

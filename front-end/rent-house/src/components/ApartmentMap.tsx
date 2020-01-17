@@ -10,24 +10,24 @@ import mapStyle from '../mapStyle.json';
 const SimpleMap = (props: any) => {
     const apartments = useSelector((state: IRootState) => state.apartment.apartments, shallowEqual);
     // const [center, setCenter] = useState();
-    const [center, setCenter] = useState({ lat: 22, lng: 114 });
+    const [center, setCenter] = useState({ lat: 22.307956, lng: 114.190893 });
+    const [zoom /*, setZoom*/] = useState(12);
 
     useEffect(() => {
         if (apartments.length > 0) {
             const ap = apartments[0];
-            console.log(ap);
             setCenter({ lat: ap.lat, lng: ap.lng });
         }
     }, [apartments]);
 
-
-    const [zoom, setZoom] = useState(17);
-    if (apartments.length < 1) {
-        return <div></div>
-    }
+    // const [zoom, setZoom] = useState(13);
+    // if (apartments.length < 1) {
+    //     return <div></div>
+    // }
 
     return (
-        <div style={{ height: '100vh', width: '50%' }}>
+        
+        <div className="p-3"style={{ height: '100vh', width: '50%' }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyDIWVSGTmPDfNIEFwoCcJ_XNqU28z3XLno' }}
                 defaultCenter={center}
@@ -39,19 +39,21 @@ const SimpleMap = (props: any) => {
 
             >
 
-
+            
                 {apartments.map(e => {
                     return <Marker
                         key={e.id}
                         lat={e.lat}
                         lng={e.lng}
-                        name="My Marker"
+                        name={e.address_building}
+                        price={e.rental_price}
                     // color="blue"
                     />
                 })
                 }
             </GoogleMapReact>
         </div>
+        
     );
 }
 

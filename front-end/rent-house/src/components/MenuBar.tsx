@@ -42,13 +42,9 @@ class MenuBar extends React.Component {
                     <Route path="/rent" component={ApartmentList} />
                     <Route path="/post" component={ProcedureBar} />
                     <Route path="/form1" component={PartOneForm} />
-<<<<<<< HEAD
                     <Route path="/auth" component={loginContainer} />
-=======
                     <Route path="/form2" component={PartTwoForm} />
-                    <Route path="/loginform" component={loginContainer} />
-
->>>>>>> 5f48c9a0dd4207ac204260288a27441894f1280a
+            
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
             </ConnectedRouter>
