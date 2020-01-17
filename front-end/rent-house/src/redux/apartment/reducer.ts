@@ -10,8 +10,8 @@ const initialState = {
         maxPrice: 0,
         bedrooms: "",
         bathrooms: "",
-        isStoreroom: true,
-        isFurniture: true
+        isStoreroom: 3,
+        isFurniture: 3
     }
 }
 

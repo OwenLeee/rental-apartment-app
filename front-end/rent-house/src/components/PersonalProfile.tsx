@@ -24,8 +24,9 @@ class ProfilePage extends React.Component {
                     <div className="col-12 p-3"> Mobile Number: 65343431</div>
                 </div>
             </div>
-
-         <ReactPlayer url='https://www.youtube.com/watch?v=jcvI-MAWc2U' playing />   
+<div><ReactPlayer url='https://www.youtube.com/watch?v=jcvI-MAWc2U' playing={false} controls={true} width='100%'
+           /> </div>
+           
        
             </>
         )

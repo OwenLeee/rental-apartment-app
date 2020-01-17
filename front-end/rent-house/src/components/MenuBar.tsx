@@ -16,7 +16,6 @@ import loginContainer from './LoginContainer';
 import PlannerStyle from './PlannerStyle';
 import PhotosUpload from './PhotosUpload';
 
-import PersonalProfile from "./PersonalProfile";
 
 
 class MenuBar extends React.Component {
@@ -54,10 +53,6 @@ class MenuBar extends React.Component {
 
 
 
-                <div>
-                    <PersonalProfile />
-                </div>
-                
             </ConnectedRouter>
         )
     }

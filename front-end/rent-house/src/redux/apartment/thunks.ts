@@ -4,7 +4,7 @@ import { getApartments } from "./actions"
 
 
 export function listApartmentsThunk(keywords: string, propertyType: string, minPrice: number, maxPrice: number,
-    bedrooms: string, bathrooms: string, isFurniture: boolean, isCarpark: boolean) {
+    bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) {
 
     return async (dispatch: ReduxThunkDispatch, getState: () => IRootState) => {
         const res = await fetch(`${process.env.REACT_APP_API_SERVER}/search`, {
@@ -14,7 +14,7 @@ export function listApartmentsThunk(keywords: string, propertyType: string, minP
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                keywords, propertyType, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isCarpark
+                keywords, propertyType, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom
             })
         });
         const result = await res.json();
