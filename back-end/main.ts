@@ -17,7 +17,8 @@ import { SearchResultRouter } from "./routers/SearchResultRouter";
 import { ApartmentDetailsService } from "./services/ApartmentDetailsService";
 import { ApartmentDetailsRouter } from "./routers/ApartmentDetailsRouter";
 
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 const knexConfig = require('./knexfile');
 const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
