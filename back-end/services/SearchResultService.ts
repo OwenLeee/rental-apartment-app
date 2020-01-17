@@ -7,6 +7,8 @@ export class SearchResultService {
     public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: boolean, isStoreroom: boolean) => {
 
         const getAllHouse = this.knex(Table.rentalApartment)
+            .select(`${Table.rentalApartment}.id`, "apartment_title", "apartment_description", "rental_price", "deposit", "period_years", "address_building", "address_block",
+                     "saleable_area", "gross_floor_area", "is_storeroom",  "is_carpark", "is_furniture", "lat", "lng", "post_date", "end_date", "house_type", "district", "area", "bedrooms", "level", "bathrooms")
             .join(Table.apartmentType, { 'apartment_type_id': `${Table.apartmentType}.id` })
             .join(Table.district, { 'area_district_id': `${Table.district}.id` })
             .join(Table.bedrooms, { 'bedrooms_id': `${Table.bedrooms}.id` })
@@ -24,10 +26,9 @@ export class SearchResultService {
         ];
 
         let houseResult = getAllHouse;
+
         for (let key of keys) {
             switch (key) {
-
-
 
                 case "SearchKeywords":
                     if (searchKeywords != "") {          
@@ -65,14 +66,15 @@ export class SearchResultService {
                 case "IsFurniture":
                     houseResult = houseResult.where(`${Table.rentalApartment}.is_furniture`, isFurniture);
                     break;
-                case "IsStoreroom":
+                case "IsStoreRoom":
                     houseResult = houseResult.where(`${Table.rentalApartment}.is_storeroom`, isStoreroom);
                     break;
                 default:
-                    console.log("SearchResultService Error- For...Of...Loop");
+                    console.log("SearchResultService Error- For...Of...Loop", key);
             }
         }
-        return await getAllHouse;
+        houseResult.orderBy("rental_price")
+        return await houseResult;
     }
 };
 
@@ -82,6 +84,8 @@ const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
 (async () => {
     const searchResult = new SearchResultService(knex);
-    console.log(await searchResult.searchingBar('', '', 0, 0,  '', '', true, true));
+    console.log(await searchResult.searchingBar('', '', 20000, 0,  '', '', true, true));
+
+
 })()
 // //Testing
