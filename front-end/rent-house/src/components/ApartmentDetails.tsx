@@ -22,10 +22,10 @@ interface IApartmentProps {
 
 class ApartmentDetails extends React.Component<IApartmentProps> {
 
-  // constructor(props: IApartmentProps) {
-  //   super(props);
+  constructor(props: IApartmentProps) {
+    super(props);
 
-  // }
+  }
 
 
   componentDidMount() {
@@ -49,7 +49,7 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
       <>
         {this.props.apartments.length > 0 ?
           this.props.apartments.map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
-            <div className="col-3" style={{position: "relative"}}>
+            <div className="col-3" /*style={{position: "relative"}}*/>
               <Carousel >
                 <Carousel.Item >
                   <img
@@ -75,9 +75,7 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
                 </Carousel.Item>
             
               </Carousel>
-              {/* <div className="p-2" style={{ position: "absolute", display:"flex", justifyContent: "flex-end", alignItems: "flex-end", bottom:"0", width:"100%"}}> 
-              <FaHeart onClick={()=> this.props.addToFavourite(apartment.id)} size={20}/>  
-              </div>  */}
+             
             </div>
 
             <div className="apartmentDetails col-9" style={{ height: "100%", width: "70%", display: "flex", flexDirection: "column", flexWrap: "wrap", }}>
@@ -114,3 +112,8 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApartmentDetails); 
+
+
+//  <div className="p-2" style={{ position: "absolute", display:"flex", justifyContent: "flex-end", alignItems: "flex-end", bottom:"0", width:"100%"}}> 
+//               <FaHeart onClick={()=> this.props.addToFavourite(apartment.id)} size={20}/>  
+//               </div> 
