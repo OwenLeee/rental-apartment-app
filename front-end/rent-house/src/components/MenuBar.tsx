@@ -16,7 +16,7 @@ import loginContainer from './LoginContainer';
 import { Planner } from '../planner/renderer';
 import PhotosUpload from './PhotosUpload';
 
-
+import PersonalProfile from "./PersonalProfile";
 
 
 class MenuBar extends React.Component {
@@ -48,9 +48,16 @@ class MenuBar extends React.Component {
                     <Route path="/planner" component={Planner} />
                     <Route path="/auth" component={loginContainer} />
                     <Route path="/photos" component={PhotosUpload} />
-
+                    {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
+
+
+
+                <div>
+                    <PersonalProfile />
+                </div>
+                
             </ConnectedRouter>
         )
     }
