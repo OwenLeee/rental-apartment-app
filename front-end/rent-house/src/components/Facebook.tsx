@@ -35,14 +35,15 @@ const Facebook: React.FC<IFacebookProps> = props => {
     }
 
     return (
+        <div >
         <FacebookLogin
             appId={process.env.REACT_APP_FACEBOOK_APP_ID || ''}
             fields="name,email,picture"
             onClick={fBOnCLick}
-            cssClass="my-facebook-button-class"
+            cssClass="btn facebook"
             callback={fBCallback}
         />
-
+</div>
     )
 }
 

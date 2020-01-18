@@ -1,8 +1,10 @@
 import { Dispatch } from "redux";
 import { IAuthActions, failed, Success, logoutSuccess } from "./actions";
 import { push } from "connected-react-router";
+import * as dotenv from 'dotenv';
 
-const { REACT_APP_API_SERVER } = process.env
+dotenv.config();
+const { REACT_APP_API_SERVER } = process.env;
 
 //Login Function
 export function loginThunk(email: string, password: string) {
@@ -95,7 +97,7 @@ export function restoreLoginThunk() {
             return;
         }
 
-        const res = await fetch(`${REACT_APP_API_SERVER}/private`, {
+        const res = await fetch(`   /private`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
