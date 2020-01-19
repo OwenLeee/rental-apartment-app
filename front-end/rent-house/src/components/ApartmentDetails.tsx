@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel } from 'react-bootstrap';
 import { IApartment, ISearchConditions } from '../redux/apartment/state';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
-import { listApartmentsThunk } from '../redux/apartment/thunks';
+
 import { connect } from 'react-redux';
 import { FaBed, FaBath, FaParking, FaBoxOpen } from "react-icons/fa";
 import { GiSofa } from "react-icons/gi";
@@ -14,8 +14,7 @@ import { GiSofa } from "react-icons/gi";
 interface IApartmentProps {
   apartments: IApartment[];
   searchBarConditions: ISearchConditions;
-  listApartment: (keywords: string, propertyType: string, minPrice: number, maxPrice: number,
-    bedrooms: string, bathrooms: string, isFurniture: boolean, isStoreroom: boolean) => void
+  
 }
 
 
@@ -28,15 +27,10 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
   // }
 
 
-  componentDidMount() {
-    this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
-      this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
-  }
-
-  componentDidUpdate() {
-    this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
-      this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
-  }
+  // componentDidMount() {
+  //   this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
+  //     this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
+  // }
 
   // private addToFavourite = (id: number) => {
 
@@ -105,8 +99,7 @@ const mapStateToProps = (state: IRootState) => {
 
 const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
   return {
-    listApartment: (keywords: string, propertyType: string, minPrice: number, maxPrice: number,
-      bedrooms: string, bathrooms: string, isFurniture: boolean, isStoreroom: boolean) => dispatch(listApartmentsThunk(keywords, propertyType, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom))
+    
   }
 }
 

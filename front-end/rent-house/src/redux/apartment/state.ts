@@ -38,8 +38,8 @@ export interface ISearchConditions{
     bathrooms: string;
     minPrice: number;
     maxPrice: number;
-    isStoreroom: boolean;
-    isFurniture: boolean;
+    isStoreroom: number;
+    isFurniture: number;
 }
 
 export interface IApartmentState{

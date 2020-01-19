@@ -13,12 +13,13 @@ const SimpleMap = (props: any) => {
     const [center, setCenter] = useState({ lat: 22.307956, lng: 114.190893 });
     const [zoom , /*setZoom*/] = useState(12);
 
-    useEffect(() => {
-        if (apartments.length > 0) {
-            const ap = apartments[0];
-            setCenter({ lat: ap.lat, lng: ap.lng });
-        }
-    }, [apartments]);
+    // useEffect(() => {
+    //     if (apartments.length > 0) {
+    //         const ap = apartments[0];
+    //         console.log(ap);
+    //         setCenter({ lat: ap.lat, lng: ap.lng });
+    //     }
+    // }, [apartments]);
 
     // const [zoom, setZoom] = useState(13);
     // if (apartments.length < 1) {

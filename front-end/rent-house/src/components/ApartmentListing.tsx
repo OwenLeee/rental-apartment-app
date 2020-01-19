@@ -3,6 +3,8 @@ import ApartmentListDetails from './ApartmentDetails';
 import SimpleMap from './ApartmentMap';
 import SearchBar from './SearchBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PersonalProfile from "./PersonalProfile";
+
 class ApartmentList extends React.Component {
 
     public render() {
@@ -21,7 +23,10 @@ class ApartmentList extends React.Component {
                         <ApartmentListDetails />
                     </div>
                     <SimpleMap />
-                </div>             
+                </div>          
+                <div>
+                    <PersonalProfile />
+                </div>   
             </div>
         </>
     }

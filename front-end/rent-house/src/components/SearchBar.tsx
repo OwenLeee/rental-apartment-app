@@ -9,6 +9,7 @@ import { getBeds, getTypes, getBaths } from '../redux/referenceTable/thunk';
 import { connect } from 'react-redux';
 import { ISearchConditions } from '../redux/apartment/state'
 import { searchApartments } from '../redux/apartment/actions'
+import { listApartmentsThunk } from '../redux/apartment/thunks';
 
 
 
@@ -29,14 +30,14 @@ const priceRange = [
 ]
 
 const furnitureTable = [
-    { label: "Furniture: Yes", value: true },
-    { label: "Furniture: No", value: false }, 
-    { label: "Furniture: Both", value: null}]
+    { label: "Furniture: Yes", value: 1 },
+    { label: "Furniture: No", value: 2 },
+    { label: "Furniture: Both", value: 3 }]
 
 const storeroomTable = [
-        { label: "Storeroom: Yes", value: true },
-        { label: "Storeroom: No", value: false }, 
-        { label: "Storeroom: Both", value: null}]
+    { label: "Storeroom: Yes", value: 1 },
+    { label: "Storeroom: No", value: 2 },
+    { label: "Storeroom: Both", value: 3 }]
 
 const placeHolder = {
     houseType: "House Type",
@@ -53,6 +54,8 @@ export interface ISearchProps {
     searchBarConditions: ISearchConditions;
     getAllTables: () => void;
     searchApartments: (conditions: any) => void;
+    listApartment: (keywords: string, propertyType: string, minPrice: number, maxPrice: number,
+        bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => void;
 }
 
 class SearchBar extends Component<ISearchProps, {}>{
@@ -61,17 +64,32 @@ class SearchBar extends Component<ISearchProps, {}>{
     //     super(props);
     // }
 
+    private changed = false;
+
     componentDidMount() {
         this.props.getAllTables();
+        this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
+            this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
     }
 
 
     handleChange = (selectedOption: any, actionMeta: any) => {
         this.props.searchApartments({ [actionMeta.name]: selectedOption.value });
+        this.changed = true;
     };
 
     handleChangeForAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.props.searchApartments({ keywords: event.target.value });
+        this.changed = true;
+    }
+
+    componentDidUpdate() {
+        console.log(this.changed);
+        if (this.changed) {
+            this.changed = false;
+            this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
+                this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
+        }
     }
 
     // componentDidUpdate(prevProps: ISearchProps) {
@@ -79,9 +97,9 @@ class SearchBar extends Component<ISearchProps, {}>{
     // }
 
     public render() {
-        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({label: "All Type", value:""});
-        let bedrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: `Bedrooms: ${name}`, value: name })).concat({label: "All", value:""});
-        let bathrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: `Bathrooms: ${name}`, value: name })).concat({label: "All", value:""});
+        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({ label: "All Types", value: "" });
+        let bedrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: `Bedrooms: ${name}`, value: name })).concat({ label: "All", value: "" });
+        let bathrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: `Bathrooms: ${name}`, value: name })).concat({ label: "All", value: "" });
         let maxPriceFilter = priceRange.filter(price => price.value > this.props.searchBarConditions.minPrice);
 
         return (<>
@@ -124,7 +142,9 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
             dispatch(getBaths());
             dispatch(getTypes());
         },
-        searchApartments: (conditions: any) => dispatch(searchApartments(conditions))
+        searchApartments: (conditions: any) => dispatch(searchApartments(conditions)),
+        listApartment: (keywords: string, propertyType: string, minPrice: number, maxPrice: number,
+            bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => dispatch(listApartmentsThunk(keywords, propertyType, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom))
     }
 }
 

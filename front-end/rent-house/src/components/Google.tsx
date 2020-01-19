@@ -39,8 +39,9 @@ const Google: React.FC<IGoogleProps> = props => {
 
     return (
         <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_APP_ID || ''}
+            clientId={process.env.REACT_APP_GOOGLE_APP_ID || ""}
             buttonText="Login"
+            className="btn google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={'single_host_origin'}
