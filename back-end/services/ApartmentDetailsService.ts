@@ -7,7 +7,6 @@ export class ApartmentDetailsService {
     public loadApartment = async (apartmentId: number) => {
         return await this.knex.select('*')
             .from(Table.rentalApartment)
-            .from(Table.rentalApartment)
             .join(Table.apartmentType, 'apartment_type_id', '=', `${Table.apartmentType}.id`)
             .join(Table.district, 'area_district_id', '=', `${Table.district}.id`)
             .join(Table.bedrooms, 'bedrooms_id', '=', `${Table.bedrooms}.id`)

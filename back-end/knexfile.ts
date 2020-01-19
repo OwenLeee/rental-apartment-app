@@ -3,8 +3,10 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 module.exports = {
-  debug: true,
+
+ 
   development: {
+    debug: true,
     client: "postgresql",
     connection: {
       database: process.env.DB_NAME,

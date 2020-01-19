@@ -9,6 +9,7 @@ import { IRootState } from '../redux/store';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import GoogleMapReact from 'google-map-react';
 import Marker from './FormMapMarker';
+import ProcedureBar from './ProcedureBar';
 
 // import { Form } from 'react-bootstrap';
 
@@ -82,7 +83,8 @@ const DetailsOne: React.FC = () => {
 
     return (
         <div>
-            <div className="procedure-buttons-wrap">
+            <ProcedureBar procedure="Map"/>
+            {/* <div className="procedure-buttons-wrap">
                 <div className="procedure-buttons">Floor Planner</div>
                 <div className="line"></div>
                 <div className="procedure-buttons">Photos</div>
@@ -92,7 +94,7 @@ const DetailsOne: React.FC = () => {
                 <div className="procedure-buttons">Detail</div>
                 <div className="line"></div>
                 <div className="procedure-buttons">Map</div>
-            </div>
+            </div> */}
             <div>
                 {/* <Switch>
                     <Route path="/" exact={true} component={Home} />

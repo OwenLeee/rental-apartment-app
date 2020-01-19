@@ -23,6 +23,7 @@ export function postDetailsOne(typeId: number, area: string, district: string, l
             })
         });
         const rentalId = await res.json();
+        localStorage.setItem('rentalId', rentalId);
 
         dispatch(getRentalId(rentalId));
         dispatch(push('/post/details/2'));
@@ -32,6 +33,12 @@ export function postDetailsOne(typeId: number, area: string, district: string, l
 
 export function postDetailsTwo(rentalApartmentId: number, bedroomsId: number, bathroomsId: number, isStoreroom: boolean,
     isCarpark: boolean, isFurniture: boolean, periodYears: number) {
+    if (rentalApartmentId === 0) {
+        let rentalId = localStorage.getItem('rentalId');
+        if (rentalId != null) {
+            rentalApartmentId = parseInt(rentalId)
+        }
+    }
     return async (dispatch: ReduxThunkDispatch) => {
         const res = await fetch(`${REACT_APP_API_SERVER}/listing/details/2`, {
             method: 'PUT',
@@ -46,12 +53,19 @@ export function postDetailsTwo(rentalApartmentId: number, bedroomsId: number, ba
         });
 
         await res.json();
+
         dispatch(push('/post/details/3'));
     }
 };
 
 export function postDetailsThree(rentalApartmentId: number, saleArea: number, grossArea: number, price: number,
     deposit: number, title: string, description: string) {
+    if (rentalApartmentId === 0) {
+        let rentalId = localStorage.getItem('rentalId');
+        if (rentalId != null) {
+            rentalApartmentId = parseInt(rentalId)
+        }
+    }
     return async (dispatch: ReduxThunkDispatch) => {
         const res = await fetch(`${REACT_APP_API_SERVER}/listing/details/3`, {
             method: 'PUT',

@@ -82,9 +82,9 @@ export class ListingService {
     };
 
 
-    public addApartmentPhotos = async (apartmentId: number, photoPath: string) => {
-        await this.knex(Table.apartmentPhotos)
-            .insert({ 'rental_apartment_id': apartmentId, 'photo_path': photoPath });
+    public addApartmentPhotos = async (apartmentId: number, photoPaths: string[]) => {
+        const apartmentPhotos = photoPaths.map((path) => ({'rental_apartment_id': apartmentId, 'photo_path': path }))
+        await this.knex(Table.apartmentPhotos).insert(apartmentPhotos);
     };
 
     public addApartmentFloorPlan = async (apartmentId: number, floorPlanJson: string) => {

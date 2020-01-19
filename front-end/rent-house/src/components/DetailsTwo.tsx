@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBeds, getBaths } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
 import { postDetailsTwo } from '../redux/listing/thunk';
+import ProcedureBar from './ProcedureBar';
 
 
 
@@ -45,6 +46,7 @@ const DetailsTwo: React.FC = () => {
 
     return (
         <div>
+                    <ProcedureBar procedure="Details"/>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <select name="bedrooms" ref={register({ required: true })}>
                     <option value=''>Bedrooms</option>

@@ -7,18 +7,33 @@
 .upload-box:hover {
   transform: scale(1.1);
 }
-
-.upload-wrap {
-  width: 80px;
-  height: 80px;
-  .upload-box {
-    background-color: transparent;
-    width: 80px;
-    height: 80px;
+.photos-upload {
+  .whole-wrap {
     display: flex;
     justify-content: center;
     align-items: center;
-    outline: none;
-    cursor: pointer;
+    .drop-zone-wrap {
+      width: 1500px;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 50px;
+      box-shadow: 0px 0px 49px -2px rgba(0,0,0,0.75);
+      .upload-wrap {
+        width: 80px;
+        height: 80px;
+        .upload-box {
+          background-color: transparent;
+          width: 80px;
+          height: 80px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          outline: none;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

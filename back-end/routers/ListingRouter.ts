@@ -14,7 +14,7 @@ export class ListingRouter {
         router.post('/details/1', this.listDetailsOne);
         router.put('/details/2', this.listDetailsTwo);
         router.put('/details/3', this.listDetailsThree);
-        router.post('/photos', upload.single, this.addApartmentPhotos);
+        router.post('/photos', upload.array("building"), this.addApartmentPhotos);
         router.post('/floorPlan', this.addApartmentFloorPlan);
         router.post('/video', this.addVideo);
         router.put('/floorPlan', this.updateFloorPlan);
@@ -88,8 +88,11 @@ export class ListingRouter {
         try {
             if (req.files != null) {
                 const { apartmentId } = req.body;
-                await this.listingService.addApartmentPhotos(apartmentId, req.files[0].filename); // need to check
-                res.json({ result: true });
+                const files = req.files as Express.Multer.File[]
+                const locations = files.map((file: Express.Multer.File) => file.location)
+
+                await this.listingService.addApartmentPhotos(apartmentId, locations); // need to check
+                res.json({ result: true, locations });
             }
         } catch (e) {
             res.status(500).json({ result: false });

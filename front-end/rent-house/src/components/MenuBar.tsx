@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import { Route, NavLink, Switch } from 'react-router-dom';
-import ProcedureBar from './DetailsOne';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import DetailsOne from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
 import DetailsThree from './DetailsThree';
 // import Form from '../components/Form';
@@ -14,7 +14,7 @@ import { history } from '../redux/store';
 import ApartmentList from './ApartmentListing';
 import loginContainer from './LoginContainer';
 import PlannerStyle from './PlannerStyle';
-import DetailsOne from './DetailsOne';
+
 import PhotosUpload from './PhotosUpload';
 import { PrivateRoute } from '../PrivateRoute';
 
@@ -47,12 +47,15 @@ class MenuBar extends React.Component {
                     <PrivateRoute path="/post/details/1" component={DetailsOne} />
                     <PrivateRoute path="/post/details/2" component={DetailsTwo} />
                     <PrivateRoute path="/post/details/3" component={DetailsThree} />
-                    {/* <Route path="/post" component={ProcedureBar} /> */}
-                    <Route path="/planner" component={PlannerStyle} />
                     <Route path="/auth/login" component={loginContainer} />
                     <Route path="/post/photos" component={PhotosUpload} />
+                    <Route path="/post/video" component={PhotosUpload} />
+                    <Route path="/post/planner" component={PlannerStyle} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
+                    <Route exact path="/post">
+                        <Redirect to="/post/details/1"></Redirect>
+                    </Route>
                 </Switch>
 
 

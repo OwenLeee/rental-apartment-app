@@ -7,11 +7,15 @@ import { FaPlusCircle } from "react-icons/fa";
 // import { loadPhotos } from '../redux/photosUpload/thunk';
 import { IPhotosPath } from '../redux/photosUpload/state';
 import '../scss/PhotosUpload.scss'
+import { loadPhotos, createPhotos } from '../redux/photosUpload/thunk';
+import ProcedureBar from './ProcedureBar';
 
 
 interface IPhotosUploadProps {
     photosPath: IPhotosPath[];
-    loadPhotos: (apartmentId: string) => void;
+    rentalId: number;
+    loadPhotos: (apartmentId: number) => void;
+    createPhotos: (acceptedFiles: File[], apartmentId: number) => void;
 }
 
 class PhotosUpload extends React.Component<IPhotosUploadProps> {
@@ -23,13 +27,23 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
     //     this.props.loadPhotos();
     // }
 
-    public render() {
-        return (
-            <div>
-                <div>
-                    {
-                        this.props.photosPath ?
+    handleUploadPhotos = () => {
+        // this.props.createPhotos(this.props.rentalId);
+        // this.props.loadPhotos(this.props.rentalId);
+    }
 
+    private onDrop = (acceptedFiles: File[]) => {
+        this.props.createPhotos(acceptedFiles, this.props.rentalId);
+    }
+
+    public render() {
+        console.log(this.props.photosPath);
+        return (
+            <div className="photos-upload">
+                <ProcedureBar procedure="Photos"/>
+                <div className="whole-wrap">
+                    {
+                        this.props.photosPath.length > 0 ?
                             <Carousel>
                                 <Carousel.Item>
                                     <img
@@ -40,16 +54,18 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
                                 </Carousel.Item>
                             </Carousel>
                             :
-                            <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-                                {({ getRootProps, getInputProps }) => (
-                                    <section className="upload-wrap">
-                                        <div className="upload-box" {...getRootProps()}>
-                                            <input {...getInputProps()} />
-                                            <FaPlusCircle style={{ color: "grey" }} size={6} />
-                                        </div>
-                                    </section>
-                                )}
-                            </Dropzone>
+                            <div className="drop-zone-wrap">
+                                <Dropzone onDrop={this.onDrop}>
+                                    {({ getRootProps, getInputProps }) => (
+                                        <section className="upload-wrap">
+                                            <div className="upload-box" {...getRootProps()}>
+                                                <input {...getInputProps()} />
+                                                <FaPlusCircle style={{ color: "grey" }} size={60} />
+                                            </div>
+                                        </section>
+                                    )}
+                                </Dropzone>
+                            </div>
                     }
 
                 </div>
@@ -63,14 +79,16 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
 
 const mapStateToProps = (state: IRootState) => {
     return {
-        photosPath: state.photosUpload.photo_path
+        photosPath: state.photosUpload.photo_path,
+        rentalId: state.listing.rentalId
     }
-}
+};
 
 const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
     return {
-        // loadPhotos: (apartmentId: number) => dispatch(loadPhotos(apartmentId))
+        loadPhotos: (apartmentId: number) => dispatch(loadPhotos(apartmentId)),
+        createPhotos: (acceptedFiles: File[], apartmentId: number) => dispatch(createPhotos(acceptedFiles, apartmentId))
     }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhotosUpload);
