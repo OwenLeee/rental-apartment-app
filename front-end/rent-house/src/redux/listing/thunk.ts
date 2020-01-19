@@ -25,7 +25,7 @@ export function postDetailsOne(typeId: number, area: string, district: string, l
         const rentalId = await res.json();
 
         dispatch(getRentalId(rentalId));
-        dispatch(push('/details/2'));
+        dispatch(push('/post/details/2'));
     }
 };
 
@@ -46,7 +46,7 @@ export function postDetailsTwo(rentalApartmentId: number, bedroomsId: number, ba
         });
 
         await res.json();
-        dispatch(push('/details/3'));
+        dispatch(push('/post/details/3'));
     }
 };
 
@@ -66,7 +66,7 @@ export function postDetailsThree(rentalApartmentId: number, saleArea: number, gr
         });
 
         await res.json();
-        dispatch(push('/photos'));
+        dispatch(push('/post/photos'));
     }
 };
 

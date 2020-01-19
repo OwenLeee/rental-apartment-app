@@ -33,7 +33,7 @@ class MenuBar extends React.Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <NavLink to='/rent' className='nav-buttons rent-button' activeClassName="activeNavButtons">Rent</NavLink>
-                            <NavLink to='/post' className='nav-buttons post-button' activeClassName="activeNavButtons">Post</NavLink>
+                            <NavLink to='/post/details/1' className='nav-buttons post-button' activeClassName="activeNavButtons">Post</NavLink>
                         </Nav>
                         <Nav className="ml-auto">
                             <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
@@ -44,13 +44,13 @@ class MenuBar extends React.Component {
                 <Switch>
                     {/* <Route path="/home" component={} /> */}
                     <Route path="/rent" component={ApartmentList} />
-                    <Route path="/post" component={ProcedureBar} />
-                    <PrivateRoute path="/details/1" component={DetailsOne} />
-                    <PrivateRoute path="/details/2" component={DetailsTwo} />
-                    <PrivateRoute path="/details/3" component={DetailsThree} />
+                    <PrivateRoute path="/post/details/1" component={DetailsOne} />
+                    <PrivateRoute path="/post/details/2" component={DetailsTwo} />
+                    <PrivateRoute path="/post/details/3" component={DetailsThree} />
+                    {/* <Route path="/post" component={ProcedureBar} /> */}
                     <Route path="/planner" component={PlannerStyle} />
                     <Route path="/auth/login" component={loginContainer} />
-                    <Route path="/photos" component={PhotosUpload} />
+                    <Route path="/post/photos" component={PhotosUpload} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
