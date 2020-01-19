@@ -79,7 +79,7 @@ export function signupThunk(email: string, password: string) {
 }
 
 // Logout Function
-export function logout() {
+export function logoutThunk() {
     return async (dispatch: Dispatch<IAuthActions>) => {
         dispatch(logoutSuccess());
         localStorage.removeItem("token");
