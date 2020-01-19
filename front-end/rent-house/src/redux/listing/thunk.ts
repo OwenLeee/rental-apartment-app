@@ -30,8 +30,8 @@ export function postDetailsOne(typeId: number, area: string, district: string, l
 };
 
 
-export function postDetailsTwo(rentalApartmentId: number, bedroomsId: number, bathroomsId: number, isStoreroom: string,
-    isCarpark: string, isFurniture: string, periodYears: number) {
+export function postDetailsTwo(rentalApartmentId: number, bedroomsId: number, bathroomsId: number, isStoreroom: boolean,
+    isCarpark: boolean, isFurniture: boolean, periodYears: number) {
     return async (dispatch: ReduxThunkDispatch) => {
         const res = await fetch(`${REACT_APP_API_SERVER}/listing/details/2`, {
             method: 'PUT',
@@ -50,6 +50,25 @@ export function postDetailsTwo(rentalApartmentId: number, bedroomsId: number, ba
     }
 };
 
+export function postDetailsThree(rentalApartmentId: number, saleArea: number, grossArea: number, price: number,
+    deposit: number, title: string, description: string) {
+    return async (dispatch: ReduxThunkDispatch) => {
+        const res = await fetch(`${REACT_APP_API_SERVER}/listing/details/3`, {
+            method: 'PUT',
+            headers: {
+                // 'Authorization': `Bearer ${getState().auth.token}`,
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify({
+                rentalApartmentId, saleArea, grossArea, price,
+                deposit, title, description
+            })
+        });
+
+        await res.json();
+        dispatch(push('/photos'));
+    }
+};
 
 
 

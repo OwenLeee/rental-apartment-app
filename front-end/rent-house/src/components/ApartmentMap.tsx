@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState/*, useEffect */} from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './MapMarker';
 import { useSelector, shallowEqual } from 'react-redux';
@@ -10,7 +10,7 @@ import mapStyle from '../mapStyle.json';
 const SimpleMap = (props: any) => {
     const apartments = useSelector((state: IRootState) => state.apartment.apartments, shallowEqual);
     // const [center, setCenter] = useState();
-    const [center, setCenter] = useState({ lat: 22.307956, lng: 114.190893 });
+    const [center,/* setCenter*/] = useState({ lat: 22.307956, lng: 114.190893 });
     const [zoom , /*setZoom*/] = useState(12);
 
     // useEffect(() => {

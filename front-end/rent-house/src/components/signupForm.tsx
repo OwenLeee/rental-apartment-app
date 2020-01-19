@@ -83,7 +83,9 @@ class SignupForm extends React.Component<ISignupProps, ISignupFormState>{
                         required
                         type="password"
                         placeholder="Password"
+                        // eslint-disable-next-line
                         isValid={this.state.validated ==true && this.state.password.length > 8}
+                        // eslint-disable-next-line
                         isInvalid={this.state.validated==true && this.state.password.length <= 8}
                         value={this.state.password}
                         onChange={this.handleChange.bind(this, 'password')} />

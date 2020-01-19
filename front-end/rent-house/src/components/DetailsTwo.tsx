@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBeds, getBaths } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
-import { postDetailsTwo } from '../redux/listing/thunk'
+import { postDetailsTwo } from '../redux/listing/thunk';
 
 
 
@@ -17,22 +17,22 @@ interface IForm {
 }
 
 const DetailsTwo: React.FC = () => {
+    const bedrooms = useSelector((state: IRootState) => state.referenceTable.bedrooms);
+    const bathrooms = useSelector((state: IRootState) => state.referenceTable.bathrooms);
+    const rentalId = useSelector((state: IRootState) => state.listing.rentalId);
 
     const { register, handleSubmit } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
 
-        // dispatch(postDetailsTwo(bedroomsId, bathroomsId,
-        //     isStoreroom, isCarpark, isFurniture, periodYears))
 
-            
-        console.log({
-            bedrooms: data.bedrooms,
-            bathrooms: data.bathrooms,
-            storerooms: data.storerooms === "on" ? true : false,
-            carParks: data.carParks === "on" ? true : false,
-            furniture: data.furniture === "on" ? true : false,
-            rentalPeriod: data.rentalPeriod
-        })
+        const bedroomsId = (bedrooms.filter(bed => bed.bedrooms === data.bedrooms))[0].id;
+        const bathroomsId = (bathrooms.filter(bath => bath.bathrooms === data.bathrooms))[0].id;
+        let isStoreroom: boolean = data.storerooms === "on" ? true : false;
+        let isCarPark: boolean = data.carParks === "on" ? true : false;
+        let isFurniture: boolean = data.furniture === "on" ? true : false;
+
+        dispatch(postDetailsTwo(rentalId, bedroomsId, bathroomsId, isStoreroom, isCarPark, isFurniture, data.rentalPeriod))
+
     };
 
     const dispatch = useDispatch();
@@ -41,8 +41,6 @@ const DetailsTwo: React.FC = () => {
         dispatch(getBaths());
     }, [dispatch]);
 
-    const bedrooms = useSelector((state: IRootState) => state.referenceTable.bedrooms);
-    const bathrooms = useSelector((state: IRootState) => state.referenceTable.bathrooms);
 
 
     return (

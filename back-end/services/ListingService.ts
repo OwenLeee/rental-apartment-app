@@ -24,7 +24,7 @@ export class ListingService {
             .where({ area }).first()) as Object)['id']
 
 
-        return await this.knex(Table.rentalApartment).insert(
+        const rentalId = await this.knex(Table.rentalApartment).insert(
             {
                 'user_id': userId,
                 'apartment_type_id': typeId,
@@ -38,6 +38,8 @@ export class ListingService {
 
         )
             .returning('id')
+
+        return rentalId[0];
     }
 
     public listDetailsTwo = async (

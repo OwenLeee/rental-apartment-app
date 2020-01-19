@@ -15,7 +15,8 @@ import ApartmentList from './ApartmentListing';
 import loginContainer from './LoginContainer';
 import PlannerStyle from './PlannerStyle';
 import DetailsOne from './DetailsOne';
-// import PhotosUpload from './PhotosUpload';
+import PhotosUpload from './PhotosUpload';
+import { PrivateRoute } from '../PrivateRoute';
 
 // import PersonalProfile from "./PersonalProfile";
 
@@ -35,7 +36,7 @@ class MenuBar extends React.Component {
                             <NavLink to='/post' className='nav-buttons post-button' activeClassName="activeNavButtons">Post</NavLink>
                         </Nav>
                         <Nav className="ml-auto">
-                            <NavLink to='/auth' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
+                            <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
@@ -44,12 +45,12 @@ class MenuBar extends React.Component {
                     {/* <Route path="/home" component={} /> */}
                     <Route path="/rent" component={ApartmentList} />
                     <Route path="/post" component={ProcedureBar} />
-                    <Route path="/details/1" component={DetailsOne} />
-                    <Route path="/details/2" component={DetailsTwo} />
-                    <Route path="/details/3" component={DetailsThree} />
+                    <PrivateRoute path="/details/1" component={DetailsOne} />
+                    <PrivateRoute path="/details/2" component={DetailsTwo} />
+                    <PrivateRoute path="/details/3" component={DetailsThree} />
                     <Route path="/planner" component={PlannerStyle} />
-                    <Route path="/auth" component={loginContainer} />
-                    {/* <Route path="/photos" component={PhotosUpload} /> */}
+                    <Route path="/auth/login" component={loginContainer} />
+                    <Route path="/photos" component={PhotosUpload} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
