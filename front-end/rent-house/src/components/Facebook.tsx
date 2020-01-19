@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { loginFacebookThunk } from '../redux/auth/thunks';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -27,7 +27,7 @@ const Facebook: React.FC<IFacebookProps> = props => {
         return null;
     }
 
-    function fBCallback(userInfo:any) {
+    function fBCallback(userInfo:ReactFacebookLoginInfo & {accessToken:string}) {
         if (userInfo.accessToken) {
             props.loginFacebook(userInfo.accessToken);
         }

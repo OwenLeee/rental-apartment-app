@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import ProcedureBar from './DetailsOne';
 import DetailsTwo from './DetailsTwo';
@@ -7,7 +7,6 @@ import DetailsThree from './DetailsThree';
 // import Form from '../components/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../scss/MenuBar.scss'
-import { useDispatch } from 'react-redux';
 
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/store';
@@ -17,18 +16,12 @@ import PlannerStyle from './PlannerStyle';
 import DetailsOne from './DetailsOne';
 import PhotosUpload from './PhotosUpload';
 import { PrivateRoute } from '../PrivateRoute';
-import { logoutThunk } from '../redux/auth/thunks';
+import Logout from './logout';
 
 // import PersonalProfile from "./PersonalProfile";
 
 
 class MenuBar extends React.Component {
-
-    private logout(event:React.MouseEvent){
-        event.preventDefault();
-        const dispatch = useDispatch();
-        dispatch(logoutThunk)
-    }
 
     public render() {
         return (
@@ -45,7 +38,7 @@ class MenuBar extends React.Component {
                             <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
                         </Nav>
                         <Nav className="ml-auto">
-                            <Button variant="primary" onClick={this.logout}>Logout</Button>
+                            <Logout />
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
