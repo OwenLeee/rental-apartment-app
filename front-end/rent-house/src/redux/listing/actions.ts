@@ -1,9 +1,9 @@
-import { IListingState } from './state';
 
-export function getRentalId(getRentalId: IListingState) {
+
+export function getRentalId(rentalId: number) {
     return {
         type: "GET_RENTAL_ID" as "GET_RENTAL_ID",
-        getRentalId
+        rentalId
     }
 };
 

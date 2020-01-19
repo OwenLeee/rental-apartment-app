@@ -96,11 +96,7 @@ export class SearchResultService {
 
 // (async () => {
 //     const searchResult = new SearchResultService(knex);
-<<<<<<< HEAD
-//     console.log(await searchResult.searchingBar('', '', 20000, 0,  '', '', true, true));
-=======
 //     console.log(await searchResult.searchingBar('', '', 25000, 28000, '', '', 3, 3));
->>>>>>> d8f7261c75b41a8f277889856ecc374acb3dc79e
 
 
 // })()

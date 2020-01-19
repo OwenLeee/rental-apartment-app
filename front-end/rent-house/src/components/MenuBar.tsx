@@ -17,10 +17,7 @@ import PlannerStyle from './PlannerStyle';
 import DetailsOne from './DetailsOne';
 // import PhotosUpload from './PhotosUpload';
 
-<<<<<<< HEAD
 // import PersonalProfile from "./PersonalProfile";
-=======
->>>>>>> d8f7261c75b41a8f277889856ecc374acb3dc79e
 
 
 class MenuBar extends React.Component {
@@ -59,13 +56,10 @@ class MenuBar extends React.Component {
 
 
 
-<<<<<<< HEAD
                 {/* <div>
                     <PersonalProfile />
                 </div> */}
 
-=======
->>>>>>> d8f7261c75b41a8f277889856ecc374acb3dc79e
             </ConnectedRouter>
         )
     }

@@ -21,6 +21,7 @@ import { photosUploadReducers } from './photosUpload/reducers';
 import { IPhotosUploadAction } from './photosUpload/actions'
 import { IListingState } from "./listing/state";
 import { listingReducers } from "./listing/reducer";
+import { IListingActions } from "./listing/actions";
 
 
 
@@ -45,7 +46,12 @@ export interface IRootState {
 }
 
 // Mark down Different Component Action in IRootActions
-type IRootAction = IAuthActions | CallHistoryMethodAction | IReferenceTableActions | IApartmentActions | IPhotosUploadAction;
+type IRootAction = IAuthActions 
+                  | CallHistoryMethodAction 
+                  | IReferenceTableActions 
+                  | IApartmentActions 
+                  | IPhotosUploadAction 
+                  | IListingActions;
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({

@@ -10,7 +10,6 @@ const { REACT_APP_API_SERVER } = process.env;
 export function postDetailsOne(typeId: number, area: string, district: string, levelId: number, building: string,
     block: string, latitude: number, longitude: number) {
     return async (dispatch: ReduxThunkDispatch) => {
-        let rentalId;
 
         const res = await fetch(`${REACT_APP_API_SERVER}/listing/details/1`, {
             method: 'POST',
@@ -23,10 +22,9 @@ export function postDetailsOne(typeId: number, area: string, district: string, l
                 building, block, latitude, longitude
             })
         });
-        rentalId = await res.json();
+        const rentalId = await res.json();
 
         dispatch(getRentalId(rentalId));
-
         dispatch(push('/details/2'));
     }
 };

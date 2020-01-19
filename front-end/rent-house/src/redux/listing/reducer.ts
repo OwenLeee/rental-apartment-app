@@ -10,7 +10,7 @@ export const listingReducers = (state: IListingState = initialState, action: ILi
         case "GET_RENTAL_ID":
             return {
                 ...state,
-                rentalId: action.getRentalId
+                rentalId: action.rentalId
             }
         default:
             return state
