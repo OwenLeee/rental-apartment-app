@@ -1,5 +1,5 @@
 import { ReduxThunkDispatch } from "../store";
-import { getPhotos, addPhotos, removePhotos } from './actions';
+import { getPhotos/*, addPhotos, removePhotos*/ } from './actions';
 
 
 const { REACT_APP_API_SERVER } = process.env;

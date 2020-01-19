@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-export const a ='b';
 // import React, { useEffect, useState } from "react";
 // import { IRootState, ReduxThunkDispatch } from '../redux/store';
 // import { logoutThunk } from '../redux/auth/thunks';
@@ -22,8 +20,8 @@ export const a ='b';
 // }
 
 // export default Logout;
-=======
-import React, { useState } from 'react';
+
+import React /*, { useState }*/ from 'react';
 import { logoutThunk } from '../redux/auth/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../redux/store';
@@ -35,6 +33,7 @@ const Logout: React.FC = () => {
 
     const logout = (event: React.MouseEvent) => {
         event.preventDefault();
+        // eslint-disable-next-line 
         if (IsAuth == true) {
             dispatch(logoutThunk())
         }
@@ -46,4 +45,4 @@ const Logout: React.FC = () => {
 }
 
 export default Logout
->>>>>>> e98bb77c7d95ab00c9aa54ab1cbd74d92030d1d2
+
