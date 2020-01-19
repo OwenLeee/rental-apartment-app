@@ -3,27 +3,34 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBeds, getBaths } from '../redux/referenceTable/thunk';
 import { IRootState } from '../redux/store';
+import { postDetailsTwo } from '../redux/listing/thunk'
+
 
 
 interface IForm {
     bedrooms: string;
     bathrooms: string;
-    storerooms: string; // remember to return boolean when inserting into database
-    carParks: string; // remember to return boolean when inserting into database
-    furniture: string; // remember to return boolean when inserting into database
+    storerooms: boolean | string;
+    carParks: boolean | string;
+    furniture: boolean | string;
     rentalPeriod: number;
 }
 
-const PartOneForm: React.FC = () => {
+const DetailsTwo: React.FC = () => {
 
     const { register, handleSubmit } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
+
+        // dispatch(postDetailsTwo(bedroomsId, bathroomsId,
+        //     isStoreroom, isCarpark, isFurniture, periodYears))
+
+            
         console.log({
             bedrooms: data.bedrooms,
             bathrooms: data.bathrooms,
-            storerooms: data.storerooms,
-            carParks: data.carParks,
-            furniture: data.furniture,
+            storerooms: data.storerooms === "on" ? true : false,
+            carParks: data.carParks === "on" ? true : false,
+            furniture: data.furniture === "on" ? true : false,
             rentalPeriod: data.rentalPeriod
         })
     };
@@ -64,24 +71,23 @@ const PartOneForm: React.FC = () => {
                     }
                 </select>
 
-                <select name="storerooms" ref={register({ required: true })}>
-                    <option value=''>Storerooms</option>
-                    <option value='Yes'>Yes</option>
-                    <option value='No'>No</option>
-                </select>
 
-                <select name="carParks" ref={register({ required: true })}>
-                    <option value=''>Car parks</option>
-                    <option value='Yes'>Yes</option>
-                    <option value='No'>No</option>
-                </select>
+                <div>Storerooms</div>
+                <input type="checkbox" placeholder="Storerooms" name="storerooms" ref={register} />
 
 
-                <select name="furniture" ref={register({ required: true })}>
-                    <option value=''>Furniture</option>
-                    <option value='Yes'>Yes</option>
-                    <option value='No'>No</option>
-                </select>
+                <div>
+                    <div>Car Park</div>
+                    <input type="checkbox" placeholder="Car Park" name="carParks" ref={register} />
+
+                </div>
+
+                <div>
+                    <div>Furniture</div>
+                    <input type="checkbox" placeholder="Furniture" name="furniture" ref={register} />
+
+                </div>
+
 
 
                 {/* rental period */}
@@ -95,4 +101,4 @@ const PartOneForm: React.FC = () => {
 }
 
 
-export default PartOneForm;
+export default DetailsTwo;

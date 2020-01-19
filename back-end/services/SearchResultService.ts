@@ -79,13 +79,13 @@ export class SearchResultService {
 };
 
 // //Testing 
-const knexConfig = require("../knexfile");
-const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+// const knexConfig = require("../knexfile");
+// const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
-(async () => {
-    const searchResult = new SearchResultService(knex);
-    console.log(await searchResult.searchingBar('', '', 20000, 0,  '', '', true, true));
+// (async () => {
+//     const searchResult = new SearchResultService(knex);
+//     console.log(await searchResult.searchingBar('', '', 20000, 0,  '', '', true, true));
 
 
-})()
+// })()
 // //Testing

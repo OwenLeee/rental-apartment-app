@@ -25,7 +25,7 @@ class ProfilePage extends React.Component {
                 </div>
             </div>
 
-         <ReactPlayer url='https://www.youtube.com/watch?v=jcvI-MAWc2U' playing />   
+         <ReactPlayer url='https://www.youtube.com/watch?v=SNx8B_oE8IY' playing />   
        
             </>
         )

@@ -1,28 +1,34 @@
 import React from 'react';
-import { IRootState } from '../redux/store';
+import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { connect } from 'react-redux';
 import { Carousel } from 'react-bootstrap';
 import Dropzone from 'react-dropzone'
-import '../scss/PhotosUpload.scss'
 import { FaPlusCircle } from "react-icons/fa";
+import { loadPhotos } from '../redux/photosUpload/thunk';
+import { IPhotosPath } from '../redux/photosUpload/state';
+import '../scss/PhotosUpload.scss'
 
 
 interface IPhotosUploadProps {
-    photosPath: []
+    photosPath: IPhotosPath[];
+    loadPhotos: (apartmentId: string) => void;
 }
 
 class PhotosUpload extends React.Component<IPhotosUploadProps> {
-    // constructor(props: IPhotosUploadProps) {
-    //     super(props);
-    // }
+    constructor(props: IPhotosUploadProps) {
+        super(props);
+    }
 
+    // componentDidMount() {
+    //     this.props.loadPhotos();
+    // }
 
     public render() {
         return (
             <div>
                 {
                     this.props.photosPath ?
-                    
+
                         <Carousel>
                             <Carousel.Item>
                                 <img
@@ -47,16 +53,19 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
             </div>
         )
     }
-
 }
-
 
 
 const mapStateToProps = (state: IRootState) => {
     return {
-        photosPath: state.photosUpload.photosPath
+        photosPath: state.photosUpload.photo_path
     }
 }
 
+const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
+    return {
+        // loadPhotos: (apartmentId: number) => dispatch(loadPhotos(apartmentId))
+    }
+}
 
-export default connect(mapStateToProps, null)(PhotosUpload);
+// export default connect(mapStateToProps, mapDispatchToProps)(PhotosUpload);

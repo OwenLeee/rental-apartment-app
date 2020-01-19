@@ -11,7 +11,7 @@ interface IForm {
     description: string
 }
 
-const PartTwoForm: React.FC = () => {
+const DetailsThree: React.FC = () => {
 
     const { register, handleSubmit } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
@@ -46,4 +46,4 @@ const PartTwoForm: React.FC = () => {
 }
 
 
-export default PartTwoForm;
+export default DetailsThree;

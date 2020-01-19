@@ -19,6 +19,8 @@ import { apartmentReducer } from "./apartment/reducer";
 import { IPhotosUploadState } from './photosUpload/state';
 import { photosUploadReducers } from './photosUpload/reducers';
 import { IPhotosUploadAction } from './photosUpload/actions'
+import { IListingState } from "./listing/state";
+import { listingReducers } from "./listing/reducer";
 
 
 
@@ -38,6 +40,7 @@ export interface IRootState {
   referenceTable: IReferenceTableState;
   apartment: IApartmentState;
   photosUpload: IPhotosUploadState;
+  listing: IListingState;
   router: RouterState;
 }
 
@@ -50,6 +53,7 @@ const rootReducer = combineReducers<IRootState>({
   referenceTable: referenceTableReducers,
   apartment: apartmentReducer,
   photosUpload: photosUploadReducers,
+  listing: listingReducers,
   router: connectRouter(history),
 });
 

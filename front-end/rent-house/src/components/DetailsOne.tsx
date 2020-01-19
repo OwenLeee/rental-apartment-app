@@ -4,6 +4,7 @@ import '../scss/ProcedureBar.scss';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTypes, getDistrict, getLevel } from '../redux/referenceTable/thunk';
+import { postDetailsOne } from '../redux/listing/thunk'
 import { IRootState } from '../redux/store';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import GoogleMapReact from 'google-map-react';
@@ -15,14 +16,15 @@ interface IForm {
     type: string;
     district: string;
     area: string;
+    block: string;
     floorLevel: string
 
 };
 
-const ListApartment: React.FC = () => {
+
+
+const DetailsOne: React.FC = () => {
     const [district, setDistrict] = useState('');
-
-
 
     ////////// Google map Autocomplete //////////
     const [address, setAddress] = useState('');
@@ -43,14 +45,11 @@ const ListApartment: React.FC = () => {
     ///////////// Hooks Form /////////////
     const { register, handleSubmit, errors } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
-        console.log(
-            {
-                type: data.type,
-                district: data.district,
-                area: data.area,
-                floorLevel: data.floorLevel
-            }
-        )
+
+        const typeId = (apartmentType.filter(type => type.house_type === data.type))[0].id;
+        const levelId = (floorLevel.filter(level => level.level === data.floorLevel))[0].id;
+
+        dispatch(postDetailsOne(typeId, data.area, data.district, levelId, address, data.block, coordinates.lat, coordinates.lng));
     };
 
     ///////////// mapStateToProps /////////////
@@ -59,12 +58,13 @@ const ListApartment: React.FC = () => {
     const floorLevel = useSelector((state: IRootState) => state.referenceTable.floorLevel);
 
 
-    ///////////// mapDispatchToProps /////////////
+    ///////////// DidMount  /////////////
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getTypes());
         dispatch(getDistrict());
-        dispatch(getLevel())
+        dispatch(getLevel());
+
     }, [dispatch]);
 
 
@@ -169,6 +169,8 @@ const ListApartment: React.FC = () => {
                     )}
                 </PlacesAutocomplete>
 
+                <input type="text" placeholder="Block" name="block" ref={register} />
+
 
                 <select name="floorLevel" ref={register({ required: true })}>
                     <option value=''>Floor Level</option>
@@ -197,7 +199,7 @@ const ListApartment: React.FC = () => {
                     </GoogleMapReact>
                 </div>
 
-                <input type="submit" />
+                <input value="next" type="submit" />
             </form>
 
         </div>
@@ -206,4 +208,4 @@ const ListApartment: React.FC = () => {
 
 
 
-export default ListApartment;
+export default DetailsOne;
