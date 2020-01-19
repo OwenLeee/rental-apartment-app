@@ -12,8 +12,10 @@ export type SUCCESS = typeof LOGIN_SUCCESS | typeof SIGNUP_SUCCESS
 
 export type FAILED = typeof LOGIN_FAILED | typeof SIGNUP_FAILED
 
+export type LOGOUT = typeof LOGOUT
+
 interface ISuccess {
-  type: SUCCESS;
+  type: SUCCESS,
   msg: string
 }
 
@@ -23,7 +25,7 @@ interface IFailed {
 };
 
 interface ILogoutSuccess {
-  type: typeof LOGOUT;
+  type: LOGOUT;
 }
 
 // Action Creator
@@ -41,6 +43,7 @@ export function failed(type: FAILED, msg: string): IFailed {
   };
 }
 export function logoutSuccess(): ILogoutSuccess {
+  console.log("actions")
   return {
     type: LOGOUT
   };

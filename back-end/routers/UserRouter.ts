@@ -2,6 +2,7 @@ import * as express from "express";
 import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import * as jwtSimple from "jwt-simple";
+import fetch from "node-fetch";
 import jwt from "../auth/jwt";
 import { hashPassword, checkPassword } from "../auth/hash";
 import randomPassword from "../auth/genPassword";
@@ -61,14 +62,17 @@ export class UserRouter {
                 return;
             }
             const { accessToken } = req.body;
+            console.log(accessToken)
             const fetchResponse = await fetch(`https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email,picture`);
+            console.log(fetchResponse);
             const result = await fetchResponse.json();
+            console.log(result);
             if (result.error) {
                 res.status(401).json({ msg: "Wrong Access Token" });
                 return;
             }
             let user = (await this.userService.getUserbyEmail(result.email))[0];
-
+            console.log(user)
             // Create a new user if the user does not exist
             if (!user) {
                 let password: string = randomPassword();

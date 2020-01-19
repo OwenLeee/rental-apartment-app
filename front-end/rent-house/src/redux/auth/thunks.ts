@@ -25,7 +25,7 @@ export function loginThunk(email: string, password: string) {
             console.log("failed")
         } else {
             localStorage.setItem("token", result.token);
-            dispatch(Success("LOGIN_SUCCESS",  result.msg));
+            dispatch(Success("LOGIN_SUCCESS", result.msg));
             dispatch(push("/"));
         }
     }
@@ -81,9 +81,9 @@ export function signupThunk(email: string, password: string) {
 // Logout Function
 export function logoutThunk() {
     return async (dispatch: Dispatch<IAuthActions>) => {
-        dispatch(logoutSuccess());
         localStorage.removeItem("token");
-        dispatch(push("/"));
+        dispatch(logoutSuccess());
+        dispatch(push("/auth/login"));
     };
 }
 
@@ -97,7 +97,7 @@ export function restoreLoginThunk() {
             return;
         }
 
-        const res = await fetch(`   /private`, {
+        const res = await fetch(`${REACT_APP_API_SERVER}/private`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },

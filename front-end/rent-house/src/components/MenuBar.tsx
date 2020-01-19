@@ -8,7 +8,6 @@ import DetailsThree from './DetailsThree';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../scss/MenuBar.scss'
 
-
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from '../redux/store';
 import ApartmentList from './ApartmentListing';
@@ -17,12 +16,12 @@ import PlannerStyle from './PlannerStyle';
 
 import PhotosUpload from './PhotosUpload';
 import { PrivateRoute } from '../PrivateRoute';
+import Logout from './logout';
 
 // import PersonalProfile from "./PersonalProfile";
 
 
 class MenuBar extends React.Component {
-
 
     public render() {
         return (
@@ -37,6 +36,9 @@ class MenuBar extends React.Component {
                         </Nav>
                         <Nav className="ml-auto">
                             <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
+                        </Nav>
+                        <Nav className="ml-auto">
+                            <Logout />
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
