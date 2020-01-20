@@ -16,11 +16,31 @@ export class SearchResultRouter {
 
     public searchResult = async (req: express.Request, res: express.Response) => {
         try {
-            const { keywords, propertyType, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom } = req.body;
+            const { keywords, propertyType, area, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom } = req.body;
             let minPriceNum = parseInt(minPrice);
-            let maxPriceNum = parseInt(maxPrice);
+                if (minPriceNum === -1){
+                     minPriceNum = 0; 
+                }
 
-            let resultList = await this.searchResultService.searchingBar(keywords, propertyType, minPriceNum, maxPriceNum, bedrooms, bathrooms, isFurniture, isStoreroom)
+
+            let maxPriceNum = parseInt(maxPrice);
+            if (maxPriceNum === -1){
+                maxPriceNum = 0; 
+           }
+
+           const changeStringToEmptyString = (data : string) => {
+               if (data === "All") {
+                   return data = ""
+               } 
+               return data = data
+           }
+
+           let newPropertyType = changeStringToEmptyString (propertyType); 
+           let newBedrooms = changeStringToEmptyString (bedrooms); 
+           let newBathrooms = changeStringToEmptyString (bathrooms); 
+            
+
+            let resultList = await this.searchResultService.searchingBar(keywords, newPropertyType, area, minPriceNum, maxPriceNum, newBedrooms, newBathrooms, isFurniture, isStoreroom)
             res.json({ result: true, flatList: resultList.map(apr => ({ ...apr, lat: parseFloat(apr.lat), lng: parseFloat(apr.lng) })) });
         } catch (e) {
             res.status(500).json({ result: false });

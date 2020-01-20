@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { IRootState } from '../redux/store';
 import { postDetailsThree } from '../redux/listing/thunk';
+import ProcedureBar from './ProcedureBar';
 
 
 interface IForm {
@@ -31,6 +32,7 @@ const DetailsThree: React.FC = () => {
 
     return (
         <div>
+                 <ProcedureBar procedure="Details"/>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <input type="number" placeholder="saleableArea" name="saleableArea" ref={register({ required: true })} />

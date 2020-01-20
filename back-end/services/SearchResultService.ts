@@ -4,7 +4,7 @@ import Table from '../table';
 export class SearchResultService {
     constructor(private knex: Knex) { }
 
-    public searchingBar = async (searchKeywords: string, propertyType: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => {
+    public searchingBar = async (searchKeywords: string, propertyType: string, area: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => {
 
         const getAllHouse = this.knex(Table.rentalApartment)
             .select(`${Table.rentalApartment}.id`, "apartment_title", "apartment_description", "rental_price", "deposit", "period_years", "address_building", "address_block",
@@ -18,6 +18,7 @@ export class SearchResultService {
         const keys = [
             "SearchKeywords",
             "PropertyType",
+            "Area",
             "Price",
             "Bedrooms",
             "Bathrooms",
@@ -32,16 +33,26 @@ export class SearchResultService {
 
                 case "SearchKeywords":
                     if (searchKeywords != "") {
-                        houseResult = houseResult.where(`${Table.rentalApartment}.address_building`, 'like', `%${searchKeywords}%`)
+                        houseResult = houseResult.where((builder) => builder.where(`${Table.rentalApartment}.address_building`, 'like', `%${searchKeywords}%`)
                             .orWhere(`${Table.district}.district`, 'like', `%${searchKeywords}%`)
-                            .orWhere(`${Table.district}.area`, 'like', `%${searchKeywords}%`)
+                            .orWhere(`${Table.district}.area`, 'like', `%${searchKeywords}%`))
+            
                     };
                     break;
+
                 case "PropertyType":
                     if (propertyType != "") {
                         houseResult = houseResult.where(`${Table.apartmentType}.house_type`, propertyType)
                     };
+                   
                     break;
+
+                case "Area": 
+                    if (area !="") {
+                        houseResult = houseResult.where(`${Table.district}.area`, area)
+                    }; 
+                break ;
+
                 case "Price":
                     if (lowestPrice != 0 && highestPrice != 0) {
                         houseResult = houseResult.whereBetween(`${Table.rentalApartment}.rental_price`, [lowestPrice, highestPrice])
@@ -53,16 +64,21 @@ export class SearchResultService {
                         houseResult = houseResult
                     };
                     break;
+
                 case "Bedrooms":
                     if (bedrooms != "") {
                         houseResult = houseResult.where(`${Table.bedrooms}.bedrooms`, bedrooms)
+                       
                     };
                     break;
+
                 case "Bathrooms":
                     if (bathrooms != "") {
                         houseResult = houseResult.where(`${Table.bathrooms}.bathrooms`, bathrooms)
+                        
                     }
                     break;
+
                 case "IsFurniture":
                     if (isFurniture === 1) {
                         houseResult = houseResult.where(`${Table.rentalApartment}.is_furniture`, 'true')
@@ -72,6 +88,7 @@ export class SearchResultService {
                         houseResult = houseResult
                     };
                     break;
+
                 case "IsStoreRoom":
                     if (isStoreroom === 1) {
                         houseResult = houseResult.where(`${Table.rentalApartment}.is_storeroom`, 'true')
@@ -81,11 +98,14 @@ export class SearchResultService {
                         houseResult = houseResult
                     }; 
                     break;
+
                 default:
                     console.log("SearchResultService Error- For...Of...Loop", key);
             }
         }
         houseResult.orderBy("rental_price")
+        // // console.log("final" + houseResult); 
+        // console.log(houseResult.toSQL());
         return await houseResult;
     }
 };
@@ -96,7 +116,7 @@ export class SearchResultService {
 
 // (async () => {
 //     const searchResult = new SearchResultService(knex);
-//     console.log(await searchResult.searchingBar('', '', 25000, 28000, '', '', 3, 3));
+//     console.log(await searchResult.searchingBar('', '', 'Sheung Wan', 10000, 40000, '2', '1', 3, 3));
 
 
 // })()

@@ -10,11 +10,10 @@ import { GiSofa } from "react-icons/gi";
 
 
 
-
 interface IApartmentProps {
   apartments: IApartment[];
   searchBarConditions: ISearchConditions;
-  
+
 }
 
 
@@ -43,7 +42,7 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
       <>
         {this.props.apartments.length > 0 ?
           this.props.apartments.map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
-            <div className="col-3" /*style={{position: "relative"}}*/>
+            <div className="col-3" style={{ padding: "0px" }}>
               <Carousel >
                 <Carousel.Item >
                   <img
@@ -51,13 +50,12 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
                     src=""
                     alt="First slide"
                   />
-                  
                 </Carousel.Item>
                 <Carousel.Item >
                   <img
                     className="d-block w-100"
                     src=""
-                    alt="Third slide"
+                    alt="Second slide"
                   />
                 </Carousel.Item>
                 <Carousel.Item >
@@ -67,9 +65,9 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
                     alt="Third slide"
                   />
                 </Carousel.Item>
-            
+
               </Carousel>
-             
+
             </div>
 
             <div className="apartmentDetails col-9" style={{ height: "100%", width: "70%", display: "flex", flexDirection: "column", flexWrap: "wrap", }}>
@@ -99,12 +97,12 @@ const mapStateToProps = (state: IRootState) => {
 
 const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
   return {
-    
+
   }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApartmentDetails); 
+export default connect(mapStateToProps, mapDispatchToProps)(ApartmentDetails);
 
 
 //  <div className="p-2" style={{ position: "absolute", display:"flex", justifyContent: "flex-end", alignItems: "flex-end", bottom:"0", width:"100%"}}> 
