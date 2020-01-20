@@ -14,12 +14,9 @@ import ApartmentList from './ApartmentListing';
 import loginContainer from './LoginContainer';
 import PlannerStyle from './PlannerStyle';
 
-<<<<<<< HEAD
-=======
 import PhotosUpload from './PhotosUpload';
 import { PrivateRoute } from '../PrivateRoute';
 import Logout from './logout';
->>>>>>> 690191ce1bc3a73b1794fb4ce3b4ab7425469a93
 
 // import PersonalProfile from "./PersonalProfile";
 
@@ -49,15 +46,6 @@ class MenuBar extends React.Component {
                 <Switch>
                     {/* <Route path="/home" component={} /> */}
                     <Route path="/rent" component={ApartmentList} />
-<<<<<<< HEAD
-                    <Route path="/post" component={ProcedureBar} />
-                    <Route path="/form1" component={PartOneForm} />
-                    <Route path="/form2" component={PartTwoForm} />
-                    <Route path="/planner" component={PlannerStyle} />
-                    <Route path="/auth" component={loginContainer} />
-                    {/* <Route path="/photos" component={PhotosUpload} /> */}
-                  
-=======
                     <PrivateRoute path="/post/details/1" component={DetailsOne} />
                     <PrivateRoute path="/post/details/2" component={DetailsTwo} />
                     <PrivateRoute path="/post/details/3" component={DetailsThree} />
@@ -66,7 +54,6 @@ class MenuBar extends React.Component {
                     <Route path="/post/video" component={PhotosUpload} />
                     <Route path="/post/planner" component={PlannerStyle} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
->>>>>>> 690191ce1bc3a73b1794fb4ce3b4ab7425469a93
                     {/* <Route path="/login" component={} /> */}
                     <Route exact path="/post">
                         <Redirect to="/post/details/1"></Redirect>
