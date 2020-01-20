@@ -14,6 +14,7 @@ export class UserRouter {
         const router = express.Router();
         router.post("/login", this.login);
         router.post("/login/facebook", this.loginFacebook);
+        router.post("/login/google", this.loginGoogle)
         router.post("/signup", this.signup)
         return router;
     }
@@ -28,7 +29,7 @@ export class UserRouter {
             const { email, password } = req.body;
 
             // Step 2: get User
-            const user = await this.userService.getUserbyEmail(email);
+            const user = await this.userService.getUserbyEmail(email)[0];
             if (!user) {
                 res.status(404).json({ msg: "User Not Found" });
                 return;
@@ -62,23 +63,48 @@ export class UserRouter {
                 return;
             }
             const { accessToken } = req.body;
-            console.log(accessToken)
             const fetchResponse = await fetch(`https://graph.facebook.com/me?access_token=${accessToken}&fields=id,name,email,picture`);
-            console.log(fetchResponse);
             const result = await fetchResponse.json();
-            console.log(result);
             if (result.error) {
                 res.status(401).json({ msg: "Wrong Access Token" });
                 return;
             }
-            let user = (await this.userService.getUserbyEmail(result.email))[0];
-            console.log(user)
+            let user = (await this.userService.getUserbyEmail(result.email));
             // Create a new user if the user does not exist
             if (!user) {
                 let password: string = randomPassword();
                 const hashedpassword: string = await hashPassword(password);
                 user = (await this.userService.createUser(result.email, hashedpassword))[0];
+                console.log(user)
+            }
+            const payload = {
+                id: user.id,
+                email: user.email
+            };
+            console.log(payload)
+            const token = jwtSimple.encode(payload, jwt.jwtSecret);
+            res.status(200).json({
+                message: 'success',
+                token: token
+            });
+        } catch (error) {
+            res.status(500).json({ msg: "internal Error" })
+        }
+    }
 
+    private loginGoogle = async (req: Request, res: Response) => {
+        try {
+            if (!req.body.profileObj) {
+                res.status(401).json({ msg: "Google Login Failure" });
+                return;
+            }
+            const { profileObj } = req.body;
+            let user = (await this.userService.getUserbyEmail(profileObj.email));
+            // Create a new user if the user does not exist
+            if (!user) {
+                let password: string = randomPassword();
+                const hashedpassword: string = await hashPassword(password);
+                user = (await this.userService.createUser(profileObj.email, hashedpassword))[0];
             }
             const payload = {
                 id: user.id,
@@ -90,14 +116,14 @@ export class UserRouter {
                 token: token
             });
         } catch (error) {
-            res.status(500).json({ msg: "internal Error"})
+            res.status(500).json({ msg: "internal Error" })
         }
     }
 
     private signup = async (req: Request, res: Response) => {
         try {
             const { email, password } = req.body;
-            let user = await this.userService.getUserbyEmail(email);
+            let user = await this.userService.getUserbyEmail(email)[0];
             if (!user) {
                 let hashedpassword: string = await hashPassword(password)
                 user = (await this.userService.createUser(email, hashedpassword))[0];
