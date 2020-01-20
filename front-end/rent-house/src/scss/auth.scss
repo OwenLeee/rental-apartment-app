@@ -5,13 +5,30 @@ $fb-background-color:  #3B5998;
 $google-background-color: #dd4b39;
 $button-word-color: white;
 $font-family-recommand: 'Playfair Display', serif;
+$background-image-1:url('../background_photos/house_rent.jpg');
+$background-image-2:url('../background_photos/house_rent.jpg');
 
 .title {
 font-family: $font-family-recommand;
 }
 
+.loginBackground {
+  background-image:$background-image-1;
+  // background-repeat:no-repeat;
+  background-color: grey;
+  background-size: cover; 
+  // background-size:contain;
+  max-width: 100%;
+  height: auto;
+}
+
+.signupBackground {
+  background-image:$background-image-2
+}
+
+
 /* style inputs and link buttons */
-.btn {
+.loginbtn {
   width: 100%;
   padding: 12px;
   border: none;

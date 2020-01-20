@@ -30,7 +30,7 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
     render() {
         return (
             <Container>
-                <Row>
+                <Row className="mt-5 mb-5">
                     <Col className="mt-3">
                         {(this.state.active === 'login') && <h1 className="mb-2 title">Login to BeeBeeRent</h1>}
                         {(this.state.active === 'register') && <h1 className="mb-3 title">Create a BeeBeeRent Acount</h1>}
@@ -50,7 +50,7 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
                             <Route path="/auth/signup" exact={true} component={SignupForm} />
                         </Switch>
                     </Col>
-                    <Col>
+                    <Col className="loginBackground">
                         <Card bg="primary" text="white" style={{ width: '18rem' }}>
                             <Card.Header>Header</Card.Header>
                             <Card.Body>

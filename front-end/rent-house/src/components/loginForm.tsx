@@ -54,7 +54,7 @@ class LoginForm extends React.Component<ILoginProps, ILoginFormState>{
 
     public render() {
         return (
-            <Form onSubmit={this.login}>
+            <Form className="mb-2" onSubmit={this.login}>
                 <h1 className="title">Sign in with your email Address</h1>
                 <Form.Group controlId="loginEmail">
                     <Form.Control type="email"
