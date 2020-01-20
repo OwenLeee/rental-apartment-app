@@ -1,5 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { IRootState } from '../redux/store';
+import { postDetailsThree } from '../redux/listing/thunk';
+import ProcedureBar from './ProcedureBar';
 
 
 interface IForm {
@@ -11,24 +15,24 @@ interface IForm {
     description: string
 }
 
-const PartTwoForm: React.FC = () => {
+const DetailsThree: React.FC = () => {
+
+    const rentalId = useSelector((state: IRootState) => state.listing.rentalId);
+    const dispatch = useDispatch();
+
 
     const { register, handleSubmit } = useForm<IForm>();
     const onSubmit = (data: IForm) => {
-        console.log({
-            saleableArea: data.saleableArea,
-            grossFloorArea: data.grossFloorArea,
-            monthlyRental: data.monthlyRental,
-            deposit: data.deposit,
-            title: data.title,
-            description: data.description
-        })
+
+        dispatch(postDetailsThree(rentalId, data.saleableArea, data.grossFloorArea,
+            data.monthlyRental, data.deposit, data.title, data.description))
     };
 
 
 
     return (
         <div>
+                 <ProcedureBar procedure="Details"/>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <input type="number" placeholder="saleableArea" name="saleableArea" ref={register({ required: true })} />
@@ -46,4 +50,4 @@ const PartTwoForm: React.FC = () => {
 }
 
 
-export default PartTwoForm;
+export default DetailsThree;

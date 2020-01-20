@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display&display=swap");
+
+* {box-sizing: border-box}
+$fb-background-color:  #3B5998;
+$google-background-color: #dd4b39;
+$button-word-color: white;
+$font-family-recommand: 'Playfair Display', serif;
+
+.title {
+font-family: $font-family-recommand;
+}
+
+/* style inputs and link buttons */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; /* remove underline from anchors */
+  &:hover{
+    opacity: 1;
+  }
+}
+
+/* add appropriate colors to fb, twitter and google buttons */
+.facebook {
+  background-color: $fb-background-color;
+  color:$button-word-color
+}
+
+.google {
+  background-color: $fb-background-color;
+  color: $button-word-color
+}
+
+/* style the submit button */
+.submit {
+  background-color: #4CAF50;
+  color: $button-word-color;
+  cursor: pointer;
+  &:hover{
+    background-color: #45a049;
+}
+}
+
+.brokenword {
+    font-family: $font-family-recommand;
+    font-size: 30px;
+  }
+  
+
+.break {
+    color: #606770;
+    font-family: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:16px;
+    text-align: center;
+    &::before{
+        margin-right:1%;
+        margin-left:5%;
+        border-bottom: 5px solid #ccd0d5;
+        content: '';
+        flex: 1 1 auto;
+    }
+    &::after{
+        margin-right:8%;
+        margin-left:1%;
+        border-bottom: 5px solid #ccd0d5;
+        content: '';
+        flex: 1 1 auto;
+        }
+}
+
+/* Responsive layout - when the screen is less than 650px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 650px) {
+  .col {
+    width: 100%;
+    margin-top: 0;
+  }
+  /* hide the vertical line */
+  .vl {
+    display: none;
+  }
+  /* show the hidden text on small screens */
+  .hide-md-lg {
+    display: block;
+    text-align: center;
+  }
+}

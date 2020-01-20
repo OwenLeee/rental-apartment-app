@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
+import "../scss/auth.scss"
 
 //improt router
 // import { ConnectedRouter } from 'connected-react-router';
@@ -12,13 +13,9 @@ import LoginForm from './loginForm'
 import SignupForm from './signupForm'
 
 interface IFormProps {
-    msg: string
-    previousBoardIds: Array<number>
 }
 
 interface IFormStates {
-    email: string,
-    password: string,
     active: string
 }
 
@@ -26,32 +23,7 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
     constructor(props: IFormProps) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
             active: 'login'
-        }
-    }
-
-    private handleChange = (field: 'email' | 'password', event: React.FormEvent<HTMLInputElement>) => {
-        // state:Partial<ILoginFormState>
-        const state: any = {
-            [field]: event.currentTarget.value
-        };
-        this.setState(state);
-    }
-
-    private switchActive = () => {
-        const active = this.state.active
-        if (active === 'login') {
-            const state: any = {
-                active: 'register'
-            }
-            this.setState(state);
-        } else {
-            const state: any = {
-                active: 'login'
-            }
-            this.setState(state);
         }
     }
 
@@ -60,11 +32,19 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
             <Container>
                 <Row>
                     <Col className="mt-3">
-                        {(this.state.active === 'login') && <h1 className="mb-3">Login to BeeBeeRent</h1>}
-                        {(this.state.active === 'register') && <h1 className="mb-3">Create a BeeBeeRent Acount</h1>}
+                        {(this.state.active === 'login') && <h1 className="mb-2 title">Login to BeeBeeRent</h1>}
+                        {(this.state.active === 'register') && <h1 className="mb-3 title">Create a BeeBeeRent Acount</h1>}
 
-                        <Facebook />{"\n"}
-                        <Google />
+                        <Row>
+                        <Col className="mt-3"> <Facebook /></Col>
+                        </Row>
+
+                        <Row>
+                        <Col className="mt-3">  <Google /> </Col>
+                        </Row>
+                        <Row>
+                        <Col className="mt-4 break"> <span className="brokenword">OR</span></Col>
+                        </Row>
                         <Switch>
                             <Route path="/auth/login" exact={true} component={LoginForm} />
                             <Route path="/auth/signup" component={SignupForm} />

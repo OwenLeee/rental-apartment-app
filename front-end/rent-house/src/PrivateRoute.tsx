@@ -12,20 +12,23 @@ const PurePrivateRoute = ({ component, isAuthenticated, ...rest }: IPrivateRoute
     if (Component == null) {
         return null;
     }
-    let render:(props:any)=>JSX.Element 
-    if(isAuthenticated){
-        render = (props:any)=>(
-            <Component {...props} />
-        )    
-    }else{
-        render = (props:any)=>(
-            <Redirect to={ {
-                pathname: '/login',
-                state: { from: props.location }
-            } } />
-        )
+    let render: (props: any) => JSX.Element
+    switch (isAuthenticated) {
+        case true:
+            render = (props: any) => (
+                <Component {...props} />
+            )
+            break;
+        default:
+            render = (props: any) => (
+                <Redirect to={{
+                    pathname: '/auth/login',
+                    state: { from: props.location }
+                }} />
+            )
+            break;
     }
-    return <Route {...rest} render={render}/>    
+    return <Route {...rest} render={render} />
 };
 
 export const PrivateRoute = connect((state: IRootState) => ({

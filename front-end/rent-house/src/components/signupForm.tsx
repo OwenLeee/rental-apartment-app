@@ -47,13 +47,6 @@ class SignupForm extends React.Component<ISignupProps, ISignupFormState>{
         this.setState(state);
     }
 
-    // private signup = (event: React.FormEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    //      else {
-    //         return
-    //     }
-    // }
-
     private handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -63,15 +56,18 @@ class SignupForm extends React.Component<ISignupProps, ISignupFormState>{
         this.setState({ validated: true });
         const { email, password } = this.state;
         if (email && password) {
-            console.log(email, password);
-            this.props.signup(email, password);
+            if (password.length <= 8){
+                event.stopPropagation();
+            }else{
+                this.props.signup(email, password)
+            }
         }
     };
 
     public render() {
         return (
-            <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-                <h1>Sign up with your email Address</h1>
+            <Form onSubmit={this.handleSubmit}>
+                <h1 className="title">Sign up with your email Address</h1>
                 <Form.Group controlId="SignupEmail">
                     <Form.Control
                         required
@@ -87,9 +83,13 @@ class SignupForm extends React.Component<ISignupProps, ISignupFormState>{
                         required
                         type="password"
                         placeholder="Password"
+                        // eslint-disable-next-line
+                        isValid={this.state.validated ==true && this.state.password.length > 8}
+                        // eslint-disable-next-line
+                        isInvalid={this.state.validated==true && this.state.password.length <= 8}
                         value={this.state.password}
                         onChange={this.handleChange.bind(this, 'password')} />
-                    <Form.Control.Feedback type="invalid">Please provide a password involve at least 8 letter and one Capital Letter</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">Please provide a password involve at least 8 letter</Form.Control.Feedback>
                 </Form.Group>
                 <p>Alredy have Account? <Link to="/auth/login" className="link">Sign In</Link></p>
                 <Button variant="primary" type="submit">

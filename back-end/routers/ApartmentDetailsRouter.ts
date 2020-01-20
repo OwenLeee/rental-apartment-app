@@ -9,16 +9,16 @@ export class ApartmentDetailsRouter {
     public router() {
         const router = express.Router();
 
-        router.get('/apartment', this.loadApartment)
-        router.get('/apartmentPhotos', this.loadApartmentPhotos)
+        router.get('/apartment/:apartmentId', this.loadApartment)
+        router.get('/apartmentPhotos/:apartmentId', this.loadApartmentPhotos)
 
         return router;
     };
 
     public loadApartment = async (req: express.Request, res: express.Response) => {
         try {
-            const { apartmentId } = req.body;
-            res.json(await this.apartmentDetailsService.loadApartment(apartmentId));
+            const { apartmentId } = req.params;
+            res.json(await this.apartmentDetailsService.loadApartment(parseInt(apartmentId)));
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('loadApartment error is found...');
@@ -28,8 +28,8 @@ export class ApartmentDetailsRouter {
 
     public loadApartmentPhotos = async (req: express.Request, res: express.Response) => {
         try {
-            const { apartmentId } = req.body;
-            res.json(await this.apartmentDetailsService.loadApartmentPhotos(apartmentId));
+            const { apartmentId } = req.params;
+            res.json(await this.apartmentDetailsService.loadApartmentPhotos(parseInt(apartmentId)));
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('loadApartmentPhotos error is found...');

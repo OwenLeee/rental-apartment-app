@@ -22,8 +22,6 @@ let AppState = Map({
   "react-planner": new PlannerModels.State()
 });
 
-console.log(AppState);
-
 //define reducer
 export let reducer = (state, action) => {
   state = state || AppState;
@@ -34,10 +32,10 @@ export let reducer = (state, action) => {
 };
 
 // let blackList =
-  // isProduction === true
-  //   ? []
-  //   :
-  // ["UPDATE_MOUSE_COORDS", "UPDATE_ZOOM_SCALE", "UPDATE_2D_CAMERA"];
+// isProduction === true
+//   ? []
+//   :
+// ["UPDATE_MOUSE_COORDS", "UPDATE_ZOOM_SCALE", "UPDATE_2D_CAMERA"];
 
 // if (!isProduction) {
 // console.info(
@@ -99,3 +97,25 @@ export const Planner = () => {
     </Provider>
   );
 };
+
+
+// const floorPlan = JSON.stringify(localStorage["react-planner_v0"]);
+
+// const floorPlanJson = async () => {
+//   const res = await fetch(
+//     `${process.env.REACT_APP_API_SERVER}/listing/floorPlan`,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         apartmentId: 1,
+//         floorPlanJson: floorPlan
+//       })
+//     }
+//   );
+//   console.log(res);
+//   await res.json();
+// };
+// floorPlanJson();

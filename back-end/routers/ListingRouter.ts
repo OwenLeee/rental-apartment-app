@@ -11,8 +11,10 @@ export class ListingRouter {
         const router = express.Router();
 
         router.get('/floorPlan', this.loadFloorPlan)
-        router.post('/apartment', this.listApartment)
-        router.post('/photos', upload.single, this.addApartmentPhotos);
+        router.post('/details/1', this.listDetailsOne);
+        router.put('/details/2', this.listDetailsTwo);
+        router.put('/details/3', this.listDetailsThree);
+        router.post('/photos', upload.array("building"), this.addApartmentPhotos);
         router.post('/floorPlan', this.addApartmentFloorPlan);
         router.post('/video', this.addVideo);
         router.put('/floorPlan', this.updateFloorPlan);
@@ -31,35 +33,66 @@ export class ListingRouter {
         }
     }
 
-    public listApartment = async (req: express.Request, res: express.Response) => {
+    public listDetailsOne = async (req: express.Request, res: express.Response) => {
         try {
-            if (req.user) {
-                const { typeId, areaDistrictId, levelId, building,
-                    block, bedrooms, bathrooms, isStoreroom, isCarpark,
-                    isFurniture, saleArea, grossArea, periodYears, price,
-                    deposit, title, description, latitude, longitude } = req.body;
+            // if (req.user) {
+            const { typeId, area, district, levelId,
+                building, block, latitude, longitude } = req.body;
 
-                await this.listingService.listApartment(
-                    req.user['id'], typeId, areaDistrictId, levelId, building,
-                    block, bedrooms, bathrooms, isStoreroom, isCarpark, isFurniture,
-                    saleArea, grossArea, periodYears, price, deposit, title,
-                    description, latitude, longitude);
-            }
+            res.json(await this.listingService.listDetailsOne(
+                    /*req.user['id']*/1, typeId, area, district,
+                levelId, building, block, latitude, longitude));
+            // }
+        } catch (e) {
+            res.status(500).json({ result: false });
+            console.error('listDetailsOne error is found...');
+            console.error(e.message);
+        }
+    }
+
+    public listDetailsTwo = async (req: express.Request, res: express.Response) => {
+        try {
+
+            const { rentalApartmentId, bedroomsId, bathroomsId,
+                isStoreroom, isCarpark, isFurniture, periodYears } = req.body;
+
+            await this.listingService.listDetailsTwo(rentalApartmentId, bedroomsId, bathroomsId,
+                isStoreroom, isCarpark, isFurniture, periodYears);
             res.json({ result: true });
         } catch (e) {
             res.status(500).json({ result: false });
-            console.error('listApartment error is found...');
+            console.error('listDetailsTwo error is found...');
             console.error(e.message);
         }
-    };
+    }
+
+    public listDetailsThree = async (req: express.Request, res: express.Response) => {
+        try {
+
+            const { rentalApartmentId, saleArea, grossArea, price,
+                deposit, title, description } = req.body;
+
+            await this.listingService.listDetailsThree(rentalApartmentId, saleArea, grossArea, price,
+                deposit, title, description);
+            res.json({ result: true });
+        } catch (e) {
+            res.status(500).json({ result: false });
+            console.error('listDetailsThree error is found...');
+            console.error(e.message);
+        }
+    }
+
 
 
     public addApartmentPhotos = async (req: express.Request, res: express.Response) => {
         try {
             if (req.files != null) {
                 const { apartmentId } = req.body;
-                await this.listingService.addApartmentPhotos(apartmentId, req.files[0].filename); // need to check
-                res.json({ result: true });
+                const files = req.files as Express.Multer.File[]
+                const locations = files.map((file: Express.Multer.File) => file.location)
+
+                await this.listingService.addApartmentPhotos(apartmentId, locations); // need to check
+                res.json({ result: true, locations });
             }
         } catch (e) {
             res.status(500).json({ result: false });

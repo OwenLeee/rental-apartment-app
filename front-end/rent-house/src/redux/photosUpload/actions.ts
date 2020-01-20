@@ -1,5 +1,12 @@
 import { IPhotosUploadState } from './state';
 
+export function getPhotos(photos: IPhotosUploadState) {
+    return {
+        type: "GET_PHOTOS" as "GET_PHOTOS",
+        photos
+    }
+};
+
 export function addPhotos(photos: IPhotosUploadState) {
     return {
         type: "ADD_PHOTOS" as "ADD_PHOTOS",
@@ -16,7 +23,8 @@ export function removePhotos(photos: IPhotosUploadState) {
 
 
 
-type PhotosUploadActionCreators = typeof addPhotos |
-                                    typeof removePhotos
+type PhotosUploadActionCreators = typeof getPhotos |
+                                  typeof addPhotos |
+                                  typeof removePhotos
 
 export type IPhotosUploadAction = ReturnType<PhotosUploadActionCreators>

@@ -1,8 +1,10 @@
 import { Dispatch } from "redux";
 import { IAuthActions, failed, Success, logoutSuccess } from "./actions";
 import { push } from "connected-react-router";
+import * as dotenv from 'dotenv';
 
-const { REACT_APP_API_SERVER } = process.env
+dotenv.config();
+const { REACT_APP_API_SERVER } = process.env;
 
 //Login Function
 export function loginThunk(email: string, password: string) {
@@ -23,7 +25,7 @@ export function loginThunk(email: string, password: string) {
             console.log("failed")
         } else {
             localStorage.setItem("token", result.token);
-            dispatch(Success("LOGIN_SUCCESS",  result.msg));
+            dispatch(Success("LOGIN_SUCCESS", result.msg));
             dispatch(push("/"));
         }
     }
@@ -77,11 +79,11 @@ export function signupThunk(email: string, password: string) {
 }
 
 // Logout Function
-export function logout() {
+export function logoutThunk() {
     return async (dispatch: Dispatch<IAuthActions>) => {
-        dispatch(logoutSuccess());
         localStorage.removeItem("token");
-        dispatch(push("/"));
+        dispatch(logoutSuccess());
+        dispatch(push("/auth/login"));
     };
 }
 
