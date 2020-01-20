@@ -53,6 +53,28 @@ export function loginFacebookThunk(accessToken: string) {
     }
 }
 
+export function loginGoogleThunk(profileObj:{}) {
+    return async (dispatch: Dispatch<IAuthActions>) => {
+        const res = await fetch(`${REACT_APP_API_SERVER}/users/login/Google`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify({ profileObj })
+        })
+        const result = await res.json();
+
+        if (res.status !== 200) {
+            dispatch(failed("LOGIN_FAILED", result.msg));
+        } else {
+            localStorage.setItem('token', result.token);
+            dispatch(Success("LOGIN_SUCCESS", result.msg))
+            dispatch(push("/"));
+        }
+    }
+}
+
+
 //Register Function
 export function signupThunk(email: string, password: string) {
     return async (dispatch: Dispatch<IAuthActions>) => {

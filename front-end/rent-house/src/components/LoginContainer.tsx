@@ -47,7 +47,7 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
                         </Row>
                         <Switch>
                             <Route path="/auth/login" exact={true} component={LoginForm} />
-                            <Route path="/auth/signup" component={SignupForm} />
+                            <Route path="/auth/signup" exact={true} component={SignupForm} />
                         </Switch>
                     </Col>
                     <Col>

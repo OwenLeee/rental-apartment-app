@@ -51,7 +51,7 @@ class MenuBar extends React.Component {
                     <PrivateRoute path="/post/details/3" component={DetailsThree} />
                     {/* <Route path="/post" component={ProcedureBar} /> */}
                     <Route path="/planner" component={PlannerStyle} />
-                    <Route path="/auth/login" component={loginContainer} />
+                    <Route path="/auth" component={loginContainer} />
                     <Route path="/post/photos" component={PhotosUpload} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
