@@ -1,7 +1,8 @@
-import { IApartment, ISearchConditions } from "./state";
+import { IApartment, ISearchConditions, IHotSpotLatLng } from "./state";
 
 export const GET_APARTMENT_ACTION = "@@apartment/GET_APARTMENT_ACTION";
 export const SEARCH_APARTMENT_ACTION = "@@apartment/SEARCH_APARTMENT_ACTION";
+export const SEARCH_HOTSPOT_ACTION = "@@apartment/SEARCH_HOTSPOT_ACTION";
 
 export function getApartments(apartments: IApartment[]) {
     return {
@@ -19,8 +20,17 @@ export function searchApartments(conditions: ISearchConditions){
     }
 }
 
+export function searchHotSpotPlace(location: IHotSpotLatLng) {
+
+    return {
+        type: SEARCH_HOTSPOT_ACTION as typeof SEARCH_HOTSPOT_ACTION, 
+        location
+    }
+}
+
 type ApartmentActionsCreators = typeof getApartments |
-                                typeof searchApartments;
+                                typeof searchApartments |
+                                typeof searchHotSpotPlace; 
 
  type IApartmentActions = ReturnType<ApartmentActionsCreators>;
 

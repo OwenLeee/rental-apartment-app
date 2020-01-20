@@ -14,7 +14,7 @@ import { history } from '../redux/store';
 import ApartmentList from './ApartmentListing';
 import loginContainer from './LoginContainer';
 import PlannerStyle from './PlannerStyle';
-import PhotosUpload from './PhotosUpload';
+
 
 
 
@@ -46,8 +46,8 @@ class MenuBar extends React.Component {
                     <Route path="/form2" component={PartTwoForm} />
                     <Route path="/planner" component={PlannerStyle} />
                     <Route path="/auth" component={loginContainer} />
-                    <Route path="/photos" component={PhotosUpload} />
-                    {/* <Route path="/profile" component={ProfilePage} /> */}
+                    {/* <Route path="/photos" component={PhotosUpload} /> */}
+                  
                     {/* <Route path="/login" component={} /> */}
                 </Switch>
 
