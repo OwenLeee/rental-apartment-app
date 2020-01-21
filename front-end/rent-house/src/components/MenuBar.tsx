@@ -48,9 +48,9 @@ class MenuBar extends React.Component {
                 <Switch>
                     <Route path="/" exact={true} component={HomePage} />
                     <Route exact={true} path="/rent" component={ApartmentList} />
-                    <Route path="/post/details/1" component={DetailsOne} />
-                    <Route path="/post/details/2" component={DetailsTwo} />
-                    <Route path="/post/details/3" component={DetailsThree} />
+                    <PrivateRoute path="/post/details/1" component={DetailsOne} />
+                    <PrivateRoute path="/post/details/2" component={DetailsTwo} />
+                    <PrivateRoute path="/post/details/3" component={DetailsThree} />
                     <Route path="/auth" component={loginContainer} />
                     <Route path="/post/photos" component={PhotosUpload} />
                     <Route path="/post/video" component={VideoUpload} />

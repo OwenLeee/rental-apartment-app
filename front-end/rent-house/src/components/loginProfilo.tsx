@@ -20,9 +20,9 @@ interface IProfileProps {
 
 
 class Profile extends React.Component<IProfileProps, {}>{
-    constructor(props: IProfileProps) {
-        super(props);
-    }
+    // constructor(props: IProfileProps) {
+    //     super(props);
+    // }
     public render() {
         return (
             <Card style={{ width: '18rem' }}>
