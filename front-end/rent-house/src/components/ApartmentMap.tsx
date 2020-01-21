@@ -5,6 +5,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { IRootState } from '../redux/store';
 import mapStyle from '../mapStyle.json';
 import HotSpotMarker from './HotSpotMapMarker';
+import '../scss/ApartmentMap.scss'; 
 
 
 
@@ -21,7 +22,7 @@ const SimpleMap = (props: any) => {
 
     return (
         
-        <div className="p-3"style={{ height: '100vh', width: '50%' }}>
+        <div className="map-style p-3" style={{ height: '100vh', width: '50%' }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyDIWVSGTmPDfNIEFwoCcJ_XNqU28z3XLno' }}
                 defaultCenter={center}

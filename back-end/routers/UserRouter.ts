@@ -14,9 +14,10 @@ export class UserRouter {
         const router = express.Router();
         router.post("/login", this.login);
         router.post("/login/facebook", this.loginFacebook);
-        router.post("/login/google", this.loginGoogle)
-        router.post("/signup", this.signup)
-        router.get('/profile/?:email', this.getUserInfo)
+        router.post("/login/google", this.loginGoogle);
+        router.post("/signup", this.signup);
+        router.get('/profile/?:email', this.getUserInfo);
+        router.get('/profile/rental/?:email', this.getProfileInfo)
         return router;
     }
 
@@ -75,9 +76,10 @@ export class UserRouter {
             if (!user) {
                 let password: string = randomPassword();
                 const hashedpassword: string = await hashPassword(password);
-                user = (await this.userService.createUser(result.email, hashedpassword,))[0];
-                await this.userService.createUserInfo(user.id,result.name,result.picture.data.url) //validate
+                user = (await this.userService.createUser(result.email, hashedpassword))[0];
+                await this.userService.createUserInfo(user.id, result.name, result.picture.data.url) //validate
             }
+
             const payload = {
                 id: user.id,
                 email: user.email
@@ -106,7 +108,7 @@ export class UserRouter {
                 let password: string = randomPassword();
                 const hashedpassword: string = await hashPassword(password);
                 user = (await this.userService.createUser(profileObj.email, hashedpassword))[0];
-                await this.userService.createUserInfo(user.id,profileObj.name,profileObj.imageUrl) //validate
+                await this.userService.createUserInfo(user.id, profileObj.name, profileObj.imageUrl) //validate
             }
             const payload = {
                 id: user.id,
@@ -129,7 +131,7 @@ export class UserRouter {
             if (!user) {
                 let hashedpassword: string = await hashPassword(password)
                 user = (await this.userService.createUser(email, hashedpassword))[0];
-                await this.userService.createUserInfo(user.id,"","");
+                await this.userService.createUserInfo(user.id, "", "");
                 const payload = {
                     id: user.id,
                     email: user.email
@@ -157,7 +159,7 @@ export class UserRouter {
             }
             const user = await this.userService.getUserbyEmail(email);
             if (!user) {
-                res.status(404).json({ msg: "User Not found", userinfo: null })   
+                res.status(404).json({ msg: "User Not found", userinfo: null })
             } else {
                 console.log(user)
                 const userinfo = await this.userService.getUserInfo(user.id);
@@ -166,10 +168,63 @@ export class UserRouter {
                 } else {
                     res.status(200).json({
                         msg: "Get Info Success",
-                        email:user.email,
+                        email: user.email,
                         userinfo: userinfo
                     });
                 }
+            }
+        } catch (e) {
+            res.status(500).json({ msg: "Internal Error" });
+        }
+    }
+
+    private getProfileInfo = async (req: Request, res: Response) => {
+        try {
+            const { email } = req.params;
+            if (!email) {
+                res.status(401).json({ msg: "Params Error" });
+                return
+            }
+            const user = await this.userService.getUserbyEmail(email);
+            if (!user) {
+                res.status(404).json({ msg: "User Not found", userinfo: null })
+            } else {
+                const userinfo = await this.userService.getUserInfo(user.id);
+                if (!userinfo) {
+                    res.status(404).json({
+                        msg: "UserInfo Not found",
+                        email: user.email,
+                    })
+                }
+                const ownedApartments = await this.userService.getUserRentalInfo(user.id);
+
+                if (!ownedApartments) {
+                    res.status(404).json({
+                        msg: "Apartmentdetail Not found",
+                        email: user.email,
+                        name: userinfo.name,
+                        icon: userinfo.icon
+                    })
+                }
+
+                for (let apartment of ownedApartments) {
+                    const photos = await this.userService.getApartmentPhotos(apartment.id);
+                    Object.assign(apartment, { photos: photos })
+                }
+                console.log(ownedApartments)
+
+                let payload = {
+                    msg: "Apartmentdetail Not found",
+                    email: user.email,
+                    name: userinfo.name,
+                    icon: userinfo.icon,
+                    apartments: ownedApartments
+                }
+
+                res.status(200).json({
+                    msg: "Get Info Success",
+                    payload: payload
+                });
             }
         } catch (e) {
             res.status(500).json({ msg: "Internal Error" });

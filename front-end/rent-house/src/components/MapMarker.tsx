@@ -1,4 +1,5 @@
 import React from 'react';
+import NumberFormat from 'react-number-format';
 import '../scss/MapMarker.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,7 +10,7 @@ const Marker = (props: any) => {
       <div style={{ width: "150px" }}>
         <p className="priceTag p-1">
           {name} <br/> 
-          ${price}
+          <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'}/>
         </p>
       </div>
 

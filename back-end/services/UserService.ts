@@ -1,6 +1,6 @@
 import * as Knex from "knex";
 import Tables from "../table"; //Detabase- table
-import { IUser, IUserInfo } from "../models/user"; // Interface user
+import { IUser, IUserInfo, ApartmentList, PhotoList } from "../models/user"; // Interface user
 
 export class UserService {
   constructor(private knex: Knex) { }
@@ -8,8 +8,8 @@ export class UserService {
   async getUserbyEmail(email: string) {
     try {
       const user: IUser = await this.knex.table(Tables.users)
-      .where({ email })
-      .first(); //object
+        .where({ email })
+        .first(); //object
       return user;
     } catch (error) {
       console.log("UserServices.getUserbyEmail Error or forgot turn on database")
@@ -34,7 +34,7 @@ export class UserService {
       const newUser: IUser[] = await this.knex.table(Tables.users)
         .insert({ email, password })
         .returning('*')
-        console.log(newUser)
+      console.log(newUser)
       return newUser
     } catch (error) {
       console.log("UserServices.createUser Error")
@@ -45,7 +45,7 @@ export class UserService {
   async getUserInfo(id: number) {
     try {
       const userNuserInfo: IUserInfo = await this.knex.table(Tables.users)
-        .select('name','icon')
+        .select('name', 'icon')
         .innerJoin(Tables.userInformation, `${Tables.userInformation}.user_id`, `${Tables.users}.id`)
         .where(`${Tables.users}.id`, id)
         .first()
@@ -64,6 +64,37 @@ export class UserService {
       return userInfo
     } catch (error) {
       console.log("UserServices.createUserInfo Error")
+      throw error
+    }
+  }
+
+  async getUserRentalInfo(id: number) {
+    try {
+      const userAllInfo: ApartmentList[] = await this.knex.table(Tables.users)
+        .select(`${Tables.rentalApartment}.id`, 'apartment_title', 'rental_price', 'address_building', 'house_type', 'district', 'area', 'bedrooms', 'bathrooms', 'is_carpark', 'is_furniture')
+        .innerJoin(Tables.userInformation, `${Tables.userInformation}.user_id`, `${Tables.users}.id`) //email, icon, name
+        .innerJoin(Tables.rentalApartment, `${Tables.rentalApartment}.user_id`, `${Tables.users}.id`) //apartment_title, rental_price, address_building, is_carpark, is_furniture
+        .join(Tables.apartmentType, { 'apartment_type_id': `${Tables.apartmentType}.id` })//house_type
+        .join(Tables.district, { 'area_district_id': `${Tables.district}.id` })//district, area
+        .join(Tables.bedrooms, { 'bedrooms_id': `${Tables.bedrooms}.id` }) //bedrooms
+        .join(Tables.bathrooms, { 'bathrooms_id': `${Tables.bathrooms}.id` })//bathrooms
+        .where(`${Tables.users}.id`, id)
+      return userAllInfo;
+    } catch (error) {
+      console.log("UserServices.getUserRentalInfo Error")
+      throw error
+    }
+  }
+
+  async getApartmentPhotos(apartmentID: number) {
+    try {
+      const getPhotos: PhotoList[] = await this.knex.table(Tables.rentalApartment)
+        .select(`${Tables.rentalApartment}.id`, 'photo_path')
+        .innerJoin(Tables.apartmentPhotos, `${Tables.apartmentPhotos}.rental_apartment_id`, `${Tables.rentalApartment}.id`) //photo_paths
+        .where(`${Tables.rentalApartment}.id`, apartmentID)
+      return getPhotos;
+    } catch (error) {
+      console.log("UserServices.getApartmentPhoto Error")
       throw error
     }
   }
