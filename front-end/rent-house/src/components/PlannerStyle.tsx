@@ -13,13 +13,13 @@ import ProcedureBar from './ProcedureBar';
 
 const PlannerStyle: React.FC = () => {
 
-    
+
     const rentalId = useSelector((state: IRootState) => state.listing.rentalId);
     const dispatch = useDispatch();
 
     const onHandleClick = () => {
-        const json = JSON.stringify(localStorage.getItem('react-planner_v0'));
-        if(json){
+        const json = localStorage.getItem('react-planner_v0');
+        if (json) {
             dispatch(postFloorPlan(rentalId, json));
         }
     }
@@ -27,7 +27,7 @@ const PlannerStyle: React.FC = () => {
 
     return (
         <div className="planner">
-            <ProcedureBar procedure="Floor Planner"/>
+            <ProcedureBar procedure="Floor Planner" />
             <Planner />
             <Button variant="secondary" onClick={() => onHandleClick()}>
                 Submit

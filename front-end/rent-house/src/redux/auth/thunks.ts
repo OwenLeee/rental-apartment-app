@@ -26,7 +26,7 @@ export function loginThunk(email: string, password: string) {
         } else {
             localStorage.setItem("token", result.token);
             dispatch(Success("LOGIN_SUCCESS", result.msg));
-            dispatch(push("/"));
+            dispatch(push("/home"));
         }
     }
 }
@@ -48,7 +48,7 @@ export function loginFacebookThunk(accessToken: string) {
         } else {
             localStorage.setItem('token', result.token);
             dispatch(Success("LOGIN_SUCCESS", result.msg))
-            dispatch(push("/"));
+            dispatch(push("/home"));
         }
     }
 }
@@ -69,7 +69,7 @@ export function loginGoogleThunk(profileObj:{}) {
         } else {
             localStorage.setItem('token', result.token);
             dispatch(Success("LOGIN_SUCCESS", result.msg))
-            dispatch(push("/"));
+            dispatch(push("/home"));
         }
     }
 }
@@ -95,7 +95,7 @@ export function signupThunk(email: string, password: string) {
             //login
             localStorage.setItem("token", result.token);
             dispatch(Success("LOGIN_SUCCESS", result.msg));
-            dispatch(push("/"));
+            dispatch(push("/home"));
         }
     }
 }

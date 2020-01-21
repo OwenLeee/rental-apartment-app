@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <ConnectedRouter history={history}>
       <MenuBar />
-      <HomePage /> 
+      {/* <HomePage />  */}
 
     </ConnectedRouter>
 

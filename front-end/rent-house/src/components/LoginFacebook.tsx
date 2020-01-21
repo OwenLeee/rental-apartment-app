@@ -29,6 +29,7 @@ const Facebook: React.FC<IFacebookProps> = props => {
 
     function fBCallback(userInfo:ReactFacebookLoginInfo & {accessToken:string}) {
         if (userInfo.accessToken) {
+            console.log(userInfo.accessToken)
             props.loginFacebook(userInfo.accessToken);
         }
         return null;

@@ -6,11 +6,15 @@ import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import PlannerReadOnly from './PlannerReadOnly';
 import { IApartment } from '../redux/content/state';
 import Marker from './FormMapMarker';
-import '../scss/Content.scss';
 import GoogleMapReact from 'google-map-react';
+import NumberFormat from 'react-number-format';
+import { FaBed, FaBath, FaParking, FaBoxOpen, FaBuilding, FaRegBuilding, FaLevelUpAlt } from "react-icons/fa";
+import { GiSofa } from "react-icons/gi";
+
+import '../scss/Content.scss';
 
 interface IContentProps {
-    apartmentId: {
+    match: {
         params: {
             id: string
         }
@@ -24,27 +28,41 @@ interface IContentProps {
 }
 
 
+interface IContentState {
+    isFetch: boolean;
+}
 
-class Content extends React.Component<IContentProps> {
 
-    componentWillMount() {
-        (async () => {
-            const { REACT_APP_API_SERVER } = process.env;
-            const res = await fetch(`${REACT_APP_API_SERVER}/listing/floorPlan/` + this.props.apartmentId.params.id);
-            const result = await res.json();
+class Content extends React.Component<IContentProps, IContentState> {
+    constructor(props: IContentProps) {
+        super(props);
+        this.state = {
+            isFetch: false
+        }
+    }
+
+
+
+
+    async componentWillMount() {
+        localStorage.removeItem('react-planner_v0');
+        const { REACT_APP_API_SERVER } = process.env;
+        const id = parseInt(this.props.match.params.id);
+        const res = await fetch(`${REACT_APP_API_SERVER}/listing/floorPlan/` + id);
+        const result = await res.json();
+        if (result) {
             let json = result[0];
             for (let key in json) {
-                let jsonOnly = json[key];
-                localStorage.removeItem('react-planner_v0');
+                let jsonOnly = JSON.stringify(json[key]);
                 localStorage.setItem('react-planner_v0', jsonOnly);
-                // console.log(localStorage.getItem('react-planner_v0'));
             }
-        })();
+        }
+        this.setState({ isFetch: true });
     };
 
     componentDidMount() {
-        this.props.getAllData(parseInt(this.props.apartmentId.params.id));
-        this.props.getImages(parseInt(this.props.apartmentId.params.id));
+        this.props.getAllData(parseInt(this.props.match.params.id));
+        this.props.getImages(parseInt(this.props.match.params.id));
     }
 
 
@@ -97,43 +115,85 @@ class Content extends React.Component<IContentProps> {
 
 
                 <div className="planner-wrap">
-                    <PlannerReadOnly />
+                    {this.state.isFetch === true ? <PlannerReadOnly /> : ''}
                 </div>
 
 
 
+
                 <div className="row">
-                    <div className="col">
+                    <div className="col-12">
                         <div className="top-left-info-wrap">
-                            <div>{rentalPrice}</div>
-                            <div>{address_building}</div>
-                            <div>{address_block}</div>
-                            <div>{district}</div>
-                            <div>{area}</div>
+                            <div className="price">
+                                <NumberFormat value={rentalPrice[0]} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                            </div>
+                            <div className="building">{address_building}</div>
+                            <div className="block">Block{address_block}</div>
+                            <div className="location">{area}</div>
+                            <div className="location">{district}</div>
                         </div>
                     </div>
                 </div>
 
 
                 <div className="row">
-                    <div className="col">
+                    <div className="col-12">
                         <div className="top-right-info-wrap">
-                            <div>{gross_floor_area}</div>
-                            <div>{saleable_area}</div>
-                            <div>{level}</div>
-                            <div>{bathrooms}</div>
-                            <div>{bedrooms}</div>
-                            <div>{is_carpark}</div>
-                            <div>{is_furniture}</div>
-                            <div>{is_storeroom}</div>
+
+                            <div>
+                                <FaBuilding />
+                                <div>{gross_floor_area}></div>
+                            </div>
+
+
+                            <div>
+                                <FaRegBuilding />
+                                <div>{saleable_area}</div>
+                            </div>
+
+
+                            <div>
+                                <FaLevelUpAlt />
+                                <div>{level}</div>
+                            </div>
+
+
+                            <div>
+                                <FaBath />
+                                <div>{bathrooms}</div>
+                            </div>
+
+
+                            <div>
+                                <FaBed />
+                                <div>{bedrooms}</div>
+                            </div>
+
+
+                            <div>
+                                <FaParking />
+                                <div>{is_carpark[0] === true ? 'Yes' : 'No'}</div>
+                            </div>
+
+
+                            <div>
+                                <GiSofa />
+                                <div>{is_furniture[0] === true ? 'Yes' : 'No'}</div>
+                            </div>
+
+
+                            <div>
+                                <FaBoxOpen />
+                                <div>{is_storeroom[0] === true ? 'Yes' : 'No'}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
 
                 <div className="row">
-                    <div className="col">
-                        <div className="right-info-wrap" style={{ height: '50vh', width: '35%' }}>
+                    <div className="co-6">
+                        <div className="map-wrap" style={{ height: '50vh', width: '30%' }}>
                             <GoogleMapReact
                                 bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY as string }}
                                 defaultCenter={{ lat: lat[0], lng: lng[0] }}
@@ -152,12 +212,10 @@ class Content extends React.Component<IContentProps> {
                 </div>
 
 
-                <div className="row">
-                    <div className="col">
-                        <div className="bottom-left-info-wrap">
-                            <div>{apartment_title}</div>
-                            <div>{apartment_description}</div>
-                        </div>
+                <div className="col">
+                    <div className="bottom-left-info-wrap">
+                        <div>{apartment_title}</div>
+                        <div>{apartment_description}</div>
                     </div>
                 </div>
 

@@ -2,32 +2,42 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import { CallHistoryMethodAction } from "connected-react-router";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import logger from "redux-logger";
-
-//State, Action, Reducers
-import { IAuthState } from "./auth/state";
-import { IAuthActions } from "./auth/actions";
-import { authReducer } from "./auth/reducer";
-
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
+
+//Auth
+import { IAuthState } from "./auth/state"; //state
+import { IAuthActions } from "./auth/actions"; //Actions
+import { authReducer } from "./auth/reducer"; //Reducer
+//Reference
 import { IReferenceTableState } from "./referenceTable/state";
 import { IReferenceTableActions } from "./referenceTable/action";
 import { referenceTableReducers } from "./referenceTable/reducers";
+//Apartment
 import { IApartmentState } from "./apartment/state";
 import IApartmentActions from "./apartment/actions";
 import { apartmentReducer } from "./apartment/reducer";
+//Photos
 import { IPhotosUploadState } from './photosUpload/state';
 import { photosUploadReducers } from './photosUpload/reducers';
 import { IPhotosUploadAction } from './photosUpload/actions'
+//List
 import { IListingState } from "./listing/state";
 import { listingReducers } from "./listing/reducer";
 import { IListingActions } from "./listing/actions";
+<<<<<<< HEAD
+//User
+import { IUserState } from "./user/state";
+import { IUserActions } from "./user/action";
+import { userReducer } from "./user/reducer";
+=======
 import { IVideoUploadState } from "./videoUpload/state";
 import { videoUploadReducers } from "./videoUpload/reducers";
 import { IVideoUploadAction } from "./videoUpload/actions";
 import { IContentState } from "./content/state";
 import { IContentActions } from "./content/actions";
 import { contentReducers } from "./content/reducer";
+>>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
 
 
 
@@ -51,6 +61,7 @@ export interface IRootState {
   videoUpload: IVideoUploadState;
   content: IContentState;
   router: RouterState;
+  user: IUserState
 }
 
 // Mark down Different Component Action in IRootActions
@@ -60,9 +71,13 @@ type IRootAction = IAuthActions
   | IApartmentActions
   | IPhotosUploadAction
   | IListingActions
+<<<<<<< HEAD
+  | IUserActions;
+=======
   | IVideoUploadAction
   | IContentActions
 
+>>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
@@ -71,9 +86,14 @@ const rootReducer = combineReducers<IRootState>({
   apartment: apartmentReducer,
   photosUpload: photosUploadReducers,
   listing: listingReducers,
+<<<<<<< HEAD
+  user: userReducer,
+=======
   videoUpload: videoUploadReducers,
   content: contentReducers,
+>>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
   router: connectRouter(history),
+  
 });
 
 //Development Tools
