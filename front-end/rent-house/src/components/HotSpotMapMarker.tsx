@@ -2,15 +2,11 @@ import React from 'react';
 import '../scss/MapMarker.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Marker = (props: any) => {
-  const { color, name, price } = props;
+const HotSpotMarker = (props: any) => {
+  const { color, name } = props;
   return (
     <div>
-      <div style={{ width: "150px" }}>
-        <p className="priceTag p-1">
-          {name} <br/> 
-          ${price}
-        </p>
+      <div style={{ width: "200px" }}>
       </div>
 
       <div
@@ -24,6 +20,6 @@ const Marker = (props: any) => {
   );
 };
 
-export default Marker;
+export default HotSpotMarker;
 
 

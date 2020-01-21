@@ -8,11 +8,11 @@ export class UserService {
   async getUserbyEmail(email: string) {
     try {
       const user: IUser = await this.knex(Tables.users)
-        .where({ email })
-        .first();
+      .where({ email })
+      .first(); //object
       return user;
     } catch (error) {
-      console.log("UserServices.getUserbyEmail Error")
+      console.log("UserServices.getUserbyEmail Error or forgot turn on database")
       throw error
     }
   }
@@ -34,6 +34,7 @@ export class UserService {
       const newUser: IUser[] = await this.knex(Tables.users)
         .insert({ email, password })
         .returning('*')
+        console.log(newUser)
       return newUser
     } catch (error) {
       console.log("UserServices.createUser Error")

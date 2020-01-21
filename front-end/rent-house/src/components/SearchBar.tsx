@@ -1,16 +1,31 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input , Button} from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { IReferenceTableState } from '../redux/referenceTable/state';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
-import { getBeds, getTypes, getBaths } from '../redux/referenceTable/thunk';
+import { getBeds, getTypes, getBaths, getDistrict } from '../redux/referenceTable/thunk';
 import { connect } from 'react-redux';
 import { ISearchConditions } from '../redux/apartment/state'
 import { searchApartments } from '../redux/apartment/actions'
 import { listApartmentsThunk } from '../redux/apartment/thunks';
+import "../scss/SearchBar.scss";
+import LocationSearchInput from './HotSpotSearchBar';
 
+
+interface Options {
+    label: string ; 
+    value: string | number | boolean; 
+}
+
+interface AreaOptions{
+    label: string; 
+    options: {
+        label: string;
+        value: string; 
+    } []; 
+}
 
 
 const animatedComponents = makeAnimated();
@@ -26,7 +41,7 @@ const priceRange = [
     { label: "$45,000", value: 45000 },
     { label: "$50,000", value: 50000 },
     { label: "$55,000", value: 55000 },
-    { label: "All", value: 0 }
+    { label: "All", value: -1 }
 ]
 
 const furnitureTable = [
@@ -41,6 +56,7 @@ const storeroomTable = [
 
 const placeHolder = {
     houseType: "House Type",
+    areas: "District",
     bedrooms: "Bedrooms",
     bathrooms: "Bathrooms",
     minPrice: "Min. Price",
@@ -49,26 +65,47 @@ const placeHolder = {
     furniture: "Furniture?"
 }
 
+const groupStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+};
+const groupBadgeStyles = {
+    backgroundColor: "#EBECF0",
+    borderRadius: "2em",
+    color: "#172B4D",
+    display: "inline-block",
+    fontSize: 12,
+    // fontWeight: "normal",
+    lineHeight: "1",
+    minWidth: 1,
+    padding: "0.16666666666667em 0.5em",
+    // textAlign: "center"
+};
+
+
+  
+
 export interface ISearchProps {
     referenceTable: IReferenceTableState;
     searchBarConditions: ISearchConditions;
     getAllTables: () => void;
     searchApartments: (conditions: any) => void;
-    listApartment: (keywords: string, propertyType: string, minPrice: number, maxPrice: number,
+    listApartment: (keywords: string, propertyType: string, area: string, minPrice: number, maxPrice: number,
         bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => void;
 }
 
 class SearchBar extends Component<ISearchProps, {}>{
 
-    // constructor(props: ISearchProps) {
-    //     super(props);
-    // }
+    constructor(props: ISearchProps) {
+        super(props);
+    }
 
     private changed = false;
 
     componentDidMount() {
         this.props.getAllTables();
-        this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
+        this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.area, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
             this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
     }
 
@@ -83,46 +120,87 @@ class SearchBar extends Component<ISearchProps, {}>{
         this.changed = true;
     }
 
+    handleResetSearchConditions = () => {
+        this.props.searchApartments ({  keywords: "",
+            propertyType: "",
+            area: "",
+            bedrooms: "",
+            bathrooms: "",
+            minPrice: 0,
+            maxPrice: 0,
+            isStoreroom: 4,
+            isFurniture: 4})
+            this.changed = true;
+    }
+
     componentDidUpdate() {
-        console.log(this.changed);
+        // console.log(this.changed);
         if (this.changed) {
             this.changed = false;
-            this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
+            this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.area, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
                 this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
         }
     }
 
-    // componentDidUpdate(prevProps: ISearchProps) {
-    //     console.log(prevProps);
-    // }
+   formatGroupLabel = (data: any) => (
+        <div style={groupStyles}>
+            <span>{data.label}</span>
+            <span style={groupBadgeStyles}>{data.options.length}</span>
+        </div>
+    );
+
+     defaultValue = ( data : any, options: Options[] | AreaOptions[], name: keyof ISearchConditions) => {
+        if (data === "" || data === 0 || data === 4 ){
+           return data = null; 
+        }  else if (name === "area"){
+            return data = (options as AreaOptions[])[0].options.find(item => item.value === this.props.searchBarConditions[name])
+        } else {
+            return data = (options as Options[]).find(items => items.value === this .props.searchBarConditions[name])
+        }       
+    }
+        
 
     public render() {
-        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({ label: "All Types", value: "" });
-        let bedrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: `Bedrooms: ${name}`, value: name })).concat({ label: "All", value: "" });
-        let bathrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: `Bathrooms: ${name}`, value: name })).concat({ label: "All", value: "" });
-        let maxPriceFilter = priceRange.filter(price => price.value > this.props.searchBarConditions.minPrice);
+        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({ label: "All Types", value: "All" });
+        let bedrooms = this.props.referenceTable.bedrooms.map(type => type.bedrooms).map(name => ({ label: `Bedrooms: ${name}`, value: name })).concat({ label: "All", value: "All" });
+        let bathrooms = this.props.referenceTable.bathrooms.map(type => type.bathrooms).map(name => ({ label: `Bathrooms: ${name}`, value: name })).concat({ label: "All", value: "All" });
+        let maxPriceFilter = priceRange.filter(price => price.value > this.props.searchBarConditions.minPrice).concat({ label: "All", value: -1 });
+        // console.log(this.props.referenceTable.areaDistrict);
+        // // console.log(this.props.referenceTable.areaDistrict.map(area => Object.values(area)[0]));
+        // console.log(this.props.referenceTable.areaDistrict.map(area => ({ label: area.district, options: area.area.map(area2 => ({ value: area2.area, label: area2.area })) })));
+        let areas = this.props.referenceTable.areaDistrict.map(area => ({ label: area.district, options: area.area.map(area2 => ({ value: area2.area, label: area2.area })) })).concat({ label: "All", options: [{value:"All", label:"All"}]});
 
+       
         return (<>
 
-
-            <Form>
-                <div className="col-md-12">
-                    <FormGroup>
-                        <Label for="exampleAddress">Address</Label>
+            <div className="col-8">
+                
+                    <FormGroup className="p-2" style={{ margin: "0px" }}>
+                        <div style={{display:"flex", justifyContent:"space-between", marginBottom: "0.1rem"}}>
+                            {/* <Label for="exampleAddress">   </Label> */}
+                            <div style={{ margin: '0px', paddingLeft: "0.25rem" }}> <h3 >Search Bar</h3> </div> 
+                            <div style={{margin: "0px", display:"flex", alignItems:"center"}}> <Button onClick={this.handleResetSearchConditions}>Reset</Button> </div>  
+                        </div>
                         <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} />
                     </FormGroup>
-                </div>
+                
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
 
-                    <div className="col-md-3"><Select placeholder={placeHolder.houseType} name="propertyType" options={houseType} onChange={this.handleChange} /></div>
-                    <div className="col-md-3"><Select placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3"><Select placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.minPrice} name="minPrice" options={priceRange} onChange={this.handleChange} /></div>
-                    <div className="col-md-3" id="try"><Select placeholder={placeHolder.maxPrice} name="maxPrice" options={maxPriceFilter} onChange={this.handleChange} /></div>
-                    <div className="col-md-3" id="min"><Select placeholder={placeHolder.furniture} name="isFurniture" options={furnitureTable} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3" id="max"><Select placeholder={placeHolder.storeroom} name="isStoreroom" options={storeroomTable} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.propertyType, houseType, "propertyType")} placeholder={placeHolder.houseType} name="propertyType" options={houseType} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.area, areas, "area")} placeholder={placeHolder.areas} name="area" options={areas} formatGroupLabel={this.formatGroupLabel} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.minPrice, priceRange, "minPrice")} placeholder={placeHolder.minPrice} name="minPrice" options={priceRange} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.maxPrice, maxPriceFilter, "maxPrice")} placeholder={placeHolder.maxPrice} name="maxPrice" options={maxPriceFilter} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.bedrooms, bedrooms, "bedrooms")} placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.bathrooms, bathrooms, "bathrooms")} placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isFurniture, furnitureTable, "isFurniture")} placeholder={placeHolder.furniture} name="isFurniture" options={furnitureTable} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isStoreroom, storeroomTable, "isStoreroom")} placeholder={placeHolder.storeroom} name="isStoreroom" options={storeroomTable} components={animatedComponents} onChange={this.handleChange} /></div>
                 </div>
-            </Form>
+            </div>
+            <div className="col-4" >  
+            
+                <LocationSearchInput /> 
+            
+            </div>
         </>)
     }
 
@@ -141,10 +219,11 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
             dispatch(getBeds());
             dispatch(getBaths());
             dispatch(getTypes());
+            dispatch(getDistrict());
         },
         searchApartments: (conditions: any) => dispatch(searchApartments(conditions)),
-        listApartment: (keywords: string, propertyType: string, minPrice: number, maxPrice: number,
-            bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => dispatch(listApartmentsThunk(keywords, propertyType, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom))
+        listApartment: (keywords: string, propertyType: string, area: string, minPrice: number, maxPrice: number,
+            bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => dispatch(listApartmentsThunk(keywords, propertyType, area, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom))
     }
 }
 

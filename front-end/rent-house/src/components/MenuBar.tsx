@@ -20,7 +20,6 @@ import { PrivateRoute } from '../PrivateRoute';
 import Logout from './logout';
 import Content from './Content';
 
-// import PersonalProfile from "./PersonalProfile";
 
 
 class MenuBar extends React.Component {
@@ -45,13 +44,14 @@ class MenuBar extends React.Component {
                     </Navbar.Collapse>
                 </Navbar>
 
+              
                 <Switch>
                     {/* <Route path="/home" component={} /> */}
                     <Route exact path="/rent" component={ApartmentList} />
                     <PrivateRoute path="/post/details/1" component={DetailsOne} />
                     <PrivateRoute path="/post/details/2" component={DetailsTwo} />
                     <PrivateRoute path="/post/details/3" component={DetailsThree} />
-                    <Route path="/auth/login" component={loginContainer} />
+                    <Route path="/auth" component={loginContainer} />
                     <Route path="/post/photos" component={PhotosUpload} />
                     <Route path="/post/video" component={VideoUpload} />
                     <Route path="/post/planner" component={PlannerStyle} />

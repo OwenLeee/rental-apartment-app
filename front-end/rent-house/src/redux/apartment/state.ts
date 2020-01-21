@@ -34,6 +34,7 @@ export interface IApartment {
 export interface ISearchConditions{
     keywords: string;
     propertyType: string;
+    area: string;
     bedrooms: string;
     bathrooms: string;
     minPrice: number;
@@ -42,7 +43,16 @@ export interface ISearchConditions{
     isFurniture: number;
 }
 
+export interface IHotSpotLatLng {
+    
+        lat: number; 
+        lng: number;
+    
+}
+
 export interface IApartmentState{
     apartments: IApartment[];
-    searchConditions: ISearchConditions
+    searchConditions: ISearchConditions;
+    location: IHotSpotLatLng; 
+
 }
