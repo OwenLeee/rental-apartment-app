@@ -16,6 +16,7 @@ export class UserRouter {
         router.post("/login/facebook", this.loginFacebook);
         router.post("/login/google", this.loginGoogle)
         router.post("/signup", this.signup)
+        router.get('/profile/?:email', this.getUserInfo)
         return router;
     }
 
@@ -74,8 +75,8 @@ export class UserRouter {
             if (!user) {
                 let password: string = randomPassword();
                 const hashedpassword: string = await hashPassword(password);
-                user = (await this.userService.createUser(result.email, hashedpassword))[0];
-                console.log(user)
+                user = (await this.userService.createUser(result.email, hashedpassword,))[0];
+                await this.userService.createUserInfo(user.id,result.name,result.picture.data.url) //validate
             }
             const payload = {
                 id: user.id,
@@ -105,6 +106,7 @@ export class UserRouter {
                 let password: string = randomPassword();
                 const hashedpassword: string = await hashPassword(password);
                 user = (await this.userService.createUser(profileObj.email, hashedpassword))[0];
+                await this.userService.createUserInfo(user.id,profileObj.name,profileObj.imageUrl) //validate
             }
             const payload = {
                 id: user.id,
@@ -127,6 +129,7 @@ export class UserRouter {
             if (!user) {
                 let hashedpassword: string = await hashPassword(password)
                 user = (await this.userService.createUser(email, hashedpassword))[0];
+                await this.userService.createUserInfo(user.id,"","");
                 const payload = {
                     id: user.id,
                     email: user.email
@@ -144,4 +147,33 @@ export class UserRouter {
             res.status(500).json({ msg: "internal Error" }) //500 - Internal Error
         }
     }
+
+    private getUserInfo = async (req: Request, res: Response) => {
+        try {
+            const { email } = req.params;
+            if (!email) {
+                res.status(401).json({ msg: "Params Error" });
+                return
+            }
+            const user = await this.userService.getUserbyEmail(email);
+            if (!user) {
+                res.status(404).json({ msg: "User Not found", userinfo: null })   
+            } else {
+                console.log(user)
+                const userinfo = await this.userService.getUserInfo(user.id);
+                if (!userinfo) {
+                    res.status(404).json({ msg: "UserInfo Not found", userinfo: null })
+                } else {
+                    res.status(200).json({
+                        msg: "Get Info Success",
+                        email:user.email,
+                        userinfo: userinfo
+                    });
+                }
+            }
+        } catch (e) {
+            res.status(500).json({ msg: "Internal Error" });
+        }
+    }
 }
+

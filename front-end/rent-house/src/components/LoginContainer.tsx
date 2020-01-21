@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Col, Row, Card } from "react-bootstrap";
+import { Container, Col, Row, Card, Button } from "react-bootstrap";
 import "../scss/auth.scss"
 
 //improt router
@@ -11,57 +11,56 @@ import Facebook from "./Facebook";
 import Google from "./Google";
 import LoginForm from './loginForm'
 import SignupForm from './signupForm'
+import LoginTitle from "./loginTitle";
+import SignupTitle from "./signupTitle";
+import Profile from "./loginProfilo";
+import {IRootState} from "../redux/store"
+import { connect } from "react-redux";
+
+const mapStateToProps = (state: IRootState) => ({
+    status: state.user.status,
+});
 
 interface IFormProps {
+    status:string
 }
 
 interface IFormStates {
-    active: string
 }
 
 class LoginContainer extends Component<IFormProps, IFormStates>{
     constructor(props: IFormProps) {
         super(props);
-        this.state = {
-            active: 'login'
-        }
     }
 
     render() {
         return (
             <Container>
                 <Row className="mt-5 mb-5">
-                    <Col className="mt-3">
-                        {(this.state.active === 'login') && <h1 className="mb-2 title">Login to BeeBeeRent</h1>}
-                        {(this.state.active === 'register') && <h1 className="mb-3 title">Create a BeeBeeRent Acount</h1>}
+                    <Col className="mt-3 mb-2">
+
+                        <Switch>
+                            <Route path="/auth/login" component={LoginTitle} />
+                            <Route path="/auth/signup" component={SignupTitle} />
+                        </Switch>
 
                         <Row>
-                        <Col className="mt-3"> <Facebook /></Col>
+                            <Col className="mt-3"> <Facebook /></Col>
                         </Row>
 
                         <Row>
-                        <Col className="mt-3">  <Google /> </Col>
+                            <Col className="mt-3">  <Google /> </Col>
                         </Row>
                         <Row>
-                        <Col className="mt-4 break"> <span className="brokenword">OR</span></Col>
+                            <Col className="mt-4 break"> <span className="brokenword">OR</span></Col>
                         </Row>
                         <Switch>
                             <Route path="/auth/login" exact={true} component={LoginForm} />
                             <Route path="/auth/signup" exact={true} component={SignupForm} />
                         </Switch>
                     </Col>
-                    <Col className="loginBackground">
-                        <Card bg="primary" text="white" style={{ width: '18rem' }}>
-                            <Card.Header>Header</Card.Header>
-                            <Card.Body>
-                                <Card.Title>Primary Card Title</Card.Title>
-                                <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk
-                                    of the card's content.
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-
+                    <Col className="loginBackground d">
+                        {this.props.status == "User was found"?<Profile />: ""}
                     </Col>
                 </Row>
             </Container >
@@ -69,4 +68,4 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
     }
 }
 
-export default LoginContainer;
+export default connect(mapStateToProps)(LoginContainer);
