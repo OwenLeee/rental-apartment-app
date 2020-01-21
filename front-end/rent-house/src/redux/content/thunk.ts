@@ -5,7 +5,7 @@ const { REACT_APP_API_SERVER } = process.env;
 
 export function getAllData(apartmentId: number) {
     return async (dispatch: ReduxThunkDispatch) => {
-        const res = await fetch(`${REACT_APP_API_SERVER}/apartmentDetails/apartment/${apartmentId}` );
+        const res = await fetch(`${REACT_APP_API_SERVER}/apartmentDetails/apartment/` + apartmentId);
         console.log(res);
         const result = await res.json();
         dispatch(getApartment(result));

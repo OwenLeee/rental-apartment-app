@@ -25,19 +25,16 @@ import { IPhotosUploadAction } from './photosUpload/actions'
 import { IListingState } from "./listing/state";
 import { listingReducers } from "./listing/reducer";
 import { IListingActions } from "./listing/actions";
-<<<<<<< HEAD
 //User
 import { IUserState } from "./user/state";
 import { IUserActions } from "./user/action";
 import { userReducer } from "./user/reducer";
-=======
 import { IVideoUploadState } from "./videoUpload/state";
 import { videoUploadReducers } from "./videoUpload/reducers";
 import { IVideoUploadAction } from "./videoUpload/actions";
 import { IContentState } from "./content/state";
 import { IContentActions } from "./content/actions";
 import { contentReducers } from "./content/reducer";
->>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
 
 
 
@@ -66,18 +63,15 @@ export interface IRootState {
 
 // Mark down Different Component Action in IRootActions
 type IRootAction = IAuthActions
-  | CallHistoryMethodAction
-  | IReferenceTableActions
-  | IApartmentActions
-  | IPhotosUploadAction
-  | IListingActions
-<<<<<<< HEAD
-  | IUserActions;
-=======
-  | IVideoUploadAction
-  | IContentActions
+                | CallHistoryMethodAction
+                | IReferenceTableActions
+                | IApartmentActions
+                | IPhotosUploadAction
+                | IListingActions
+                | IUserActions
+                | IVideoUploadAction
+                | IContentActions
 
->>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
@@ -86,12 +80,9 @@ const rootReducer = combineReducers<IRootState>({
   apartment: apartmentReducer,
   photosUpload: photosUploadReducers,
   listing: listingReducers,
-<<<<<<< HEAD
   user: userReducer,
-=======
   videoUpload: videoUploadReducers,
   content: contentReducers,
->>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
   router: connectRouter(history),
   
 });
