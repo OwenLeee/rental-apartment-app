@@ -7,12 +7,12 @@ import "../scss/auth.scss"
 import { Route, Switch } from 'react-router-dom';
 
 //import components
-import Facebook from "./Facebook";
-import Google from "./Google";
+import Facebook from "./LoginFacebook";
+import Google from "./LoginGoogle";
 import LoginForm from './loginForm'
-import SignupForm from './signupForm'
+import SignupForm from './LoginSignupForm'
 import LoginTitle from "./loginTitle";
-import SignupTitle from "./signupTitle";
+import SignupTitle from "./LoginSignupTitle";
 import Profile from "./loginProfilo";
 import {IRootState} from "../redux/store"
 import { connect } from "react-redux";
