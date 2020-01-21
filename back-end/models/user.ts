@@ -10,8 +10,5 @@ export interface IUserInfo {
   userID:number,
   name:string,
   gender:string,
-  mobile:number,
   icon:string,
-  verifyEmail:boolean,
-  verifyMobile:boolean
 }

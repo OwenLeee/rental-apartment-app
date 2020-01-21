@@ -7,7 +7,7 @@ export class UserService {
 
   async getUserbyEmail(email: string) {
     try {
-      const user: IUser = await this.knex(Tables.users)
+      const user: IUser = await this.knex.table(Tables.users)
       .where({ email })
       .first(); //object
       return user;
@@ -19,7 +19,7 @@ export class UserService {
 
   async getUserbyid(id: number) {
     try {
-      const user: IUser = await this.knex(Tables.users)
+      const user: IUser = await this.knex.table(Tables.users)
         .where({ id })
         .first();
       return user;
@@ -31,7 +31,7 @@ export class UserService {
 
   async createUser(email: string, password: string) {
     try {
-      const newUser: IUser[] = await this.knex(Tables.users)
+      const newUser: IUser[] = await this.knex.table(Tables.users)
         .insert({ email, password })
         .returning('*')
         console.log(newUser)
@@ -42,12 +42,13 @@ export class UserService {
     }
   }
 
-  async getUserInfo(id: string) {
+  async getUserInfo(id: number) {
     try {
-      const userNuserInfo: IUserInfo = await this.knex.table(Tables.userInformation)
-        .innerJoin(Tables.users, `${Tables.userInformation}.users_id`, `${Tables.users}.id`)
-        .where({ id })
-        .first();
+      const userNuserInfo: IUserInfo = await this.knex.table(Tables.users)
+        .select('name','icon')
+        .innerJoin(Tables.userInformation, `${Tables.userInformation}.user_id`, `${Tables.users}.id`)
+        .where(`${Tables.users}.id`, id)
+        .first()
       return userNuserInfo;
     } catch (error) {
       console.log("UserServices.getUserInfo Error")
@@ -55,12 +56,10 @@ export class UserService {
     }
   }
 
-  async createUserInfo(userID: number, name: string, gender: string, mobile: number, icon: string) {
+  async createUserInfo(userID: number, name: string, icon: string) {
     try {
-      let verifyEmail = false;
-      let verifyMobile = false;
-      const userInfo: IUserInfo[] = await this.knex(Tables.userInformation)
-        .insert({ 'user_id': userID, name, gender, mobile, icon, 'verified_email': verifyEmail, 'verified_mobile': verifyMobile })
+      const userInfo: IUserInfo[] = await this.knex.table(Tables.userInformation)
+        .insert({ 'user_id': userID, name, icon })
         .returning('*')
       return userInfo
     } catch (error) {
