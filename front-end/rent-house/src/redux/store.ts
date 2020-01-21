@@ -68,13 +68,10 @@ type IRootAction = IAuthActions
   | IApartmentActions
   | IPhotosUploadAction
   | IListingActions
-<<<<<<< HEAD
-  | IUserActions;
-=======
+  | IUserActions
   | IVideoUploadAction
   | IContentActions
 
->>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
@@ -83,12 +80,9 @@ const rootReducer = combineReducers<IRootState>({
   apartment: apartmentReducer,
   photosUpload: photosUploadReducers,
   listing: listingReducers,
-<<<<<<< HEAD
   user: userReducer,
-=======
   videoUpload: videoUploadReducers,
   content: contentReducers,
->>>>>>> b89ec66d29983b81c4573c6d2ce31d6edfe3eb7e
   router: connectRouter(history),
   
 });
