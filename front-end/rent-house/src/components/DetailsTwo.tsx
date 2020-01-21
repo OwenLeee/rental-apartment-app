@@ -91,7 +91,7 @@ const DetailsTwo: React.FC = () => {
 
 
                 {/* rental period */}
-                <input type="number" placeholder="Rental period (years)"
+                <input type="number" min="0" placeholder="Rental period (years)"
                     name="rentalPeriod" ref={register({ required: true })} />
 
                 <input type="submit" />
