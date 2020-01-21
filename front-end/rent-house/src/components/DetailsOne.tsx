@@ -10,6 +10,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import GoogleMapReact from 'google-map-react';
 import Marker from './FormMapMarker';
 import ProcedureBar from './ProcedureBar';
+import { Input } from 'reactstrap';
 
 // import { Form } from 'react-bootstrap';
 
@@ -30,17 +31,16 @@ const DetailsOne: React.FC = () => {
     ////////// Google map Autocomplete //////////
     const [address, setAddress] = useState('');
     const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
+    const [addressForSearch, setAddressForSearch] = useState('');
     const handleSelect = async (value: string) => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
-        setAddress(value);
+        setAddressForSearch(value); 
         setCoordinates(latLng)
     };
-    const country = (): google.maps.GeocoderComponentRestrictions => {
-        return ({ country: 'hk' });
-    };
+ 
     const searchOptions = {
-        componentRestrictions: country()
+        componentRestrictions: ({ country: 'hk' })
     };
 
     ///////////// Hooks Form /////////////
@@ -147,7 +147,11 @@ const DetailsOne: React.FC = () => {
                     <div></div>
                 }
 
-                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} searchOptions={searchOptions}>
+                <div>
+                        <Input value={address} onChange={e => setAddress(e.target.value)} type="text"> </Input>
+                </div> 
+
+                <PlacesAutocomplete  value={addressForSearch} onChange ={setAddressForSearch} onSelect={handleSelect} searchOptions={searchOptions}>
                     {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                         <div>
                             <div>Latitude: {coordinates.lat}</div>
@@ -190,8 +194,9 @@ const DetailsOne: React.FC = () => {
                         bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY as string }}
                         defaultCenter={{ lat: 22.372527, lng: 114.107623 }}
                         center={{ lat: coordinates.lat, lng: coordinates.lng }}
-                        defaultZoom={10}
+                        defaultZoom={15}
                         resetBoundsOnResize={true}
+
                     >
                         <Marker
                             lat={coordinates.lat}

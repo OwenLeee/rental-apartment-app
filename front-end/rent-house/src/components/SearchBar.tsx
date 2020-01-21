@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input , Button} from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { IReferenceTableState } from '../redux/referenceTable/state';
@@ -179,7 +179,7 @@ class SearchBar extends Component<ISearchProps, {}>{
                         <div style={{display:"flex", justifyContent:"space-between", marginBottom: "0.1rem"}}>
                             {/* <Label for="exampleAddress">   </Label> */}
                             <div style={{ margin: '0px', paddingLeft: "0.25rem" }}> <h3 >Search Bar</h3> </div> 
-                            <div style={{margin: "0px", display:"flex", alignItems:"center"}}> <button onClick={this.handleResetSearchConditions}>Reset</button> </div>  
+                            <div style={{margin: "0px", display:"flex", alignItems:"center"}}> <Button onClick={this.handleResetSearchConditions}>Reset</Button> </div>  
                         </div>
                         <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} />
                     </FormGroup>

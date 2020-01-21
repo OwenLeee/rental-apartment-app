@@ -1,0 +1,84 @@
+// .apartmentDetails {
+//     height: 100%;
+//     width: 100%; 
+//     display: flex; 
+//     flex-direction:column;  
+    
+// }
+
+.building-content :hover{
+   cursor: pointer; 
+}
+
+.building-row{
+    display: flex; 
+    justify-content: "space-between";
+    // align-items: "baseline";
+    // flex-flow: row no-wrap;
+    // align-items: center;
+
+}
+
+.building-name{
+    width: auto; 
+    // display: inline-block; 
+}
+
+.house-type{
+ right:0px;
+ text-align: right; 
+ padding-left:0px; 
+
+}
+
+.district-area{
+
+}
+
+.square-row{
+    // display: flex; 
+    // justify-content: flex-start;
+}
+
+.square{
+
+}
+
+.rent-price{
+
+}
+
+.icon-row{
+    display:flex; 
+    flex-wrap: wrap;
+}
+
+.bedrooms-icon{
+    display: flex; 
+    justify-content: space-between;
+    padding-right: 0px; 
+    align-content: center;
+    align-items: center;
+}
+
+.bed-icon{
+    padding: 0px; 
+}
+
+.bed-num{
+    padding: 0px; 
+}
+
+.bathrooms-icon{
+    display: flex; 
+   
+    
+}
+
+.furniture-icon{
+
+}
+
+.storeroom-icon{
+
+}

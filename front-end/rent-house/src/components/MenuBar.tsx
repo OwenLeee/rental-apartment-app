@@ -18,7 +18,6 @@ import PhotosUpload from './PhotosUpload';
 import { PrivateRoute } from '../PrivateRoute';
 import Logout from './logout';
 
-// import PersonalProfile from "./PersonalProfile";
 
 
 class MenuBar extends React.Component {
@@ -43,6 +42,7 @@ class MenuBar extends React.Component {
                     </Navbar.Collapse>
                 </Navbar>
 
+              
                 <Switch>
                     {/* <Route path="/home" component={} /> */}
                     <Route path="/rent" component={ApartmentList} />

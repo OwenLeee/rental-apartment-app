@@ -6,7 +6,7 @@ const Marker = (props: any) => {
   const { color, name, price } = props;
   return (
     <div>
-      <div style={{ width: "200px" }}>
+      <div style={{ width: "150px" }}>
         <p className="priceTag p-1">
           {name} <br/> 
           ${price}
