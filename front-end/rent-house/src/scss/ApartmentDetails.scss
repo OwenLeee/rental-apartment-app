@@ -48,37 +48,80 @@
 
 }
 
+.p-margin{
+    margin-bottom: 16px; 
+}
+
 .icon-row{
     display:flex; 
     flex-wrap: wrap;
 }
 
-.bedrooms-icon{
+.icon-animation {
+    transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+    overflow: hidden;
+    height: 40px; 
+}
+
+.icon-animation:hover{
+    height: 70px; 
+}
+
+.draft-info-icon-left{
     display: flex; 
-    justify-content: space-between;
+    flex-wrap: wrap; 
     padding-right: 0px; 
-    align-content: center;
-    align-items: center;
-}
-
-.bed-icon{
-    padding: 0px; 
-}
-
-.bed-num{
-    padding: 0px; 
-}
-
-.bathrooms-icon{
-    display: flex; 
-   
     
 }
 
-.furniture-icon{
+.info-icon-left{
+    padding: 0px; 
+}
+
+.info-num-left p{
+   
+}
+
+
+.draft-info-icon-center{
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+    
+}
+
+.info-icon-center{
+    padding: 0px; 
+    float: center; 
+    text-align: center; 
+    align-items: flex-end; 
+    bottom: 0px; 
+}
+
+.info-num-center{
+    padding: 0px; 
+   padding-top: 0.5rem; 
+    text-align: center; 
+    float:center; 
 
 }
 
-.storeroom-icon{
 
+.draft-info-icon-right{
+    display: flex; 
+    flex-wrap: wrap; 
+    float: right; 
+}
+
+.info-icon-right{
+    padding: 0px; 
+    float: right;
+    display: flex; 
+    justify-content: flex-end; 
+}
+
+.info-num-right{
+    padding: 0px; 
+    float: right; 
 }

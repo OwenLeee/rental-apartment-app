@@ -10,7 +10,7 @@ class ApartmentList extends React.Component {
         return <>
             <div className="container-fluid p-3">
                 <div className="row"><SearchBar /> </div>
-                <div style={{ display: "flex", flexDirection: "row" }}>
+                <div style={{ display: "flex", flexDirection: "row" , overflow: "auto"}}>
                     <div className="listContainer" style={{ height: "100vh", width: "50%" }}>
                         <div className="topBar p-3" style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", borderBottom: "30px" }}>
                             <div className="topTitle" style={{ fontSize: "25px", fontWeight: "bold" }}>Flats</div>

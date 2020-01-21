@@ -5,26 +5,26 @@ import { IApartment, ISearchConditions } from '../redux/apartment/state';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 
 import { connect } from 'react-redux';
-import { FaBed, FaBath, FaParking, FaBoxOpen } from "react-icons/fa";
-import { GiSofa } from "react-icons/gi";
+import { FaBed, FaBath,FaShower, FaParking, FaBoxOpen, FaCheck, FaTimes } from "react-icons/fa";
+import { GiSofa, GiBed } from "react-icons/gi";
 import NumberFormat from 'react-number-format';
-import "../scss/ApartmentDetails.scss"; 
+import "../scss/ApartmentDetails.scss";
 import { push } from 'connected-react-router';
 
 interface IApartmentProps {
   apartments: IApartment[];
   searchBarConditions: ISearchConditions;
-  directToRentDetailPage: (id: number) => void; 
+  directToRentDetailPage: (id: number) => void;
 }
 
 const toDisplayRoomsNumber = (value: string) => {
-    if (value === "4 or above") {
-       return value = "4+"; 
-    } else if (value === "3 or above") {
-      return value = "3+"; 
-    } else { 
-      return value; 
-    }
+  if (value === "4 or above") {
+    return value = "4+";
+  } else if (value === "3 or above") {
+    return value = "3+";
+  } else {
+    return value;
+  }
 }
 
 
@@ -82,37 +82,40 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
 
             <div className="container col-8 building-content" onClick={() => this.props.directToRentDetailPage(apartment.id)}>
               <div className="row building-row" >
-                <div className="building-name col-7"> <p> {apartment.address_building} </p> </div>
-                <div className="house-type col-5"> <p> {apartment.house_type} </p> </div>
+                <div className="building-name col-7"> <p className="p-margin"> {apartment.address_building} </p> </div>
+                <div className="house-type col-5"> <p className="p-margin"> {apartment.house_type} </p> </div>
               </div>
               <div className="row">
-                <div className="district-area col-12"> <p>{apartment.area} | {apartment.level} Level </p> </div>
+                <div className="district-area col-12"> <p className="p-margin">{apartment.area} | {apartment.level} Level </p> </div>
               </div>
               <div className="row square-row" >
-                <div className="col-12 square"><p> {apartment.gross_floor_area} SQ FT | HKD <NumberFormat value={apartment.rental_price} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> </p> </div>
+                <div className="col-12 square"><p style={{marginBottom: "15px"}}> {apartment.gross_floor_area} SQ FT | HKD <NumberFormat value={apartment.rental_price} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> </p> </div>
               </div>
-              <div className="row icon-row" >
-                <div className="bedrooms-icon col-3"> <div className="container"><FaBed className="col-12 bed-icon"size={30} />  <div className="col-2bed-num"><p>{toDisplayRoomsNumber(apartment.bedrooms)}</p></div></div>  </div>
-                <div className="bathrooms-icon col-3"> <FaBath size={30} /> <p> {toDisplayRoomsNumber(apartment.bathrooms)} </p>  </div>
-                <div className="furniture-icon col-3"> {apartment.is_furniture ? <GiSofa size={30} /> : <GiSofa size={30} />} </div>
-                <div className="storeroom-icon col-3"> {apartment.is_storeroom ? <FaBoxOpen size={30} /> : <FaBoxOpen size={30} />} </div>
+              <div className="row icon-row icon-animation" >
+                <div className="draft-info-icon-center col-3">
+                  <div className="col-12 info-icon-center "> <GiBed size={35} /> </div>
+                  <div className="col-12 info-num-center"><p style={{margin: "0px"}}>{toDisplayRoomsNumber(apartment.bedrooms)}</p></div>
+                </div>
+                <div className="draft-info-icon-center col-3">
+                  <div className="col-12 info-icon-center"> <FaShower size={35} /> </div>
+                  <div className="col-12 info-num-center"><p style={{margin: "0px"}}> {toDisplayRoomsNumber(apartment.bathrooms)} </p> </div>
+                </div>
+                <div className="draft-info-icon-center col-3">
+                  <div className="col-12 info-icon-center"> <GiSofa size={35} /> </div>
+                  <div className="col-12 info-num-center">  {apartment.is_furniture ? <FaCheck size={20} /> : <FaTimes size={20} />}  </div>
+                </div>
+                <div className="draft-info-icon-center col-3">
+                  <div className="col-12 info-icon-center"> <FaParking size={35 } /> </div>
+                  <div className="col-12 info-num-center"> {apartment.is_storeroom ? <FaCheck size={20} /> : <FaTimes size={20} />} </div>
+                </div>
               </div>
-              {/* <div className="detailTitle" style={{ display: "flex", justifyContent: "space-between" }}> <p> {apartment.district}, {apartment.area} </p>  <p> {apartment.house_type} </p></div>
-              <div> <p> {apartment.address_building}, {apartment.address_block}, {apartment.level} Level </p></div>
-              <div> <p> Rental Price: ${apartment.rental_price}</p> </div>
-              <div className="detailArea" style={{ display: "flex", justifyContent: "space-between" }}>
-                <div> Saleable/Gross: {apartment.saleable_area}"Sq.ft / {apartment.gross_floor_area}"Sq.ft </div>
-                <div> <FaBed size={30} />  {apartment.bedrooms} </div>
-                <div> <FaBath size={30} />  {apartment.bathrooms} </div>
-                <div> {apartment.is_furniture ? <GiSofa size={30} /> : <GiSofa size={30} />} </div>
-                <div> {apartment.is_storeroom ? <FaBoxOpen size={30} /> : <FaParking size={30} />} </div>
-              </div> */}
             </div>
           </div>
           ) :
           <div className="col-12 p-3" style={{ display: "flex", alignItems: "center", color: "grey" }}>
             <div> <h1> No Result... </h1></div>
-          </div>}
+          </div>
+        }
       </>
     )
   }
@@ -136,6 +139,6 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(ApartmentDetails);
 
 
-//  <div className="p-2" style={{ position: "absolute", display:"flex", justifyContent: "flex-end", alignItems: "flex-end", bottom:"0", width:"100%"}}> 
-//               <FaHeart onClick={()=> this.props.addToFavourite(apartment.id)} size={20}/>  
+//  <div className="p-2" style={{ position: "absolute", display: "flex", justifyContent: "flex-end", alignItems: "flex-end", bottom: "0", width: "100%" }}>
+//               <FaHeart onClick={()=> this.props.addToFavourite(apartment.id)} size={20}/>
 //               </div> 
