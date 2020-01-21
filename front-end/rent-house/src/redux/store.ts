@@ -2,26 +2,33 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import { CallHistoryMethodAction } from "connected-react-router";
 import thunk, { ThunkDispatch } from "redux-thunk";
 import logger from "redux-logger";
-
-//State, Action, Reducers
-import { IAuthState } from "./auth/state";
-import { IAuthActions } from "./auth/actions";
-import { authReducer } from "./auth/reducer";
-
 import { RouterState, connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
+
+//Auth
+import { IAuthState } from "./auth/state"; //state
+import { IAuthActions } from "./auth/actions"; //Actions
+import { authReducer } from "./auth/reducer"; //Reducer
+//Reference
 import { IReferenceTableState } from "./referenceTable/state";
 import { IReferenceTableActions } from "./referenceTable/action";
 import { referenceTableReducers } from "./referenceTable/reducers";
+//Apartment
 import { IApartmentState } from "./apartment/state";
 import IApartmentActions from "./apartment/actions";
 import { apartmentReducer } from "./apartment/reducer";
+//Photos
 import { IPhotosUploadState } from './photosUpload/state';
 import { photosUploadReducers } from './photosUpload/reducers';
 import { IPhotosUploadAction } from './photosUpload/actions'
+//List
 import { IListingState } from "./listing/state";
 import { listingReducers } from "./listing/reducer";
 import { IListingActions } from "./listing/actions";
+//User
+import { IUserState } from "./user/state";
+import { IUserActions } from "./user/action";
+import { userReducer } from "./user/reducer";
 
 
 
@@ -43,15 +50,17 @@ export interface IRootState {
   photosUpload: IPhotosUploadState;
   listing: IListingState;
   router: RouterState;
+  user: IUserState
 }
 
 // Mark down Different Component Action in IRootActions
-type IRootAction = IAuthActions 
-                  | CallHistoryMethodAction 
-                  | IReferenceTableActions 
-                  | IApartmentActions 
-                  | IPhotosUploadAction 
-                  | IListingActions;
+type IRootAction = IAuthActions
+  | CallHistoryMethodAction
+  | IReferenceTableActions
+  | IApartmentActions
+  | IPhotosUploadAction
+  | IListingActions
+  | IUserActions;
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
@@ -60,7 +69,9 @@ const rootReducer = combineReducers<IRootState>({
   apartment: apartmentReducer,
   photosUpload: photosUploadReducers,
   listing: listingReducers,
+  user: userReducer,
   router: connectRouter(history),
+  
 });
 
 //Development Tools
