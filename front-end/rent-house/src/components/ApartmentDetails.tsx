@@ -49,9 +49,9 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
 
   public render() {
     return (
-      <>
+      <div style={{overflow: 'auto' , height:"88vh"}}>
         {this.props.apartments.length > 0 ?
-          this.props.apartments.map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
+          this.props.apartments.map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch"}}>
             <div className="col-4" style={{ padding: "0px" }}>
               <Carousel >
                 <Carousel.Item >
@@ -113,7 +113,7 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
           <div className="col-12 p-3" style={{ display: "flex", alignItems: "center", color: "grey" }}>
             <div> <h1> No Result... </h1></div>
           </div>}
-      </>
+      </div>
     )
   }
 

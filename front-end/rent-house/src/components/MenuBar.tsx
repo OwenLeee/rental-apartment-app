@@ -19,7 +19,7 @@ import VideoUpload from './VideoUpload';
 import { PrivateRoute } from '../PrivateRoute';
 import Logout from './logout';
 import Content from './Content';
-
+import HomePage from './HomePage';
 
 
 class MenuBar extends React.Component {
@@ -28,7 +28,7 @@ class MenuBar extends React.Component {
         return (
             <ConnectedRouter history={history}>
                 <Navbar bg="light" expand="lg">
-                    <NavLink to='/home' className='home-button'>BeeBeeRent</NavLink>
+                    <NavLink to='/' className='home-button'>BeeBeeRent</NavLink>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
@@ -44,21 +44,21 @@ class MenuBar extends React.Component {
                     </Navbar.Collapse>
                 </Navbar>
 
-              
+
                 <Switch>
-                    {/* <Route path="/home" component={} /> */}
-                    <Route exact path="/rent" component={ApartmentList} />
-                    <PrivateRoute path="/post/details/1" component={DetailsOne} />
-                    <PrivateRoute path="/post/details/2" component={DetailsTwo} />
-                    <PrivateRoute path="/post/details/3" component={DetailsThree} />
+                    <Route path="/" exact={true} component={HomePage} />
+                    <Route exact={true} path="/rent" component={ApartmentList} />
+                    <Route path="/post/details/1" component={DetailsOne} />
+                    <Route path="/post/details/2" component={DetailsTwo} />
+                    <Route path="/post/details/3" component={DetailsThree} />
                     <Route path="/auth" component={loginContainer} />
                     <Route path="/post/photos" component={PhotosUpload} />
                     <Route path="/post/video" component={VideoUpload} />
                     <Route path="/post/planner" component={PlannerStyle} />
-                    <Route exact path="/rent/content" component={Content} />
+                    <Route exact={true} path="/rent/content/:id" component={Content} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
-                    <Route exact path="/post">
+                    <Route exact={true} path="/post">
                         <Redirect to="/post/details/1"></Redirect>
                     </Route>
                 </Switch>

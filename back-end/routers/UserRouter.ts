@@ -29,7 +29,7 @@ export class UserRouter {
             const { email, password } = req.body;
 
             // Step 2: get User
-            const user = await this.userService.getUserbyEmail(email)[0];
+            const user = await this.userService.getUserbyEmail(email);
             if (!user) {
                 res.status(404).json({ msg: "User Not Found" });
                 return;
