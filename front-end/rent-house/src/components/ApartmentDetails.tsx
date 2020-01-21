@@ -114,14 +114,8 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
           ) :
           <div className="col-12 p-3" style={{ display: "flex", alignItems: "center", color: "grey" }}>
             <div> <h1> No Result... </h1></div>
-<<<<<<< HEAD
-          </div>
-        }
-      </>
-=======
           </div>}
       </div>
->>>>>>> 871016adbeac415f4b07110287a7154448b2d835
     )
   }
 
