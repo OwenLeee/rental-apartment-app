@@ -1,7 +1,4 @@
 export interface IPhotosUploadState {
-    photo_path: IPhotosPath[]
+    photo_path: string[];
 }
 
-export interface IPhotosPath {
-    photo_path: string
-}

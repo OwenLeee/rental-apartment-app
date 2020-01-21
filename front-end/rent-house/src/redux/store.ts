@@ -22,6 +22,12 @@ import { IPhotosUploadAction } from './photosUpload/actions'
 import { IListingState } from "./listing/state";
 import { listingReducers } from "./listing/reducer";
 import { IListingActions } from "./listing/actions";
+import { IVideoUploadState } from "./videoUpload/state";
+import { videoUploadReducers } from "./videoUpload/reducers";
+import { IVideoUploadAction } from "./videoUpload/actions";
+import { IContentState } from "./content/state";
+import { IContentActions } from "./content/actions";
+import { contentReducers } from "./content/reducer";
 
 
 
@@ -42,16 +48,21 @@ export interface IRootState {
   apartment: IApartmentState;
   photosUpload: IPhotosUploadState;
   listing: IListingState;
+  videoUpload: IVideoUploadState;
+  content: IContentState;
   router: RouterState;
 }
 
 // Mark down Different Component Action in IRootActions
-type IRootAction = IAuthActions 
-                  | CallHistoryMethodAction 
-                  | IReferenceTableActions 
-                  | IApartmentActions 
-                  | IPhotosUploadAction 
-                  | IListingActions;
+type IRootAction = IAuthActions
+  | CallHistoryMethodAction
+  | IReferenceTableActions
+  | IApartmentActions
+  | IPhotosUploadAction
+  | IListingActions
+  | IVideoUploadAction
+  | IContentActions
+
 
 // Mark down Different Component Reducer in IRootReducer
 const rootReducer = combineReducers<IRootState>({
@@ -60,6 +71,8 @@ const rootReducer = combineReducers<IRootState>({
   apartment: apartmentReducer,
   photosUpload: photosUploadReducers,
   listing: listingReducers,
+  videoUpload: videoUploadReducers,
+  content: contentReducers,
   router: connectRouter(history),
 });
 

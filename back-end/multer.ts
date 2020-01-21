@@ -14,6 +14,7 @@ export const upload: multer.Instance = multer({
         s3: s3,
         bucket: 'beebeerent.upload',
         metadata: (req, file, cb) => {
+            // console.log('i am multer file!!!!', file);
             cb(null, { fieldName: file.fieldname });
         },
         key: (req, file, cb) => {

@@ -5,17 +5,19 @@ import { Carousel, Button } from 'react-bootstrap';
 import Dropzone from 'react-dropzone'
 import { FaPlusCircle } from "react-icons/fa";
 // import { loadPhotos } from '../redux/photosUpload/thunk';
-import { IPhotosPath } from '../redux/photosUpload/state';
 import '../scss/PhotosUpload.scss'
-import { loadPhotos, createPhotos } from '../redux/photosUpload/thunk';
+import { createPhotos } from '../redux/photosUpload/thunk';
 import ProcedureBar from './ProcedureBar';
+import { push } from 'connected-react-router';
 
 
 interface IPhotosUploadProps {
-    photosPath: IPhotosPath[];
+    photo_path: string[];
     rentalId: number;
-    loadPhotos: (apartmentId: number) => void;
+    // loadPhotos: (apartmentId: number) => void;
     createPhotos: (acceptedFiles: File[], apartmentId: number) => void;
+    redirectToVideo: () => void;
+
 }
 
 class PhotosUpload extends React.Component<IPhotosUploadProps> {
@@ -27,32 +29,34 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
     //     this.props.loadPhotos();
     // }
 
-    handleUploadPhotos = () => {
-        // this.props.createPhotos(this.props.rentalId);
-        // this.props.loadPhotos(this.props.rentalId);
-    }
-
     private onDrop = (acceptedFiles: File[]) => {
         this.props.createPhotos(acceptedFiles, this.props.rentalId);
     }
 
     public render() {
-        console.log(this.props.photosPath);
+        // console.log('i am props in component!', this.props.photo_path);
         return (
             <div className="photos-upload">
-                <ProcedureBar procedure="Photos"/>
+                <ProcedureBar procedure="Photos" />
                 <div className="whole-wrap">
                     {
-                        this.props.photosPath.length > 0 ?
-                            <Carousel>
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src="holder.js/800x400?text=First slide&bg=373940"
-                                        alt="First slide"
-                                    />
-                                </Carousel.Item>
+                        this.props.photo_path.length > 0 ?
+
+                            <Carousel className="carousel-wrap">
+                                {this.props.photo_path.map(photo => {
+                                    return (
+                                        <Carousel.Item>
+                                            <img
+                                                className="d-block w-100"
+                                                src={photo}
+                                                alt="First slide"
+                                            />
+                                        </Carousel.Item>
+                                    )
+                                })
+                                }
                             </Carousel>
+
                             :
                             <div className="drop-zone-wrap">
                                 <Dropzone onDrop={this.onDrop}>
@@ -69,8 +73,7 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
                     }
 
                 </div>
-                <Button variant="primary">Submit
-             </Button>
+                <Button variant="primary" onClick={this.props.redirectToVideo}>Submit</Button>
             </div>
         )
     }
@@ -79,15 +82,16 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
 
 const mapStateToProps = (state: IRootState) => {
     return {
-        photosPath: state.photosUpload.photo_path,
+        photo_path: state.photosUpload.photo_path,
         rentalId: state.listing.rentalId
     }
 };
 
 const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
     return {
-        loadPhotos: (apartmentId: number) => dispatch(loadPhotos(apartmentId)),
-        createPhotos: (acceptedFiles: File[], apartmentId: number) => dispatch(createPhotos(acceptedFiles, apartmentId))
+        // loadPhotos: (apartmentId: number) => dispatch(loadPhotos(apartmentId)),
+        createPhotos: (acceptedFiles: File[], apartmentId: number) => dispatch(createPhotos(acceptedFiles, apartmentId)),
+        redirectToVideo: () => dispatch(push('/post/video'))
     }
 };
 
