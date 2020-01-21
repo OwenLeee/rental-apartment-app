@@ -10,7 +10,7 @@ export class ListingRouter {
     public router() {
         const router = express.Router();
 
-        router.get('/floorPlan', this.loadFloorPlan)
+        router.get('/floorPlan/:apartmentId', this.loadFloorPlan)
         router.post('/details/1', this.listDetailsOne);
         router.put('/details/2', this.listDetailsTwo);
         router.put('/details/3', this.listDetailsThree);
@@ -24,8 +24,8 @@ export class ListingRouter {
 
     public loadFloorPlan = async (req: express.Request, res: express.Response) => {
         try {
-            const { apartmentId } = req.body;
-            res.json(await this.listingService.loadFloorPlan(apartmentId));
+            const { apartmentId } = req.params;
+            res.send(await this.listingService.loadFloorPlan(parseInt(apartmentId)));
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('loadFloorPlan error is found...');
@@ -89,10 +89,12 @@ export class ListingRouter {
             if (req.files != null) {
                 const { apartmentId } = req.body;
                 const files = req.files as Express.Multer.File[]
+                console.log(files);
                 const locations = files.map((file: Express.Multer.File) => file.location)
+                // console.log('i am location!!!!', locations);
 
                 await this.listingService.addApartmentPhotos(apartmentId, locations); // need to check
-                res.json({ result: true, locations });
+                res.json({ result: true, locations: locations });
             }
         } catch (e) {
             res.status(500).json({ result: false });
@@ -117,11 +119,9 @@ export class ListingRouter {
 
     public addVideo = async (req: express.Request, res: express.Response) => {
         try {
-            if (req.files != null) {
-                const { apartmentId } = req.body;
-                await this.listingService.addVideo(apartmentId, req.files[0].filename); // need to check
-                res.json({ result: true });
-            }
+            const { apartmentId, videoPath } = req.body;
+            await this.listingService.addVideo(apartmentId, videoPath); // need to check
+            res.json({ result: true, videoPath });
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('addVideo error is found...');

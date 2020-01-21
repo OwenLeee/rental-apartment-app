@@ -6,7 +6,7 @@ import PlacesAutocomplete, {
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { connect } from 'react-redux';
 import { searchHotSpotPlace } from '../redux/apartment/actions';
-import { Input, FormGroup } from 'reactstrap';
+import { Input, FormGroup, Button } from 'reactstrap';
 
 
 export interface State {
@@ -18,11 +18,8 @@ export interface IHotSpotProps {
     searchHotSpotPlace: (latLng: any) => void;
 }
 
-const country = (): google.maps.GeocoderComponentRestrictions => {
-    return ({ country: 'hk' });
-};
 const searchOptions = {
-    componentRestrictions: country()
+    componentRestrictions: { country: 'hk' }
 };
 
 class LocationSearchInput extends React.Component<IHotSpotProps, State> {
@@ -56,7 +53,7 @@ class LocationSearchInput extends React.Component<IHotSpotProps, State> {
             <FormGroup className="p-2" style={{ margin: "0px"}}>
                 <div style={{margin: "0px", marginBottom:"0.12rem", display:"flex", justifyContent:"space-between"}}>
                     <div > <h3 style={{ marginBottom: '8px'}}>Hot Spot Location</h3> </div>
-                    <div style={{margin: "0px", display:"flex", alignItems:"center"}}> <button onClick={this.handleResetHotSpotConditions}>Reset</button> </div>  
+                    <div style={{margin: "0px", display:"flex", alignItems:"center"}}> <Button onClick={this.handleResetHotSpotConditions}>Reset</Button> </div>  
                 </div>
                 
                     <PlacesAutocomplete
@@ -64,18 +61,21 @@ class LocationSearchInput extends React.Component<IHotSpotProps, State> {
                         onChange={this.handleChange}
                         onSelect={this.handleSelect}
                         searchOptions={searchOptions}
+                        highlightFirstSuggestion={true}
                     >
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                             <div className="col-12 p-0">
-                                <Input style={{width: "100%"}}
+                                <Input style={{width: "100%"}} 
                                     {...getInputProps({
                                         placeholder: 'Searching hot spot...',
                                         className: 'location-search-input',
                                     })}
                                 />
                                 <div className="autocomplete-dropdown-container"  style={{height: "105px", overflow: "auto"}}>
-                                    {loading && <div>Loading...</div>}
+                                    {loading && <div>Loading...</div>} 
+                                    {/* {console.log(suggestions)} */}
                                     {suggestions.map(suggestion => {
+                                        console.log(suggestion)
                                         const className = suggestion.active
                                             ? 'suggestion-item--active'
                                             : 'suggestion-item';

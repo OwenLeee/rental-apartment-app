@@ -18,7 +18,7 @@ export class ApartmentDetailsRouter {
     public loadApartment = async (req: express.Request, res: express.Response) => {
         try {
             const { apartmentId } = req.params;
-            res.json(await this.apartmentDetailsService.loadApartment(parseInt(apartmentId)));
+            res.json((await this.apartmentDetailsService.loadApartment(parseInt(apartmentId))).map(apr => ({ ...apr, lat: parseFloat(apr.lat), lng: parseFloat(apr.lng) })));
         } catch (e) {
             res.status(500).json({ result: false });
             console.error('loadApartment error is found...');

@@ -15,7 +15,7 @@ const initialState = {
 export function userReducer(
     state: IUserState = initialState,
     action: IUserActions
-) {
+): IUserState {
     //Action.type => 3 Actions in IAuthActions which reutrn key(type):value(Login_Sucess, Login_Failed, Logout)
     switch (action.type) {
         case "GET_USER": // when Type:LOGIN_SUCCESS in IAuthActions
@@ -23,7 +23,7 @@ export function userReducer(
                 ...state,
                 email: action.userProfile.email,
                 userinfo: {
-                    profile: action.userProfile.userinfo.icon,
+                    icon: action.userProfile.userinfo.icon,
                     name: action.userProfile.userinfo.name
                 },
                 status: "User was found"
@@ -33,7 +33,7 @@ export function userReducer(
                 ...state,
                 email: "",
                 userinfo: {
-                    profile: "",
+                    icon: "",
                     name: ""
                 },
                 status: "User not found"

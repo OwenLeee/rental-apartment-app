@@ -18,7 +18,7 @@ const PlannerStyle: React.FC = () => {
     const dispatch = useDispatch();
 
     const onHandleClick = () => {
-        const json = localStorage.getItem('react-planner_v0');
+        const json = JSON.stringify(localStorage.getItem('react-planner_v0'));
         if(json){
             dispatch(postFloorPlan(rentalId, json));
         }

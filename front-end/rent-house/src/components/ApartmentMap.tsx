@@ -35,6 +35,7 @@ const SimpleMap = (props: any) => {
 
             
                 {apartments.map(e => {
+                    
                     return <Marker
                         key={e.id}
                         lat={e.lat}

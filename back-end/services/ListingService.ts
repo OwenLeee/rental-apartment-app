@@ -84,6 +84,7 @@ export class ListingService {
 
     public addApartmentPhotos = async (apartmentId: number, photoPaths: string[]) => {
         const apartmentPhotos = photoPaths.map((path) => ({'rental_apartment_id': apartmentId, 'photo_path': path }))
+        // console.log(apartmentPhotos);
         await this.knex(Table.apartmentPhotos).insert(apartmentPhotos);
     };
 
@@ -121,7 +122,7 @@ export class ListingService {
 //     const listingService = new ListingService(knex);
 
 //     ////// 1 ////// OK
-//     // console.log(await listingService.loadFloorPlan(1));
+//     // console.log(await listingService.loadFloorPlan(37));
 
 //     ////// 2 ////// OK
 //     // await listingService.listApartment(
@@ -129,7 +130,7 @@ export class ListingService {
 //     //     false, 300, 250, 2, 20000, 5000, 'fast', 'wonderful house', 12, 20);
 
 //     ////// 3 ////// OK
-//     // await listingService.addApartmentPhotos(1, 'house1.jpg');
+//     // await listingService.addApartmentPhotos(1, ['house1.jpg']);
 
 //     ////// 4 ////// OK
 //     // await listingService.addApartmentFloorPlan(1, '{"New": "json"}');
