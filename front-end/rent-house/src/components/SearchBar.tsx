@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { /*Form,*/ FormGroup,/* Label,*/ Input , Button} from 'reactstrap';
+import { /*Form,*/ FormGroup,/* Label,*/ Input, Button } from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { IReferenceTableState } from '../redux/referenceTable/state';
@@ -15,16 +15,16 @@ import LocationSearchInput from './HotSpotSearchBar';
 
 
 interface Options {
-    label: string ; 
-    value: string | number | boolean; 
+    label: string;
+    value: string | number | boolean;
 }
 
-interface AreaOptions{
-    label: string; 
+interface AreaOptions {
+    label: string;
     options: {
         label: string;
-        value: string; 
-    } []; 
+        value: string;
+    }[];
 }
 
 
@@ -84,7 +84,7 @@ const groupBadgeStyles = {
 };
 
 
-  
+
 
 export interface ISearchProps {
     referenceTable: IReferenceTableState;
@@ -121,7 +121,8 @@ class SearchBar extends Component<ISearchProps, {}>{
     }
 
     handleResetSearchConditions = () => {
-        this.props.searchApartments ({  keywords: "",
+        this.props.searchApartments({
+            keywords: "",
             propertyType: "",
             area: "",
             bedrooms: "",
@@ -129,8 +130,9 @@ class SearchBar extends Component<ISearchProps, {}>{
             minPrice: 0,
             maxPrice: 0,
             isStoreroom: 4,
-            isCarpark: 4})
-            this.changed = true;
+            isCarpark: 4
+        })
+        this.changed = true;
     }
 
     componentDidUpdate() {
@@ -142,24 +144,24 @@ class SearchBar extends Component<ISearchProps, {}>{
         }
     }
 
-   formatGroupLabel = (data: any) => (
+    formatGroupLabel = (data: any) => (
         <div style={groupStyles}>
             <span>{data.label}</span>
             <span style={groupBadgeStyles}>{data.options.length}</span>
         </div>
     );
 
-     defaultValue = ( data : any, options: Options[] | AreaOptions[], name: keyof ISearchConditions) => {
-        if (data === "" || data === 0 || data === 4 ){
-           return data = null; 
-        }  else if (name === "area"){
+    defaultValue = (data: any, options: Options[] | AreaOptions[], name: keyof ISearchConditions) => {
+        if (data === "" || data === 0 || data === 4) {
+            return data = null;
+        } else if (name === "area") {
             return data = (options as AreaOptions[])[0].options.find(item => item.value === this.props.searchBarConditions[name])
         } else {
             // eslint-disable-next-line
-            return data = (options as Options[]).find(items => items.value === this .props.searchBarConditions[name])
-        }       
+            return data = (options as Options[]).find(items => items.value === this.props.searchBarConditions[name])
+        }
     }
-        
+
 
     public render() {
         let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({ label: "All Types", value: "All" });
@@ -169,38 +171,38 @@ class SearchBar extends Component<ISearchProps, {}>{
         // console.log(this.props.referenceTable.areaDistrict);
         // // console.log(this.props.referenceTable.areaDistrict.map(area => Object.values(area)[0]));
         // console.log(this.props.referenceTable.areaDistrict.map(area => ({ label: area.district, options: area.area.map(area2 => ({ value: area2.area, label: area2.area })) })));
-        let areas = this.props.referenceTable.areaDistrict.map(area => ({ label: area.district, options: area.area.map(area2 => ({ value: area2.area, label: area2.area })) })).concat({ label: "All", options: [{value:"All", label:"All"}]});
+        let areas = this.props.referenceTable.areaDistrict.map(area => ({ label: area.district, options: area.area.map(area2 => ({ value: area2.area, label: area2.area })) })).concat({ label: "All", options: [{ value: "All", label: "All" }] });
 
-       
+
         return (<>
 
             <div className="col-8" >
-                
-                    <FormGroup className="p-2" style={{ margin: "0px" }}>
-                        <div style={{display:"flex", justifyContent:"space-between", marginBottom: "0.1rem"}}>
-                            {/* <Label for="exampleAddress">   </Label> */}
-                            <div style={{ margin: '0px', paddingLeft: "0.25rem" }}> <h3 >Search Bar</h3> </div> 
-                            <div style={{margin: "0px", display:"flex", alignItems:"center"}}> <Button onClick={this.handleResetSearchConditions}>Reset</Button> </div>  
-                        </div>
-                        <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} />
-                    </FormGroup>
-                
+
+                <FormGroup className="p-2" style={{ margin: "0px", display:"flex" }}>
+                    <div className="col-11 search-bar search-bar-input"> <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} /></div>
+                    <div className="col-1 search-bar" style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.1rem" }}>
+                        <div style={{ margin: "0px", display: "flex", alignItems: "center" }}> <Button style={{width:"100%"}} onClick={this.handleResetSearchConditions}>Reset</Button> </div>
+                    </div>
+
+
+                </FormGroup>
+
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
 
                     <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.propertyType, houseType, "propertyType")} placeholder={placeHolder.houseType} name="propertyType" options={houseType} components={animatedComponents} onChange={this.handleChange} /></div>
                     <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.area, areas, "area")} placeholder={placeHolder.areas} name="area" options={areas} formatGroupLabel={this.formatGroupLabel} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.minPrice, priceRange, "minPrice")} placeholder={placeHolder.minPrice} name="minPrice" options={priceRange} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.maxPrice, maxPriceFilter, "maxPrice")} placeholder={placeHolder.maxPrice} name="maxPrice" options={maxPriceFilter} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.minPrice, priceRange, "minPrice")} placeholder={placeHolder.minPrice} name="minPrice" options={priceRange} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.maxPrice, maxPriceFilter, "maxPrice")} placeholder={placeHolder.maxPrice} name="maxPrice" options={maxPriceFilter} components={animatedComponents} onChange={this.handleChange} /></div>
                     <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.bedrooms, bedrooms, "bedrooms")} placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.bathrooms, bathrooms, "bathrooms")} placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isFurniture, furnitureTable, "isFurniture")} placeholder={placeHolder.furniture} name="isFurniture" options={furnitureTable} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isCarpark, carparkTable, "isCarpark")} placeholder={placeHolder.carpark} name="isCarpark" options={carparkTable} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.bathrooms, bathrooms, "bathrooms")} placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.isFurniture, furnitureTable, "isFurniture")} placeholder={placeHolder.furniture} name="isFurniture" options={furnitureTable} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.isCarpark, carparkTable, "isCarpark")} placeholder={placeHolder.carpark} name="isCarpark" options={carparkTable} components={animatedComponents} onChange={this.handleChange} /></div>
                 </div>
             </div>
-            <div className="col-4" >  
-            
-                <LocationSearchInput /> 
-            
+            <div className="col-4" >
+
+                <LocationSearchInput />
+
             </div>
         </>)
     }

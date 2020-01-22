@@ -30,79 +30,56 @@ const toDisplayRoomsNumber = (value: string) => {
 
 class ApartmentDetails extends React.Component<IApartmentProps> {
 
-  // constructor(props: IApartmentProps) {
-  //   super(props);
-
-  // }
-
-
-  // componentDidMount() {
-  //   this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
-  //     this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
-  // }
-
-  // private addToFavourite = (id: number) => {
-
-  // }
-
-
 
   public render() {
     return (
       <div style={{ overflow: 'auto', height: "88vh" }}>
         {this.props.apartments.length > 0 ?
-          this.props.apartments.sort((a, b) => {return a.rental_price-b.rental_price} ).map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
-            <div className="col-4" style={{ padding: "0px" }}>
-              <Carousel >
-                {apartment.photos_path.map(photo => (
+          this.props.apartments.sort((a, b) => { return a.rental_price - b.rental_price }).map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
+ <div className="col-4" style={{ padding: "0px" }}>
+<Carousel >
+            {apartment.photos_path.length > 0 ? apartment.photos_path.map(photo => (
+             
+                
                   <Carousel.Item >
                     <img
                       className="d-block w-100"
                       src={`${photo.photo_path}`}
-                      alt={`${photo.photo_path}`}
+                      alt="House Photo"
                     />
                   </Carousel.Item>
-                )
-                )}
-
-                {/* <Carousel.Item >
-                  <img
-                    className="d-block w-100"
-                    src=""
-                    alt="Second slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item >
-                  <img
-                    className="d-block w-100"
-                    src=""
-                    alt="Third slide"
-                  />
-                </Carousel.Item> */}
-
-              </Carousel>
-
-            </div>
-
+               
+          
+            )) :
+              <div style={{ padding: "0px", display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center"  }}>
+                <div className="row" style={{ display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
+                  <div className="col-12 blank-div">
+                    <p > Will Be Provided Soon! </p>
+                  </div>
+                </div>
+              </div>
+            }
+</Carousel>
+</div>
             <div className="container col-8 building-content" onClick={() => this.props.directToRentDetailPage(apartment.id)}>
               <div className="row building-row" >
-                <div className="building-name col-7"> <p className="p-margin"> {apartment.address_building} </p> </div>
-                <div className="house-type col-5"> <p className="p-margin"> {apartment.house_type} </p> </div>
+                <div className="building-name col-7"> <p className="p-margin building-title"> {apartment.address_building} </p> </div>
+                <div className="house-type col-5"> <p className="p-margin building-house-type"> {apartment.house_type} </p> </div>
               </div>
               <div className="row">
-                <div className="district-area col-12"> <p className="p-margin">{apartment.area} | {apartment.level} Level </p> </div>
+                <div className="district-area col-12"> <p className="p-margin building-area-level">{apartment.area} | {apartment.level} Level </p> </div>
               </div>
               <div className="row square-row" >
-                <div className="col-12 square"><p style={{ marginBottom: "15px" }}> {apartment.gross_floor_area} SQ FT | HKD <NumberFormat value={apartment.rental_price} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> </p> </div>
+                <div className="col-12 square"><p className="building-squarefeet" style={{ marginBottom: "15px" }}> <NumberFormat value={apartment.gross_floor_area} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> SQ FT | HKD <NumberFormat value={apartment.rental_price} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> </p> </div>
               </div>
               <div className="row icon-row icon-animation" >
                 <div className="draft-info-icon-center col-3">
                   <div className="col-12 info-icon-center "> <GiBed className="sofa-icon" size={35} /> </div>
-                  <div className="col-12 info-num-center"><p style={{ margin: "0px" }}>{toDisplayRoomsNumber(apartment.bedrooms)}</p></div>
+                  <div className="col-12 info-num-center"><p className="info-num" style={{ margin: "0px" }}>{toDisplayRoomsNumber(apartment.bedrooms)}</p></div>
                 </div>
                 <div className="draft-info-icon-center col-3">
                   <div className="col-12 info-icon-center"> <FaShower className="sofa-icon" size={35} /> </div>
-                  <div className="col-12 info-num-center"><p style={{ margin: "0px" }}> {toDisplayRoomsNumber(apartment.bathrooms)} </p> </div>
+                  <div className="col-12 info-num-center"><p className="info-num" style={{ margin: "0px" }}> {toDisplayRoomsNumber(apartment.bathrooms)} </p> </div>
                 </div>
                 <div className="draft-info-icon-center col-3">
                   <div className="col-12 info-icon-center"> <GiSofa className="sofa-icon" size={35} /> </div>
