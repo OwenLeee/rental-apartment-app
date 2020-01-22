@@ -11,7 +11,7 @@ const initialState = {
         maxPrice: 0,
         bedrooms: "",
         bathrooms: "",
-        isStoreroom: 4,
+        isCarpark: 4,
         isFurniture: 4
     }, 
     location: {

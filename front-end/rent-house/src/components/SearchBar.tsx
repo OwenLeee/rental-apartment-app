@@ -47,12 +47,12 @@ const priceRange = [
 const furnitureTable = [
     { label: "Furniture: Yes", value: 1 },
     { label: "Furniture: No", value: 2 },
-    { label: "Furniture: Both", value: 3 }]
+    { label: "Furniture: Why not both?", value: 3 }]
 
-const storeroomTable = [
-    { label: "Storeroom: Yes", value: 1 },
-    { label: "Storeroom: No", value: 2 },
-    { label: "Storeroom: Both", value: 3 }]
+const carparkTable = [
+    { label: "Carpark: Yes", value: 1 },
+    { label: "Carpark: No", value: 2 },
+    { label: "Carpark: Why not both?", value: 3 }]
 
 const placeHolder = {
     houseType: "House Type",
@@ -61,7 +61,7 @@ const placeHolder = {
     bathrooms: "Bathrooms",
     minPrice: "Min. Price",
     maxPrice: "Max. Price",
-    storeroom: "Storeroom?",
+    carpark: "Carpark?",
     furniture: "Furniture?"
 }
 
@@ -92,7 +92,7 @@ export interface ISearchProps {
     getAllTables: () => void;
     searchApartments: (conditions: any) => void;
     listApartment: (keywords: string, propertyType: string, area: string, minPrice: number, maxPrice: number,
-        bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => void;
+        bedrooms: string, bathrooms: string, isFurniture: number, isCarpark: number) => void;
 }
 
 class SearchBar extends Component<ISearchProps, {}>{
@@ -106,7 +106,7 @@ class SearchBar extends Component<ISearchProps, {}>{
     componentDidMount() {
         this.props.getAllTables();
         this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.area, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
-            this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
+            this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isCarpark);
     }
 
 
@@ -129,7 +129,7 @@ class SearchBar extends Component<ISearchProps, {}>{
             minPrice: 0,
             maxPrice: 0,
             isStoreroom: 4,
-            isFurniture: 4})
+            isCarpark: 4})
             this.changed = true;
     }
 
@@ -138,7 +138,7 @@ class SearchBar extends Component<ISearchProps, {}>{
         if (this.changed) {
             this.changed = false;
             this.props.listApartment(this.props.searchBarConditions.keywords, this.props.searchBarConditions.propertyType, this.props.searchBarConditions.area, this.props.searchBarConditions.minPrice, this.props.searchBarConditions.maxPrice,
-                this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isStoreroom);
+                this.props.searchBarConditions.bedrooms, this.props.searchBarConditions.bathrooms, this.props.searchBarConditions.isFurniture, this.props.searchBarConditions.isCarpark);
         }
     }
 
@@ -173,7 +173,7 @@ class SearchBar extends Component<ISearchProps, {}>{
        
         return (<>
 
-            <div className="col-8">
+            <div className="col-8" >
                 
                     <FormGroup className="p-2" style={{ margin: "0px" }}>
                         <div style={{display:"flex", justifyContent:"space-between", marginBottom: "0.1rem"}}>
@@ -193,7 +193,7 @@ class SearchBar extends Component<ISearchProps, {}>{
                     <div className="col-md-3 p-2"><Select value={this.defaultValue(this.props.searchBarConditions.bedrooms, bedrooms, "bedrooms")} placeholder={placeHolder.bedrooms} name="bedrooms" options={bedrooms} components={animatedComponents} onChange={this.handleChange} /></div>
                     <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.bathrooms, bathrooms, "bathrooms")} placeholder={placeHolder.bathrooms} name="bathrooms" options={bathrooms} components={animatedComponents} onChange={this.handleChange} /></div>
                     <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isFurniture, furnitureTable, "isFurniture")} placeholder={placeHolder.furniture} name="isFurniture" options={furnitureTable} components={animatedComponents} onChange={this.handleChange} /></div>
-                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isStoreroom, storeroomTable, "isStoreroom")} placeholder={placeHolder.storeroom} name="isStoreroom" options={storeroomTable} components={animatedComponents} onChange={this.handleChange} /></div>
+                    <div className="col-md-3 p-2"><Select value={ this.defaultValue(this.props.searchBarConditions.isCarpark, carparkTable, "isCarpark")} placeholder={placeHolder.carpark} name="isCarpark" options={carparkTable} components={animatedComponents} onChange={this.handleChange} /></div>
                 </div>
             </div>
             <div className="col-4" >  
@@ -223,7 +223,7 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch) => {
         },
         searchApartments: (conditions: any) => dispatch(searchApartments(conditions)),
         listApartment: (keywords: string, propertyType: string, area: string, minPrice: number, maxPrice: number,
-            bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => dispatch(listApartmentsThunk(keywords, propertyType, area, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom))
+            bedrooms: string, bathrooms: string, isFurniture: number, isCarpark: number) => dispatch(listApartmentsThunk(keywords, propertyType, area, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isCarpark))
     }
 }
 

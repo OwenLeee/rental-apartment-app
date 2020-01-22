@@ -6,6 +6,15 @@
     
 // }
 
+.apartmentContainer{
+    border-top: rgb(211, 211, 211) 1px solid; 
+    border-bottom: rgb(211, 211, 211) 1px solid; 
+}
+
+.apartmentContainer:hover{
+    background-color: rgba(246, 223, 158, 0.3);
+}
+
 .building-content :hover{
    cursor: pointer; 
 }
@@ -124,4 +133,34 @@
 .info-num-right{
     padding: 0px; 
     float: right; 
+}
+
+.bed-icon{
+    color: brown
+}
+
+.bed-icon:hover{
+    color: rgb(215, 59, 59)
+}
+
+.shower-icon{
+    color: deepskyblue
+}
+.shower-icon:hover{
+    color: rgb(158, 231, 255)
+}
+
+.sofa-icon{
+    color: rgb(152,100,71)
+}
+
+.sofa-icon:hover{
+    color: rgb(240, 212, 176)
+}
+
+.parking-icon{
+    color: rgb(7, 7, 201)
+}
+.parking-icon:hover{
+    color: rgb(68, 68, 240)
 }

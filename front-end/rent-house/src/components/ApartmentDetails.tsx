@@ -5,7 +5,7 @@ import { IApartment, ISearchConditions } from '../redux/apartment/state';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 
 import { connect } from 'react-redux';
-import { FaBed, FaBath,FaShower, FaParking, FaBoxOpen, FaCheck, FaTimes } from "react-icons/fa";
+import { FaBed, FaBath, FaShower, FaParking, FaBoxOpen, FaCheck, FaTimes } from "react-icons/fa";
 import { GiSofa, GiBed } from "react-icons/gi";
 import NumberFormat from 'react-number-format';
 import "../scss/ApartmentDetails.scss";
@@ -49,19 +49,23 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
 
   public render() {
     return (
-      <div style={{overflow: 'auto' , height:"88vh"}}>
+      <div style={{ overflow: 'auto', height: "88vh" }}>
         {this.props.apartments.length > 0 ?
-          this.props.apartments.map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch"}}>
+          this.props.apartments.sort((a, b) => {return a.rental_price-b.rental_price} ).map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
             <div className="col-4" style={{ padding: "0px" }}>
               <Carousel >
-                <Carousel.Item >
-                  <img
-                    className="d-block w-100"
-                    src=""
-                    alt="First slide"
-                  />
-                </Carousel.Item>
-                <Carousel.Item >
+                {apartment.photos_path.map(photo => (
+                  <Carousel.Item >
+                    <img
+                      className="d-block w-100"
+                      src={`${photo.photo_path}`}
+                      alt={`${photo.photo_path}`}
+                    />
+                  </Carousel.Item>
+                )
+                )}
+
+                {/* <Carousel.Item >
                   <img
                     className="d-block w-100"
                     src=""
@@ -74,7 +78,7 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
                     src=""
                     alt="Third slide"
                   />
-                </Carousel.Item>
+                </Carousel.Item> */}
 
               </Carousel>
 
@@ -89,24 +93,24 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
                 <div className="district-area col-12"> <p className="p-margin">{apartment.area} | {apartment.level} Level </p> </div>
               </div>
               <div className="row square-row" >
-                <div className="col-12 square"><p style={{marginBottom: "15px"}}> {apartment.gross_floor_area} SQ FT | HKD <NumberFormat value={apartment.rental_price} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> </p> </div>
+                <div className="col-12 square"><p style={{ marginBottom: "15px" }}> {apartment.gross_floor_area} SQ FT | HKD <NumberFormat value={apartment.rental_price} displayType={'text'} thousandSeparator={true} /*prefix={'$'}*/ /> </p> </div>
               </div>
               <div className="row icon-row icon-animation" >
                 <div className="draft-info-icon-center col-3">
-                  <div className="col-12 info-icon-center "> <GiBed size={35} /> </div>
-                  <div className="col-12 info-num-center"><p style={{margin: "0px"}}>{toDisplayRoomsNumber(apartment.bedrooms)}</p></div>
+                  <div className="col-12 info-icon-center "> <GiBed className="sofa-icon" size={35} /> </div>
+                  <div className="col-12 info-num-center"><p style={{ margin: "0px" }}>{toDisplayRoomsNumber(apartment.bedrooms)}</p></div>
                 </div>
                 <div className="draft-info-icon-center col-3">
-                  <div className="col-12 info-icon-center"> <FaShower size={35} /> </div>
-                  <div className="col-12 info-num-center"><p style={{margin: "0px"}}> {toDisplayRoomsNumber(apartment.bathrooms)} </p> </div>
+                  <div className="col-12 info-icon-center"> <FaShower className="sofa-icon" size={35} /> </div>
+                  <div className="col-12 info-num-center"><p style={{ margin: "0px" }}> {toDisplayRoomsNumber(apartment.bathrooms)} </p> </div>
                 </div>
                 <div className="draft-info-icon-center col-3">
-                  <div className="col-12 info-icon-center"> <GiSofa size={35} /> </div>
+                  <div className="col-12 info-icon-center"> <GiSofa className="sofa-icon" size={35} /> </div>
                   <div className="col-12 info-num-center">  {apartment.is_furniture ? <FaCheck size={20} /> : <FaTimes size={20} />}  </div>
                 </div>
                 <div className="draft-info-icon-center col-3">
-                  <div className="col-12 info-icon-center"> <FaParking size={35 } /> </div>
-                  <div className="col-12 info-num-center"> {apartment.is_storeroom ? <FaCheck size={20} /> : <FaTimes size={20} />} </div>
+                  <div className="col-12 info-icon-center"> <FaParking className="sofa-icon" size={35} /> </div>
+                  <div className="col-12 info-num-center"> {apartment.is_carpark ? <FaCheck size={20} /> : <FaTimes size={20} />} </div>
                 </div>
               </div>
             </div>
