@@ -1,0 +1,30 @@
+.details-three{
+    display:flex;
+    justify-content: center;
+
+
+    form{
+        margin-top:20px;
+        display:flex;
+        align-items: flex-start;
+        flex-direction: column;
+        width:20%;
+        margin-right:40px;
+      
+           input{
+                border: 1px solid #aaa;
+                padding: 10px 5px;
+                border-radius: 3px;
+                margin:5px;
+            }
+            textarea{
+                margin:5px;
+            }
+            .next-button{
+                width:100px;
+                margin-top:30px;
+                border-radius: 10px;
+            }
+      
+    }
+}

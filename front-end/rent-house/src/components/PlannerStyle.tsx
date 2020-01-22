@@ -1,6 +1,6 @@
 import React from 'react';
 import { Planner } from '../planner/renderer';
-import '../scss/Planner.scss'
+import '../scss/PlannerStyle.scss'
 import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { IRootState } from '../redux/store';
@@ -26,7 +26,7 @@ const PlannerStyle: React.FC = () => {
 
 
     return (
-        <div className="planner">
+        <div className="planner-style">
             <ProcedureBar procedure="Floor Planner" />
             <Planner />
             <Button variant="secondary" onClick={() => onHandleClick()}>

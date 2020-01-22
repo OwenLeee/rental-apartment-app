@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IRootState } from '../redux/store';
 import { postDetailsThree } from '../redux/listing/thunk';
 import ProcedureBar from './ProcedureBar';
-
+import '../scss/DetailsThree.scss';
 
 interface IForm {
     saleableArea: number,
@@ -33,18 +33,20 @@ const DetailsThree: React.FC = () => {
     return (
         <div>
                  <ProcedureBar procedure="Details"/>
+                 <div className="details-three">
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <input type="number" placeholder="saleableArea" name="saleableArea" ref={register({ required: true })} />
-                <input type="number" placeholder="grossFloorArea" name="grossFloorArea" ref={register({ required: true })} />
-                <input type="number" placeholder="monthlyRental" name="monthlyRental" ref={register({ required: true })} />
-                <input type="number" placeholder="deposit" name="deposit" ref={register({ required: true })} />
-                <input type="text" placeholder="title" name="title" ref={register({ required: true })} />
+                <input type="number" placeholder="Saleable Area" name="saleableArea" ref={register({ required: true })} />
+                <input type="number" placeholder="Gross Floor Area" name="grossFloorArea" ref={register({ required: true })} />
+                <input type="number" placeholder="Monthly Rental" name="monthlyRental" ref={register({ required: true })} />
+                <input type="number" placeholder="Deposit" name="deposit" ref={register({ required: true })} />
+                <input type="text" placeholder="Title" name="title" ref={register({ required: true })} />
                 <textarea name="description" ref={register({ required: true })} />
 
-                <input type="submit" />
-
+                <input type="submit" className="next-button" />
             </form>
+            <img src={require(`../background_photos/bedroom.jpg`)} alt="icon" />
+            </div>
         </div >
     )
 }

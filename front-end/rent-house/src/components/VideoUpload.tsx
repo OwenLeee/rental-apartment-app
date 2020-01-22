@@ -8,6 +8,7 @@ import { IRootState } from '../redux/store';
 import { push } from 'connected-react-router';
 import { Button } from 'react-bootstrap';
 import '../scss/PhotosUpload.scss'
+import '../scss/VideoPlayer.scss'
 
 
 const VideoUpload: React.FC = () => {
@@ -30,22 +31,23 @@ const VideoUpload: React.FC = () => {
     return (
         <div className="photos-upload">
             <ProcedureBar procedure="Video" />
+            
             <div className="whole-wrap">
 
                 {video_path === '' ?
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input type="url" placeholder="Youtube Link" name="youTubeLink" ref={register} />
-                        <input type="submit" />
+                        <input type="url" className="youtube-link"placeholder="Youtube Link" name="youTubeLink" ref={register} />
+                        <input type="submit" className="submit-youtube"/>
                     </form>
                     :
-                    <div className="player-wrapper">
-                           <ReactPlayer className="react-player" url={video_path} playing={false} controls={true} width="100%" height="100%"/>
+                    <div>
+                           <ReactPlayer className="player-wrap" url={video_path} playing={false} controls={true} width="700px" height="350px"/>
                     </div>                    
                  
                 }
             </div>
 
-            <Button variant="primary" onClick={() => dispatch(push('/post/planner'))}>Submit</Button>
+            <Button className="submit-button" variant="primary" onClick={() => dispatch(push('/post/planner'))}>Next</Button>
 
         </div>
     )

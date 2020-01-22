@@ -12,6 +12,7 @@ import { FaBed, FaBath, FaParking, FaBoxOpen, FaBuilding, FaRegBuilding, FaLevel
 import { GiSofa } from "react-icons/gi";
 
 import '../scss/Content.scss';
+import ReactPlayer from 'react-player';
 
 interface IContentProps {
     match: {
@@ -87,12 +88,13 @@ class Content extends React.Component<IContentProps, IContentState> {
         const mobile_number = this.props.apartment.map(data => data.mobile_number);
         const apartment_title = this.props.apartment.map(data => data.apartment_title);
         const apartment_description = this.props.apartment.map(data => data.apartment_description);
+        const video_path = this.props.apartment.map(data => data.video_path);
 
 
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col">
+                    <div className="col-12">
                         <div className="whole-wrap">
                             <Carousel className="carousel-wrap">
                                 {this.props.photos.map(photo => {
@@ -113,36 +115,13 @@ class Content extends React.Component<IContentProps, IContentState> {
                 </div>
 
 
-
-                <div className="planner-wrap">
-                    {this.state.isFetch === true ? <PlannerReadOnly /> : ''}
-                </div>
-
-
-
-
                 <div className="row">
                     <div className="col-12">
-                        <div className="top-left-info-wrap">
-                            <div className="price">
-                                <NumberFormat value={rentalPrice[0]} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-                            </div>
-                            <div className="building">{address_building}</div>
-                            <div className="block">Block{address_block}</div>
-                            <div className="location">{area}</div>
-                            <div className="location">{district}</div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className="row">
-                    <div className="col-12">
-                        <div className="top-right-info-wrap">
+                        <div className="buttons-wrap">
 
                             <div>
                                 <FaBuilding />
-                                <div>{gross_floor_area}></div>
+                                <div>{gross_floor_area}</div>
                             </div>
 
 
@@ -160,13 +139,19 @@ class Content extends React.Component<IContentProps, IContentState> {
 
                             <div>
                                 <FaBath />
-                                <div>{bathrooms}</div>
+                                <div>{bathrooms[0] === "3 or above" ? '>2' : bathrooms}</div>
                             </div>
+                        </div>
+                    </div>
+                </div>
 
 
+                <div className="row break-line">
+                    <div className="col-12">
+                        <div className="buttons-wrap">
                             <div>
                                 <FaBed />
-                                <div>{bedrooms}</div>
+                                <div>{bedrooms[0] === "4 or above" ? '>3' : bedrooms}</div>
                             </div>
 
 
@@ -191,9 +176,66 @@ class Content extends React.Component<IContentProps, IContentState> {
                 </div>
 
 
-                <div className="row">
-                    <div className="co-6">
-                        <div className="map-wrap" style={{ height: '50vh', width: '30%' }}>
+
+                <div className="row row-margin">
+                    <div className="col-6">
+                        <div className="address-wrap">
+                            <div className="price">
+                                <NumberFormat value={rentalPrice[0]} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                            </div>
+                            <div className="building">
+                                <div className="address">
+                                    {address_building}
+                                </div>
+                                <div className="block">
+                                    <div className="block-field">Block</div>
+                                    <div>{address_block}</div>
+                                </div>
+                            </div>
+
+
+
+                            <div className="location">{area}</div>
+                            <div className="location">{district}</div>
+                        </div>
+
+                        <div className="description-wrap">
+                            <div className="description">Unit Description</div>
+                            <div className="title">{apartment_title}</div>
+                            <div className="description-box">{apartment_description}</div>
+                        </div>
+                    </div>
+
+
+                    <div className="col-6">
+                        <ReactPlayer className="player-wrap" url={video_path[0]} playing={false} controls={true} width="100%" height="100%" />
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+                <div className="row map-line-break">
+                    <div className="col-6">
+                        <div className="agent-wrap">
+                            <div className="agent-column">Agent</div>
+                            <div className="agent-info">
+                                <div>{name}</div>
+                                <div className="title">Sales Associate</div>
+                                <div className='mobile'>
+                                    <div>mobile</div>
+                                    <div>{mobile_number}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-6">
+                        <div className="map-wrap" style={{ height: '50vh', width: '100%' }}>
                             <GoogleMapReact
                                 bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_API_KEY as string }}
                                 defaultCenter={{ lat: lat[0], lng: lng[0] }}
@@ -208,49 +250,13 @@ class Content extends React.Component<IContentProps, IContentState> {
                                 />
                             </GoogleMapReact>
                         </div>
+
                     </div>
                 </div>
 
-
-                <div className="col">
-                    <div className="bottom-left-info-wrap">
-                        <div>{apartment_title}</div>
-                        <div>{apartment_description}</div>
-                    </div>
+                <div className="planner-wrap">
+                    {this.state.isFetch === true ? <PlannerReadOnly /> : ''}
                 </div>
-
-
-
-
-                <div className="row">
-                    <div className="col">
-                        <div className="bottom-right-info-wrap">
-                            <div>{name}</div>
-                            <div>{mobile_number}</div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-                {/* <div>
-                    {this.props.apartment[0].address_building}
-                </div>
-
-                <div>
-                    {this.propsd.apartment[0].address_block}
-                </div>
-            
-                <div>
-                    {this.props.apartment[0].district}
-                </div>
-
-                <div>
-                    {this.props.apartment[0].area}
-                </div> */}
-
 
 
 
