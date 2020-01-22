@@ -80,9 +80,9 @@ export interface IHomePageProps {
 class HomePage extends React.Component<IHomePageProps, {}>{
 
 
-    constructor(props: IHomePageProps) {
-        super(props);
-    }
+    // constructor(props: IHomePageProps) {
+    //     super(props);
+    // }
 
 
     handleChange = (selectedOption: any, actionMeta: any) => {
@@ -103,6 +103,7 @@ class HomePage extends React.Component<IHomePageProps, {}>{
         }  else if (name === "area"){
             return data = (options as AreaOptions[])[0].options.find(item => item.value === this.props.searchBarConditions[name])
         } else {
+            // eslint-disable-next-line
             return data = (options as Options[]).find(items => items.value === this .props.searchBarConditions[name])
         }       
     }

@@ -63,14 +63,14 @@ export interface IRootState {
 
 // Mark down Different Component Action in IRootActions
 type IRootAction = IAuthActions
-  | CallHistoryMethodAction
-  | IReferenceTableActions
-  | IApartmentActions
-  | IPhotosUploadAction
-  | IListingActions
-  | IUserActions
-  | IVideoUploadAction
-  | IContentActions
+                | CallHistoryMethodAction
+                | IReferenceTableActions
+                | IApartmentActions
+                | IPhotosUploadAction
+                | IListingActions
+                | IUserActions
+                | IVideoUploadAction
+                | IContentActions
 
 
 // Mark down Different Component Reducer in IRootReducer

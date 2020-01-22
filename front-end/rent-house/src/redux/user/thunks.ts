@@ -11,6 +11,7 @@ export function getUserInfoThunk(email: string) {
         const res = await fetch(`${REACT_APP_API_SERVER}/users/profile/` + email);
         const result = await res.json();
         console.log(result)
+        // eslint-disable-next-line
         if (res.status == 200) {
             dispatch(getUser(result, result.msg));
         } else {

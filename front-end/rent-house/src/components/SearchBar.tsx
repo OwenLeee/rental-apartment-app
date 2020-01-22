@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, FormGroup, Label, Input , Button} from 'reactstrap';
+import { /*Form,*/ FormGroup,/* Label,*/ Input , Button} from 'reactstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { IReferenceTableState } from '../redux/referenceTable/state';
@@ -97,9 +97,9 @@ export interface ISearchProps {
 
 class SearchBar extends Component<ISearchProps, {}>{
 
-    constructor(props: ISearchProps) {
-        super(props);
-    }
+    // constructor(props: ISearchProps) {
+    //     super(props);
+    // }
 
     private changed = false;
 
@@ -155,6 +155,7 @@ class SearchBar extends Component<ISearchProps, {}>{
         }  else if (name === "area"){
             return data = (options as AreaOptions[])[0].options.find(item => item.value === this.props.searchBarConditions[name])
         } else {
+            // eslint-disable-next-line
             return data = (options as Options[]).find(items => items.value === this .props.searchBarConditions[name])
         }       
     }

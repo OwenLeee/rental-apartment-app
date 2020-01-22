@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Col, Row, Card, Button } from "react-bootstrap";
+import { Container, Col, Row/*, Card, Button*/ } from "react-bootstrap";
 import "../scss/auth.scss"
 
 //improt router
@@ -29,9 +29,9 @@ interface IFormStates {
 }
 
 class LoginContainer extends Component<IFormProps, IFormStates>{
-    constructor(props: IFormProps) {
-        super(props);
-    }
+    // constructor(props: IFormProps) {
+    //     super(props);
+    // }
 
     render() {
         return (
@@ -60,7 +60,7 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
                         </Switch>
                     </Col>
                     <Col className="loginBackground d">
-                        {this.props.status == "User was found"?<Profile />: ""}
+                        {this.props.status === "User was found"?<Profile />: ""}
                     </Col>
                 </Row>
             </Container >

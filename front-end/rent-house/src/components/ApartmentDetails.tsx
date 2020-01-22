@@ -5,7 +5,7 @@ import { IApartment, ISearchConditions } from '../redux/apartment/state';
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 
 import { connect } from 'react-redux';
-import { FaBed, FaBath, FaShower, FaParking, FaBoxOpen, FaCheck, FaTimes } from "react-icons/fa";
+import { /*FaBed, FaBath,*/FaShower, FaParking,/* FaBoxOpen,*/ FaCheck, FaTimes } from "react-icons/fa";
 import { GiSofa, GiBed } from "react-icons/gi";
 import NumberFormat from 'react-number-format';
 import "../scss/ApartmentDetails.scss";
