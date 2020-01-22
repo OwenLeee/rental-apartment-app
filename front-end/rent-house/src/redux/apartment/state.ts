@@ -29,6 +29,10 @@ export interface IApartment {
     bedrooms: string;
     level: string;
     bathrooms: string;
+    photos_path: {
+        rental_apartment_id: number; 
+        photo_path: string;
+    }[];
 }
 
 export interface ISearchConditions{
@@ -39,7 +43,7 @@ export interface ISearchConditions{
     bathrooms: string;
     minPrice: number;
     maxPrice: number;
-    isStoreroom: number;
+    isCarpark: number;
     isFurniture: number;
 }
 

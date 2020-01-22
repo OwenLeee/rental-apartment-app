@@ -80,18 +80,11 @@ export interface IHomePageProps {
 class HomePage extends React.Component<IHomePageProps, {}>{
 
 
-    // constructor(props: IHomePageProps) {
-    //     super(props);
-    // }
-
-
     handleChange = (selectedOption: any, actionMeta: any) => {
-        console.log({ [actionMeta.name]: selectedOption.value })
         this.props.searchApartments({ [actionMeta.name]: selectedOption.value });
     }
 
     handleChangeForKeywords = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log({ keywords: event.target.value })
         this.props.searchApartments({ keywords: event.target.value })
     }
 
@@ -112,14 +105,10 @@ class HomePage extends React.Component<IHomePageProps, {}>{
 
 
     public render() {
-        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({ label: "All Types", value: "" });
+        let houseType = this.props.referenceTable.apartmentType.map(type => type.house_type).map(name => ({ label: `${name}`, value: name })).concat({ label: "All Types", value: "All" });
         let maxPriceFilter = priceRange.filter(price => price.value > this.props.searchBarConditions.minPrice).concat({ label: "All", value: 0 });
         let areas = this.props.referenceTable.areaDistrict.map(area => ({ label: area.district, options: area.area.map(area2 => ({ value: area2.area, label: area2.area })) })).concat({ label: "All", options: [{value:"All", label:"All"}]});
 
-
-        console.log(houseType); 
-        console.log(maxPriceFilter); 
-        console.log(areas); 
         
         const formatGroupLabel = (data: any) => (
             <div style={groupStyles}>
@@ -132,14 +121,14 @@ class HomePage extends React.Component<IHomePageProps, {}>{
       
 
         return (<>
-
-            <div className="container-fluid home-page" style={{ height: "91.5vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <div className="row" style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div className="home-page"></div>
+            <div className="container-fluid home-select-container" style={{  display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <div className="row select-bar-row" style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     {/* <div className="search-bar-box p-4"> */}
                     <div className="col-6" >
                         <div className="row" style={{ marginBottom: "0.5rem" }}>
                             <div className="col-10" style={{ paddingRight: "0px" }} >
-                                <Input style={{ width: "100%", paddingRight: "5px" }} type="text" onChange={this.handleChangeForKeywords} />
+                                <Input style={{ width: "100%", paddingRight: "5px" }} placeholder="Search..." type="text" onChange={this.handleChangeForKeywords} />
                             </div>
                             <div className="col-2" /*style={{ paddingLeft: "0px" }}*/>
                                 <Button style={{ width: "100%", backgroundColor: "#9F704E", borderColor: "#9F704E" }}  onClick={this.props.directToRentPage}>Go!</Button>

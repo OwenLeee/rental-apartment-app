@@ -4,7 +4,10 @@ import Table from '../table';
 export class SearchResultService {
     constructor(private knex: Knex) { }
 
-    public searchingBar = async (searchKeywords: string, propertyType: string, area: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: number, isStoreroom: number) => {
+    public searchingBar = async (searchKeywords: string, propertyType: string, area: string, lowestPrice: number, highestPrice: number, bedrooms: string, bathrooms: string, isFurniture: number, isCarpark: number) => {
+
+
+        
 
         const getAllHouse = this.knex(Table.rentalApartment)
             .select(`${Table.rentalApartment}.id`, "apartment_title", "apartment_description", "rental_price", "deposit", "period_years", "address_building", "address_block",
@@ -23,7 +26,7 @@ export class SearchResultService {
             "Bedrooms",
             "Bathrooms",
             "IsFurniture",
-            "IsStoreRoom"
+            "IsCarpark"
         ];
 
         let houseResult = getAllHouse;
@@ -89,11 +92,11 @@ export class SearchResultService {
                     };
                     break;
 
-                case "IsStoreRoom":
-                    if (isStoreroom === 1) {
-                        houseResult = houseResult.where(`${Table.rentalApartment}.is_storeroom`, 'true')
-                    }   else if (isStoreroom ===2) {
-                        houseResult = houseResult.where(`${Table.rentalApartment}.is_storeroom`, 'false')
+                case "IsCarpark":
+                    if (isCarpark === 1) {
+                        houseResult = houseResult.where(`${Table.rentalApartment}.is_carpark`, 'true')
+                    }   else if (isCarpark ===2) {
+                        houseResult = houseResult.where(`${Table.rentalApartment}.is_carpark`, 'false')
                     }   else {
                         houseResult = houseResult
                     }; 
@@ -103,12 +106,41 @@ export class SearchResultService {
                     console.log("SearchResultService Error- For...Of...Loop", key);
             }
         }
-        houseResult.orderBy("rental_price")
-        // // console.log("final" + houseResult); 
-        // console.log(houseResult.toSQL());
-        return await houseResult;
+        houseResult.orderBy(`${Table.rentalApartment}.id`)
+        const newHouseResult = await houseResult; 
+
+
+        const houseIDs = newHouseResult.map(house => house.id);
+        const photos = await this.knex(Table.apartmentPhotos).select('rental_apartment_id', 'photo_path').whereIn('rental_apartment_id', houseIDs).orderBy("rental_apartment_id");
+        
+
+        let photoIndex = 0;
+        for (const house of newHouseResult) {
+            house.photos_path = [];
+            while (photoIndex < photos.length && house.id === photos[photoIndex]["rental_apartment_id"]) {
+                house.photos_path.push(photos[photoIndex])
+                photoIndex++;
+            }
+        }
+
+
+        return newHouseResult;
     }
+
+    // public getPhotosForApartment = async (filterArrayObject: any) => {
+
+
+
+    //     filterArrayObject.map(obj => obj.id)
+
+    // }
 };
+
+
+
+
+
+
 
 // //Testing 
 // const knexConfig = require("../knexfile");

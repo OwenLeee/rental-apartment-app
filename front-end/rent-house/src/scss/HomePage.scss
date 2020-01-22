@@ -9,9 +9,27 @@
     background-size: cover;
     background-color: #464646;
     opacity: 0.9; 
+    height: 91.5vh;
+    width: 100vw; 
+    position: absolute; 
 }
 
 .search-bar-box{
     background-color: whitesmoke; 
     opacity: 0.3; 
+}
+
+.home-select-container{
+    height: 91.5vh;
+    width: 100vw;
+    display: "flex";
+    justify-content: "center";
+    align-items: "center"; 
+}
+
+.select-bar-row{
+   width: 100vw;  
+    display: flex; 
+    justify-content: "center";
+    align-items: "center"; 
 }

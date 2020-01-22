@@ -16,7 +16,7 @@ export class SearchResultRouter {
 
     public searchResult = async (req: express.Request, res: express.Response) => {
         try {
-            const { keywords, propertyType, area, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isStoreroom } = req.body;
+            const { keywords, propertyType, area, minPrice, maxPrice, bedrooms, bathrooms, isFurniture, isCarpark } = req.body;
             let minPriceNum = parseInt(minPrice);
                 if (minPriceNum === -1){
                      minPriceNum = 0; 
@@ -40,7 +40,7 @@ export class SearchResultRouter {
            let newBathrooms = changeStringToEmptyString (bathrooms); 
             
 
-            let resultList = await this.searchResultService.searchingBar(keywords, newPropertyType, area, minPriceNum, maxPriceNum, newBedrooms, newBathrooms, isFurniture, isStoreroom)
+            let resultList = await this.searchResultService.searchingBar(keywords, newPropertyType, area, minPriceNum, maxPriceNum, newBedrooms, newBathrooms, isFurniture, isCarpark)
             res.json({ result: true, flatList: resultList.map(apr => ({ ...apr, lat: parseFloat(apr.lat), lng: parseFloat(apr.lng) })) });
         } catch (e) {
             res.status(500).json({ result: false });
