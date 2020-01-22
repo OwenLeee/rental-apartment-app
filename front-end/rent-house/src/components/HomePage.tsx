@@ -128,7 +128,7 @@ class HomePage extends React.Component<IHomePageProps, {}>{
                     <div className="col-6" >
                         <div className="row" style={{ marginBottom: "0.5rem" }}>
                             <div className="col-10" style={{ paddingRight: "0px" }} >
-                                <Input style={{ width: "100%", paddingRight: "5px" }} placeholder="Search..." type="text" onChange={this.handleChangeForKeywords} />
+                                <Input className="home-search"style={{ width: "100%", paddingRight: "5px" }} placeholder="Search..." type="text" onChange={this.handleChangeForKeywords} />
                             </div>
                             <div className="col-2" /*style={{ paddingLeft: "0px" }}*/>
                                 <Button style={{ width: "100%", backgroundColor: "#9F704E", borderColor: "#9F704E" }}  onClick={this.props.directToRentPage}>Go!</Button>
@@ -136,7 +136,7 @@ class HomePage extends React.Component<IHomePageProps, {}>{
                         </div>
                         <div className="row">
                             <div className="col-3">
-                                <Select value={this.defaultValue(this.props.searchBarConditions.propertyType, houseType, "propertyType")} placeholder={placeHolder.houseType} name="propertyType" options={houseType} components={animatedComponents} onChange={this.handleChange} />
+                                <Select /*className="home-select"*/ value={this.defaultValue(this.props.searchBarConditions.propertyType, houseType, "propertyType")} placeholder={placeHolder.houseType} name="propertyType" options={houseType} components={animatedComponents} onChange={this.handleChange} />
                             </div>
                             <div className="col-3">
                                 <Select value={this.defaultValue(this.props.searchBarConditions.area, areas, "area")} placeholder={placeHolder.areas} name="area" options={areas} formatGroupLabel={formatGroupLabel} components={animatedComponents} onChange={this.handleChange} />

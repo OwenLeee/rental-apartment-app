@@ -1,12 +1,12 @@
 import React, { useState/*, useEffect */} from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './MapMarker';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, shallowEqual/*, useDispatch */} from 'react-redux';
 import { IRootState } from '../redux/store';
 import mapStyle from '../mapStyle.json';
 import HotSpotMarker from './HotSpotMapMarker';
 import '../scss/ApartmentMap.scss'; 
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
 
 
 

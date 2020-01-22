@@ -202,78 +202,78 @@ export async function seed(knex: Knex): Promise<any> {
     ]
     );
 
-    //rental_apartment table 
-    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.rentalApartment}_id_seq RESTART`);
-    const rental_apartment: { id: number }[] = ( await knex.raw(/* sql */ `
-    INSERT INTO ${Table.rentalApartment} 
-    (user_id, apartment_type_id, area_district_id, bedrooms_id, floor_level_id, bathrooms_id, agent_id, 
-    apartment_title, apartment_description, rental_price, deposit, period_years, address_building, address_block, 
-    saleable_area, gross_floor_area, is_storeroom, is_carpark, is_furniture, lat, lng, post_date, end_date)
-    VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  RETURNING id`, 
-    [
-        users[0].id, apartmentType[3].id, areaDistrict[2].id, bedrooms[1].id, floorLevel[1].id, bathrooms[0].id, agent[1].id, 
-        'Comfortable and Big House', 'You can walk to Sheung Wan MTR within 5 minutes!', 28000, 3, 2, "Centre Place" , "1", 
-        636, 870, true, false, true, 22.28552, 114.15769, '2020-01-01', '2020-12-01',
+    // //rental_apartment table 
+    // await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.rentalApartment}_id_seq RESTART`);
+    // const rental_apartment: { id: number }[] = ( await knex.raw(/* sql */ `
+    // INSERT INTO ${Table.rentalApartment} 
+    // (user_id, apartment_type_id, area_district_id, bedrooms_id, floor_level_id, bathrooms_id, agent_id, 
+    // apartment_title, apartment_description, rental_price, deposit, period_years, address_building, address_block, 
+    // saleable_area, gross_floor_area, is_storeroom, is_carpark, is_furniture, lat, lng, post_date, end_date)
+    // VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),
+    //         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),
+    //         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),
+    //         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  RETURNING id`, 
+    // [
+    //     users[0].id, apartmentType[3].id, areaDistrict[2].id, bedrooms[1].id, floorLevel[1].id, bathrooms[0].id, agent[1].id, 
+    //     'Comfortable and Big House', 'You can walk to Sheung Wan MTR within 5 minutes!', 28000, 3, 2, "Centre Place" , "1", 
+    //     636, 870, true, false, true, 22.28552, 114.15769, '2020-01-01', '2020-12-01',
 
-        users[1].id, apartmentType[0].id, areaDistrict[5].id, bedrooms[0].id, floorLevel[0].id, bathrooms[1].id, agent[1].id, 
-        'Causeway Bay  Elizabeth House  For lease', 'Furnished apartment in prime location-Causeway Bay', 24000, 3, 2, "Elizabeth House" , "1", 
-        612, 705, true, false, true, 22.280937, 114.181595, '2020-01-01', '2020-12-01',
+    //     users[1].id, apartmentType[0].id, areaDistrict[5].id, bedrooms[0].id, floorLevel[0].id, bathrooms[1].id, agent[1].id, 
+    //     'Causeway Bay  Elizabeth House  For lease', 'Furnished apartment in prime location-Causeway Bay', 24000, 3, 2, "Elizabeth House" , "1", 
+    //     612, 705, true, false, true, 22.280937, 114.181595, '2020-01-01', '2020-12-01',
 
-        users[2].id, apartmentType[1].id, areaDistrict[22].id, bedrooms[3].id, floorLevel[2].id, bathrooms[2].id, agent[1].id, 
-        'HOS 3 bedroom pretty decoration', '3 bedrooms and 2 living rooms', 16300, 3, 2, "Cheung Wo Court" , "1", 
-        588, 700, true, false, true, 22.319390, 114.227160, '2020-01-01', '2020-12-01',
+    //     users[2].id, apartmentType[1].id, areaDistrict[22].id, bedrooms[3].id, floorLevel[2].id, bathrooms[2].id, agent[1].id, 
+    //     'HOS 3 bedroom pretty decoration', '3 bedrooms and 2 living rooms', 16300, 3, 2, "Cheung Wo Court" , "1", 
+    //     588, 700, true, false, true, 22.319390, 114.227160, '2020-01-01', '2020-12-01',
 
-        users[0].id, apartmentType[2].id, areaDistrict[55].id, bedrooms[2].id, floorLevel[0].id, bathrooms[0].id, agent[1].id, 
-        'To the southeast, green garden, but there are spoons', 'Some units have three bedrooms, two bathrooms, and a utility room. Welcome to inquire', 24000, 3, 2, "Festival City" , "1", 
-        784, 1030, true, false, true, 22.380142, 114.173560, '2020-01-01', '2020-12-01'
-    ]
-    )).rows; 
+    //     users[0].id, apartmentType[2].id, areaDistrict[55].id, bedrooms[2].id, floorLevel[0].id, bathrooms[0].id, agent[1].id, 
+    //     'To the southeast, green garden, but there are spoons', 'Some units have three bedrooms, two bathrooms, and a utility room. Welcome to inquire', 24000, 3, 2, "Festival City" , "1", 
+    //     784, 1030, true, false, true, 22.380142, 114.173560, '2020-01-01', '2020-12-01'
+    // ]
+    // )).rows; 
 
-    //apartment_floor_plan
-    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentFloorPlan}_id_seq RESTART`);
-    await knex.raw(/* sql */ ` 
-    INSERT INTO ${Table.apartmentFloorPlan} 
-    (rental_apartment_id, floor_plan_json)
-    VALUES (?, ?)`,
-    [
-        rental_apartment[0].id, '{"json": "json"}'
-    ]
-    ); 
+    // //apartment_floor_plan
+    // await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentFloorPlan}_id_seq RESTART`);
+    // await knex.raw(/* sql */ ` 
+    // INSERT INTO ${Table.apartmentFloorPlan} 
+    // (rental_apartment_id, floor_plan_json)
+    // VALUES (?, ?)`,
+    // [
+    //     rental_apartment[0].id, '{"json": "json"}'
+    // ]
+    // ); 
 
-    // apartment_video
-    await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentVideo}_id_seq RESTART`);
-    await knex.raw(/* sql */ `
-    INSERT INTO ${Table.apartmentVideo}
-    (rental_apartment_id, video_path)
-    VALUES (?, ?)`, 
-    [
-        rental_apartment[0].id, 'test_video.avi'
-    ]
-    ); 
+    // // apartment_video
+    // await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentVideo}_id_seq RESTART`);
+    // await knex.raw(/* sql */ `
+    // INSERT INTO ${Table.apartmentVideo}
+    // (rental_apartment_id, video_path)
+    // VALUES (?, ?)`, 
+    // [
+    //     rental_apartment[0].id, 'test_video.avi'
+    // ]
+    // ); 
 
-      // apartment_photo
-      await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentPhotos}_id_seq RESTART`);
-      await knex.raw(/* sql */ `
-      INSERT INTO ${Table.apartmentPhotos}
-      (rental_apartment_id, photo_path)
-      VALUES (?, ?), (?, ?)`,
-      [
-          rental_apartment[0].id, 'test_photo1.jpg', 
-          rental_apartment[0].id, 'test_photo2.jpg'
-      ]
-      ); 
+    //   // apartment_photo
+    //   await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.apartmentPhotos}_id_seq RESTART`);
+    //   await knex.raw(/* sql */ `
+    //   INSERT INTO ${Table.apartmentPhotos}
+    //   (rental_apartment_id, photo_path)
+    //   VALUES (?, ?), (?, ?)`,
+    //   [
+    //       rental_apartment[0].id, 'test_photo1.jpg', 
+    //       rental_apartment[0].id, 'test_photo2.jpg'
+    //   ]
+    //   ); 
   
-      // user_favourite table 
-      await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.userFavour}_id_seq RESTART`);
-      await knex.raw(/* sql */ ` 
-      INSERT INTO ${Table.userFavour}
-      (user_id, rental_apartment_id)
-      VALUES (?, ?)`,
-      [
-          users[2].id, rental_apartment[0].id
-      ]
-      ); 
+    //   // user_favourite table 
+    //   await knex.raw(/* sql */ `ALTER SEQUENCE ${Table.userFavour}_id_seq RESTART`);
+    //   await knex.raw(/* sql */ ` 
+    //   INSERT INTO ${Table.userFavour}
+    //   (user_id, rental_apartment_id)
+    //   VALUES (?, ?)`,
+    //   [
+    //       users[2].id, rental_apartment[0].id
+    //   ]
+    //   ); 
 };

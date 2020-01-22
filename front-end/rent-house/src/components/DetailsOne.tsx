@@ -9,7 +9,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import GoogleMapReact from 'google-map-react';
 import Marker from './FormMapMarker';
 import ProcedureBar from './ProcedureBar';
-import { Input } from 'reactstrap';
+// import { Input } from 'reactstrap';
 import '../scss/ProcedureBar.scss';
 import '../scss/DetailsOne.scss';
 

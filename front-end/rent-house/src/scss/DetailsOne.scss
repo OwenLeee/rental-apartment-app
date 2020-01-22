@@ -42,17 +42,19 @@
   margin-right: 20px;
 }
 
-input:not(.next-button) {
-  display: block;
-  width: 100%;
-  background: 0 0;
-  font-family: Poppins-Medium;
-  font-size: 18px;
-  color: #333;
-  line-height: 1.2;
-  padding: 0 5px;
-  outline: none;
-  border: none;
+.page-wrap {
+  input:not(.next-button) {
+    display: block;
+    width: 100%;
+    background: 0 0;
+    font-family: Poppins-Medium;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.2;
+    padding: 0 5px;
+    outline: none;
+    border: none;
+  }
 }
 
 .input-wrap {
@@ -73,7 +75,7 @@ input:not(.next-button) {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .map-wrapper {

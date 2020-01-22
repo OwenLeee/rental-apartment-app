@@ -17,7 +17,7 @@ import PlannerStyle from './PlannerStyle';
 import PhotosUpload from './PhotosUpload';
 import VideoUpload from './VideoUpload';
 import { PrivateRoute } from '../PrivateRoute';
-import Logout from './logout';
+// import Logout from './logout';
 import Content from './Content';
 import HomePage from './HomePage';
 
@@ -38,9 +38,9 @@ class MenuBar extends React.Component {
                         <Nav className="ml-auto">
                             <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
                         </Nav>
-                        <Nav className="ml-auto">
+                        {/* <Nav className="ml-auto">
                             <Logout />
-                        </Nav>
+                        </Nav> */}
                     </Navbar.Collapse>
                 </Navbar>
 
