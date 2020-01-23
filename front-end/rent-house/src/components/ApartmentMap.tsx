@@ -56,7 +56,7 @@ const SimpleMap = (props: any) => {
                 lat = {hotSpotLocation.lat}
                 lng = {hotSpotLocation.lng}
                 name = "Hotspot"
-                color = "red"
+                color = {"rgb(245, 37, 37)"}
                 /> 
 
 

@@ -38,9 +38,10 @@ export class SearchResultRouter {
            let newPropertyType = changeStringToEmptyString (propertyType); 
            let newBedrooms = changeStringToEmptyString (bedrooms); 
            let newBathrooms = changeStringToEmptyString (bathrooms); 
+           let newArea = changeStringToEmptyString(area);
             
 
-            let resultList = await this.searchResultService.searchingBar(keywords, newPropertyType, area, minPriceNum, maxPriceNum, newBedrooms, newBathrooms, isFurniture, isCarpark)
+            let resultList = await this.searchResultService.searchingBar(keywords, newPropertyType, newArea, minPriceNum, maxPriceNum, newBedrooms, newBathrooms, isFurniture, isCarpark)
             res.json({ result: true, flatList: resultList.map(apr => ({ ...apr, lat: parseFloat(apr.lat), lng: parseFloat(apr.lng) })) });
         } catch (e) {
             res.status(500).json({ result: false });
