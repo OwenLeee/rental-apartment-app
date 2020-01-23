@@ -51,7 +51,7 @@ class MenuBar extends React.Component<iPop, {}>{
                            
                         </Nav>
                         <Nav className="ml-auto">
-                        {this.props.isAuth != false ? <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink> : ""}
+                        {this.props.isAuth == false ? <NavLink to='/auth/login' className='ml-auto login-button'>Sign in</NavLink> : ""}
                         {this.props.isAuth == true ? <Logout /> : ""}
                         </Nav>
                     </Navbar.Collapse>

@@ -25,7 +25,7 @@ class Profile extends React.Component<IProfileProps, {}>{
     // }
     public render() {
         return (
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '18rem' }} className="loginLogo">
                 <Card.Img variant="top" src={this.props.icon} />
                 <Card.Body>
         <Card.Title>Is that you?</Card.Title>

@@ -40,8 +40,8 @@ const Logout: React.FC = () => {
     }
 
     return (
-        <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">
-            <span onClick={logout}>Logout</span>
+        <NavLink to='/auth/login' className='ml-auto login-button'>
+            <div onClick={logout}>Logout</div>
         </NavLink>
     )
 }

@@ -14,7 +14,7 @@ const mapStateToProps = (state: IRootState) => ({
 const mapDispatchtoProps = (dispatch: ReduxThunkDispatch) => {
     return {
         login: (email: string, password: string) => dispatch(loginThunk(email, password)),
-        getUser: (email: string) => dispatch(getUserInfoThunk(email))
+        getUser: (email:string) => dispatch(getUserInfoThunk(email))
     }
 }
 
@@ -25,7 +25,7 @@ interface ILoginFormState {
 
 interface ILoginProps {
     login: (email: string, password: string) => void
-    getUser: (email: string) => void
+    getUser: (email:string) => void
     status: string | null
     msg: string | null
 }
@@ -55,7 +55,7 @@ class LoginForm extends React.Component<ILoginProps, ILoginFormState>{
         }
     }
 
-    public componentDidUpdate() {
+    public componentDidUpdate(){
         this.props.getUser(this.state.email);
     }
 
