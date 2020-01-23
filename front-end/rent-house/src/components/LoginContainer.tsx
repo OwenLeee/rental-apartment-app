@@ -59,8 +59,9 @@ class LoginContainer extends Component<IFormProps, IFormStates>{
                             <Route path="/auth/signup" exact={true} component={SignupForm} />
                         </Switch>
                     </Col>
-                    <Col className="loginBackground d">
-                        {this.props.status === "User was found"?<Profile />: ""}
+                    <Col className="loginBackground loginLogo">
+                        {this.props.status === "User was found"?<Profile />: 
+                        <h1 className="loginLgoo">BeeBee Rent</h1>}
                     </Col>
                 </Row>
             </Container >

@@ -24,6 +24,10 @@ font-family: $font-family-recommand;
   align-items: center;
 }
 
+.loginLogo{
+  background-color: rgba($color: #C87A22, $alpha: 0.9);
+  padding:3px
+}
 
 /* style inputs and link buttons */
 .loginbtn {

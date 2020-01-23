@@ -13,6 +13,7 @@ import { history } from '../redux/store';
 import ApartmentList from './ApartmentListing';
 import loginContainer from './LoginContainer';
 import PlannerStyle from './PlannerStyle';
+import Logout from './logout';
 
 import PhotosUpload from './PhotosUpload';
 import VideoUpload from './VideoUpload';
@@ -20,10 +21,22 @@ import { PrivateRoute } from '../PrivateRoute';
 // import Logout from './logout';
 import Content from './Content';
 import HomePage from './HomePage';
+import { IRootState } from '../redux/store'
+import { connect } from 'react-redux';
 
 
-class MenuBar extends React.Component {
+const mapStateToProps = (state: IRootState) => ({
+    isAuth: state.auth.isAuthenticated
+});
 
+interface iPop {
+    isAuth: boolean | null
+}
+
+class MenuBar extends React.Component<iPop, {}>{
+    constructor(props: iPop) {
+        super(props);
+    }
     public render() {
         return (
             <ConnectedRouter history={history}>
@@ -32,15 +45,15 @@ class MenuBar extends React.Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
+                            
                             <NavLink to='/rent' className='nav-buttons rent-button' activeClassName="activeNavButtons">Rent</NavLink>
                             <NavLink to='/post/details/1' className='nav-buttons post-button' activeClassName="activeNavButtons">Post</NavLink>
+                           
                         </Nav>
                         <Nav className="ml-auto">
-                            <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink>
+                        {this.props.isAuth != false ? <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">Sign in</NavLink> : ""}
+                        {this.props.isAuth == true ? <Logout /> : ""}
                         </Nav>
-                        {/* <Nav className="ml-auto">
-                            <Logout />
-                        </Nav> */}
                     </Navbar.Collapse>
                 </Navbar>
 
@@ -52,10 +65,10 @@ class MenuBar extends React.Component {
                     <PrivateRoute path="/post/details/2" component={DetailsTwo} />
                     <PrivateRoute path="/post/details/3" component={DetailsThree} />
                     <Route path="/auth" component={loginContainer} />
-                    <Route path="/post/photos" component={PhotosUpload} />
-                    <Route path="/post/video" component={VideoUpload} />
-                    <Route path="/post/planner" component={PlannerStyle} />
-                    <Route exact={true} path="/rent/content/:id" component={Content} />
+                    <PrivateRoute path="/post/photos" component={PhotosUpload} />
+                    <PrivateRoute path="/post/video" component={VideoUpload} />
+                    <PrivateRoute path="/post/planner" component={PlannerStyle} />
+                    <PrivateRoute exact={true} path="/rent/content/:id" component={Content} />
                     {/* <Route path="/profile" component={ProfilePage} /> */}
                     {/* <Route path="/login" component={} /> */}
                     <Route exact={true} path="/post">
@@ -74,4 +87,4 @@ class MenuBar extends React.Component {
     }
 }
 
-export default MenuBar;
+export default connect(mapStateToProps)(MenuBar);

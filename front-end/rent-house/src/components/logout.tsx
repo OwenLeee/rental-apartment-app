@@ -25,7 +25,7 @@ import React /*, { useState }*/ from 'react';
 import { logoutThunk } from '../redux/auth/thunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '../redux/store';
-import { Button } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom';
 
 const Logout: React.FC = () => {
     const dispatch = useDispatch();
@@ -40,7 +40,9 @@ const Logout: React.FC = () => {
     }
 
     return (
-        <Button variant="primary" onClick={logout}>Logout</Button>
+        <NavLink to='/auth/login' className='ml-auto login-button' activeClassName="activeNavButtons">
+            <span onClick={logout}>Logout</span>
+        </NavLink>
     )
 }
 
