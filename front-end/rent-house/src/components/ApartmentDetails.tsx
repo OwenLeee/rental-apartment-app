@@ -36,31 +36,32 @@ class ApartmentDetails extends React.Component<IApartmentProps> {
       <div style={{ overflow: 'auto', height: "88vh" }}>
         {this.props.apartments.length > 0 ?
           this.props.apartments.sort((a, b) => { return a.rental_price - b.rental_price }).map(apartment => <div key={apartment.id} className="apartmentContainer p-3" style={{ display: "flex", alignItems: "stretch" }}>
- <div className="col-4" style={{ padding: "0px" }}>
-<Carousel >
-            {apartment.photos_path.length > 0 ? apartment.photos_path.map(photo => (
-             
-                
+            <div className="col-4" style={{ padding: "0px" }}>
+              <Carousel >
+                {apartment.photos_path.length > 0 ? apartment.photos_path.map(photo => (
+
+
                   <Carousel.Item >
+                    {/* eslint-disable-next-line */}
                     <img
                       className="d-block w-100"
                       src={`${photo.photo_path}`}
                       alt="House Photo"
                     />
                   </Carousel.Item>
-               
-          
-            )) :
-              <div style={{ padding: "0px", display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center"  }}>
-                <div className="row" style={{ display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
-                  <div className="col-12 blank-div">
-                    <p > Will Be Provided Soon! </p>
+
+
+                )) :
+                  <div style={{ padding: "0px", display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
+                    <div className="row" style={{ display: "flex", justifyContent: "center", alignItems: "center", alignContent: "center" }}>
+                      <div className="col-12 blank-div">
+                        <p > Will Be Provided Soon! </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            }
-</Carousel>
-</div>
+                }
+              </Carousel>
+            </div>
             <div className="container col-8 building-content" onClick={() => this.props.directToRentDetailPage(apartment.id)}>
               <div className="row building-row" >
                 <div className="building-name col-7"> <p className="p-margin building-title"> {apartment.address_building} </p> </div>

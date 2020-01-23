@@ -1,10 +1,40 @@
 .player-wrapper {
-    position: relative;
-    padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+  position: relative;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.photos-upload{
+  form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom:20px;
+    .youtube-link {
+      border: 1px solid #aaa;
+      padding: 10px 5px;
+      border-radius: 3px;
+    }
+    .submit-youtube{
+      background-color: #FF0006;
+      color:#fff;
+      padding:5px;
+      border-radius: 9px;
+      width:80px;
+      MARGIN-TOP:10PX;
+    }
   }
-   
-  .react-player {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .submit-button{
+    margin-top:30px;
   }
+  .submit-button:hover{
+    background-color: #9f704f;
+  }
+  
+}

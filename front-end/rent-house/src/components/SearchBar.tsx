@@ -179,7 +179,7 @@ class SearchBar extends Component<ISearchProps, {}>{
             <div className="col-8" >
 
                 <FormGroup className="p-2" style={{ margin: "0px", display:"flex" }}>
-                    <div className="col-11 search-bar search-bar-input"> <Input type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} /></div>
+                    <div className="col-11 search-bar search-bar-input"> <Input className="search-bar-input"type="text" name="keywords" id="exampleAddress" placeholder="Address Keywords" value={this.props.searchBarConditions.keywords} onChange={this.handleChangeForAddress} /></div>
                     <div className="col-1 search-bar" style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.1rem" }}>
                         <div style={{ margin: "0px", display: "flex", alignItems: "center" }}> <Button style={{width:"100%"}} onClick={this.handleResetSearchConditions}>Reset</Button> </div>
                     </div>

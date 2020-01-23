@@ -1,5 +1,3 @@
-
-
 // font-family: 'Bangers', cursive;
 // font-family: 'Raleway', sans-serif;
 // font-family: 'PT Serif', serif;
@@ -10,17 +8,16 @@
 // font-family: 'Indie Flower', cursive;
 // font-family: 'Girassol', cursive;
 // font-family: 'Amarante', cursive;
-
-.topTitle{
-      
-    //    font-weight: bold; 
-     font-family: 'Raleway', cursive;
-     margin: 0px; 
+@import url("https://fonts.googleapis.com/css?family=Alata|Amarante|Bangers|Fira+Sans|Girassol|Indie+Flower|PT+Serif|Raleway|Yanone+Kaffeesatz|Zhi+Mang+Xing&display=swap");
+.topTitle {
+  //    font-weight: bold;
+  font-family: "Raleway", cursive;
+  margin: 0px;
 }
 
 .topBar {
-    border-bottom: 1px solid rgb(211, 211, 211);
-    display: "flex";
-    align-items: "baseline";
-    justify-content: "space-between";
+  border-bottom: 1px solid rgb(211, 211, 211);
+  display: "flex";
+  align-items: "baseline";
+  justify-content: "space-between";
 }

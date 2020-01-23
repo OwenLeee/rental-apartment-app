@@ -6,8 +6,8 @@ import PlacesAutocomplete, {
 import { IRootState, ReduxThunkDispatch } from '../redux/store';
 import { connect } from 'react-redux';
 import { searchHotSpotPlace } from '../redux/apartment/actions';
-import { Input, FormGroup, Button } from 'reactstrap';
-import { FaRegTimesCircle, FaTimes } from 'react-icons/fa';
+import { Input, FormGroup/*, Button */} from 'reactstrap';
+import { /*FaRegTimesCircle,*/ FaTimes } from 'react-icons/fa';
 import '../scss/HotSpotSearchBar.scss';
 
 
@@ -67,7 +67,7 @@ class LocationSearchInput extends React.Component<IHotSpotProps, State> {
                                     <Input style={{ width: "100%" }}
                                         {...getInputProps({
                                             placeholder: 'Searching hot place...',
-                                            className: 'location-search-input',
+                                            className: 'location-search-input hot-spot-searchbar',
                                         })}
                                     />
                                     <div className="autocomplete-dropdown-container" style={{ height: "105px", overflow: "auto" }}>

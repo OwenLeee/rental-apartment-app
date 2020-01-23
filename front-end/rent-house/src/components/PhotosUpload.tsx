@@ -73,7 +73,7 @@ class PhotosUpload extends React.Component<IPhotosUploadProps> {
                     }
 
                 </div>
-                <Button variant="primary" onClick={this.props.redirectToVideo}>Submit</Button>
+                <Button className="submit-button"  variant="primary" onClick={this.props.redirectToVideo}>Submit</Button>
             </div>
         )
     }
